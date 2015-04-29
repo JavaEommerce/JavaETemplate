@@ -37,6 +37,36 @@ public class Dbconnection {
 			System.out.println("Connection failed");
 		}
 		
+//		try {
+//			Class.forName("com.mysql.jdbc.Driver").newInstance();
+//			System.out.println("Driver found");
+//		} catch (ClassNotFoundException e) {
+//			System.out.println("Driver not found" + e);
+//		} catch (InstantiationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IllegalAccessException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		String DB="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
+//		
+//		Connection con = null;
+//		try {
+//			con = DriverManager.getConnection(DB);
+//			Statement myStmt = (Statement) con.createStatement();
+//			ResultSet myRs = myStmt.executeQuery("select * from test");
+//			while(myRs.next())
+//			{
+//				System.out.println(myRs.getString("username"));
+//			}
+//			
+//			System.out.println("Connected");
+//		} catch (SQLException e) {
+//			System.out.println("Connection failed");
+//		}
+		
 	}
 
 }
