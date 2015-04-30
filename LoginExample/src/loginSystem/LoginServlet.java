@@ -50,9 +50,23 @@ public class LoginServlet extends HttpServlet {
 			
 			PrintWriter out = response.getWriter();
 			response.setContentType("text/html");
-			//response.sendRedirect("http://localhost:8080/LoginExample/signup.jsp");
+			
 			
 			out.println("<font size = '6' color = red>"+errorMessage +"</font>");
+			out.println("<html><body>");
+			//out.println("<p>back to login page in 3s</p>");
+			out.println("<p><a href=\"http://localhost:8080/JavaEE/login.jsp\">back</a></p>");
+			out.println("</body></html>");
+			
+//			try {
+//				response.wait(3000);
+//				
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+			//response.sendRedirect("http://localhost:8080/JavaEE/login.jsp");
+			
 		}
 		else {
 			PrintWriter out = response.getWriter();
