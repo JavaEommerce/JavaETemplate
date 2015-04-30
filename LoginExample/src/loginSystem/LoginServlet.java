@@ -47,12 +47,17 @@ public class LoginServlet extends HttpServlet {
 			errorMessage="password is empty";
 		}
 		if (errorMessage!=null) {
+			
 			PrintWriter out = response.getWriter();
-			out.println(errorMessage);
-			response.sendRedirect("/"+errorMessage);
+			response.setContentType("text/html");
+			//response.sendRedirect("http://localhost:8080/LoginExample/signup.jsp");
+			
+			out.println("<font size = '6' color = red>"+errorMessage +"</font>");
 		}
 		else {
-			
+			PrintWriter out = response.getWriter();
+			out.println("<font size = '6' color = red>"+"login successfully" +"</font>");
+
 		}
 		
 	}
