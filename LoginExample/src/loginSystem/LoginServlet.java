@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dbconnectionlib.Dbconnection;
+
 /**
  * Servlet implementation class Login
  */
@@ -56,7 +58,8 @@ public class LoginServlet extends HttpServlet {
 			
 			
 			
-			
+//          also a valid way
+            
 //			PrintWriter out = response.getWriter();
 //			response.setContentType("text/html");
 //			out.println("<font size = '6' color = red>"+errorMessage +"</font>");
@@ -65,17 +68,13 @@ public class LoginServlet extends HttpServlet {
 //			out.println("<p><a href=\"http://localhost:8080/JavaEE/login.jsp\">back</a></p>");
 //			out.println("</body></html>");
 			
-//			try {
-//				response.wait(3000);
-//				
-//			} catch (InterruptedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+
 			//response.sendRedirect("http://localhost:8080/JavaEE/login.jsp");
 			
 		}
 		else {
+			//Dbconnection dbconnection = new Dbconnection();
+			
 			PrintWriter out = response.getWriter();
 			out.println("<font size = '6' color = red>"+"login successfully" +"</font>");
 
