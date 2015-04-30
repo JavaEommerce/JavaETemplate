@@ -30,7 +30,7 @@ $(document).ready(function() {
     });
  
 });
-
+// 希望大家在每次更新之后能再submit的时候说明自己做了什么
 function showtime(){
 	  var myDate = new Date();
 	  document.getElementById("time").innerHTML = myDate.getHours()
