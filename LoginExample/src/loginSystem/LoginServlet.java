@@ -3,6 +3,7 @@ package loginSystem;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,15 +49,21 @@ public class LoginServlet extends HttpServlet {
 		}
 		if (errorMessage!=null) {
 			
-			PrintWriter out = response.getWriter();
-			response.setContentType("text/html");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+            PrintWriter out= response.getWriter();
+            out.println("<font color=red>"+errorMessage+"</font>");
+            rd.include(request, response);
 			
 			
-			out.println("<font size = '6' color = red>"+errorMessage +"</font>");
-			out.println("<html><body>");
-			//out.println("<p>back to login page in 3s</p>");
-			out.println("<p><a href=\"http://localhost:8080/JavaEE/login.jsp\">back</a></p>");
-			out.println("</body></html>");
+			
+			
+//			PrintWriter out = response.getWriter();
+//			response.setContentType("text/html");
+//			out.println("<font size = '6' color = red>"+errorMessage +"</font>");
+//			out.println("<html><body>");
+//			//out.println("<p>back to login page in 3s</p>");
+//			out.println("<p><a href=\"http://localhost:8080/JavaEE/login.jsp\">back</a></p>");
+//			out.println("</body></html>");
 			
 //			try {
 //				response.wait(3000);
