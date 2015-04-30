@@ -13,12 +13,12 @@
 <body>
 <div>
 	<h1>Login Form</h1>
-	<form name = "loginform" action = "login" method = "post">
-	<p>Enter User name :<input type = "text" name = "username" placeholder = "username"><br>
-	   Enter password:<input type = "text" name = "password" placeholder = "password"><br>
-	<input type = "submit">
-<input type = "button" value = "signup" name = "signup" onclick = 'signup.jsp' action = "signup">
-<input type="button" value="signup" name="signup" onclick = "location.href='signup.jsp'" />
+	<form name = "loginform" action = "LoginServlet" method = "post">
+	<p>Enter User name :<input type = "text" name = "username"><br>
+	   Enter password:<input type = "password" name = "password"><br>
+	<input type = "submit" value="Login">
+<input type = "button" value = "signup" name = "signup" onclick = 'signup.jsp'>
+<input type="button" value="signup" name="signup" onclick = "location.href='signup.jsp'" /></p></form>
 </div>
 
 </body>
