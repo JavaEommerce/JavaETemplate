@@ -92,6 +92,7 @@ function showtime(){
 						<li><a href="login.jsp">Login</a></li>
 						<li><a href="signup.jsp">Sign Up</a></li>
 						<li><a href="login.jsp">Forget Password</a></li>
+						<li><a href="abc">I'm a reviewer</a></li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
