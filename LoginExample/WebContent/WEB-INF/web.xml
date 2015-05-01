@@ -10,19 +10,36 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-    <servlet-name>loginSystem.LoginServlet</servlet-name>
-    <servlet-class>loginSystem.LoginServlet</servlet-class>
+    <servlet-name>Author.Upload</servlet-name>
+    <servlet-class>Author.Upload</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>loginSystem.LoginServlet</servlet-name>
-    <url-pattern>/LoginServlet</url-pattern>
+    <servlet-name>Author.Upload</servlet-name>
+    <url-pattern>/Upload</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Author.SendEmail</servlet-name>
+    <servlet-class>Author.SendEmail</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Author.SendEmail</servlet-name>
+    <url-pattern>/SendEmail</url-pattern>
   </servlet-mapping>
    <servlet>
-    <servlet-name>editor.Editor</servlet-name>
-    <servlet-class>editor.Editor</servlet-class>
+    <servlet-name>Author.Download</servlet-name>
+    <servlet-class>Author.Download</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>editor.Editor</servlet-name>
-    <url-pattern>/Editor</url-pattern>
+    <servlet-name>Author.Download</servlet-name>
+    <url-pattern>/Download</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>loginSystem.LoginServlet</servlet-name>
+  	<servlet-class>loginSystem.LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>loginSystem.LoginServlet</servlet-name>
+  	<url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
 </web-app>
