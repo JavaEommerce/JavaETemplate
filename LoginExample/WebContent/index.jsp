@@ -1,4 +1,5 @@
 
+<%@page import="loginSystem.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link href="css.loginform.css" rel="stylesheet" type="text/css" /> 
@@ -108,7 +109,8 @@ function showtime(){
 				<div class="col-sm-8 col-sm-push-4">
 					<div class="page-header">
 						<h1>New Journal Information</h1>
-						<p>Posted by <span class="glyphicon glyphicon-user"></span> <a href="#">SomeUser</a> on <span class="glyphicon glyphicon-time"></span><div id="time"></div></p>
+						<%User currentUser = (User)session.getAttribute("User"); %>
+						<p>Posted by <span class="glyphicon glyphicon-user"></span> <a href="#"><%=currentUser.getUserName() %></a> on <span class="glyphicon glyphicon-time"></span><div id="time"></div></p>
 					</div>
 				</div>
 			</div>
