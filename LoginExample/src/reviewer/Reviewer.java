@@ -8,17 +8,17 @@ public class Reviewer implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -229943365280689964L;
-	private String test = null;
+	private String reviewerName = null;
 	
-	public Reviewer(){
-		
+	public Reviewer(String reviewerName){
+		this.reviewerName=reviewerName;
 	}
 	
-	public String getTest() {
-		return this.test;
+	public String getReviewerName() {
+		return this.reviewerName;
 	}
 	
-	public void setTest(String t) {
-		test=t;
+	public void setReviewerName(String newName) {
+		this.reviewerName=newName;
 	}
 }

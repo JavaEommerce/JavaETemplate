@@ -42,4 +42,14 @@
   	<servlet-name>loginSystem.LoginServlet</servlet-name>
   	<url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
+  
+   <servlet>
+  	<servlet-name>reviewer.ReviewerLogin</servlet-name>
+  	<servlet-class>reviewer.ReviewerLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>reviewer.ReviewerLogin</servlet-name>
+  	<url-pattern>/ReviewerLogin</url-pattern>
+  </servlet-mapping>
+  
 </web-app>

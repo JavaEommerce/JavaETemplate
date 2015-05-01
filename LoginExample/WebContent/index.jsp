@@ -93,7 +93,7 @@ function showtime(){
 						<li><a href="login.jsp">Login</a></li>
 						<li><a href="signup.jsp">Sign Up</a></li>
 						<li><a href="login.jsp">Forget Password</a></li>
-						<li><a href="abc">I'm a reviewer</a></li>
+						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
 						<li><a href="EditorTest.jsp">Editor Page Test</a></li>
 					</ul>
 				</div>

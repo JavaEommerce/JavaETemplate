@@ -18,7 +18,8 @@ import dbconnectionlib.Dbconnection;
 @WebServlet("/ReviewerLogin")
 public class ReviewerLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private Connection con = null;
+	
+	
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -28,22 +29,13 @@ public class ReviewerLogin extends HttpServlet {
         // TODO check if the client is login and if the client is a valid reviewer
     }
     
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-    	// TODO Auto-generated method stub
-    	super.init(config);
-		try {
-			Dbconnection connect = new Dbconnection();
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
+    
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -51,6 +43,7 @@ public class ReviewerLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 	}
 
 	protected boolean isLogin(HttpServletRequest request, HttpServletResponse response) {

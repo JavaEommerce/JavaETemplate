@@ -5,11 +5,16 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Reviewer Index</title>
 </head>
 <body>
 
-		<%
+	<h1>Welcome to reviewer's page</h1>
+	<p><a href="index.jsp">Home</a></p>
+
+	
+
+	<%-- 	<%
 		//session.invalidate();
 	  Reviewer r  = (Reviewer)session.getAttribute("xiaoming");
 		System.out.println(r.getTest());
@@ -20,6 +25,8 @@
 	%>
 	<jsp:useBean id="xiaoming" scope="session" class="reviewer.Reviewer">
 		<% System.out.println(xiaoming.getTest()); %>
-	</jsp:useBean>
+	</jsp:useBean> --%>
+	
+	
 </body>
 </html>
