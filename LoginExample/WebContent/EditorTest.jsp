@@ -8,5 +8,9 @@
 </head>
 <body>
 <h1>hello editor</h1>
+<form action = "Editor" method = post>
+<input type = "submit" name = "button" value = "button" onclick="location.href='index.jsp'"></input>
+</form>
+
 </body>
 </html>

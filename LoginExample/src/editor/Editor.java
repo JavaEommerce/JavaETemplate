@@ -1,6 +1,9 @@
 package editor;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +38,10 @@ public class Editor extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		//out.println("<font size = '6' color = red>"+"zhangyan" +"</font>");
+		//out.println("<button name = "button click me" onclick = "location.href='signup.jsp'"></button>");
 	}
 
 	/**
@@ -51,6 +58,7 @@ public class Editor extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		
 	}
 
 }
