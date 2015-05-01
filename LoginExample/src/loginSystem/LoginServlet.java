@@ -2,6 +2,10 @@ package loginSystem;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dbconnectionlib.Dbconnection;
 
@@ -67,16 +72,66 @@ public class LoginServlet extends HttpServlet {
 //			//out.println("<p>back to login page in 3s</p>");
 //			out.println("<p><a href=\"http://localhost:8080/JavaEE/login.jsp\">back</a></p>");
 //			out.println("</body></html>");
-			
-
 			//response.sendRedirect("http://localhost:8080/JavaEE/login.jsp");
 			
 		}
 		else {
-			//Dbconnection dbconnection = new Dbconnection();
 			
-			PrintWriter out = response.getWriter();
-			out.println("<font size = '6' color = red>"+"login successfully" +"</font>");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+            PrintWriter out= response.getWriter();
+            out.println("<font color=red>User name and password didn't match,please try again. </font>");
+            out.println("<p>Don't have an account? Sign up here:<a href=\"http://localhost:8080/JavaEE/signup.jsp\">click me</a></p>");
+            rd.include(request, response);
+			
+			
+			
+			//Dbconnection dbconnection = new Dbconnection();
+			//Connection con = dbconnection.getConnection();
+			
+//			Connection con = (Connection) getServletContext().getAttribute("DBConnection");
+//			PreparedStatement ps = null;
+//			ResultSet rs =null;
+//			
+//			try {
+//				
+//				ps=con.prepareStatement("select userName from Users where userName=? and password=? limit 1");
+//				ps.setString(1, userName);
+//				ps.setString(2, password);
+//				rs = ps.executeQuery();
+//				if (rs!=null&&rs.next()) {
+//					
+//					User u = new User(rs.getString("userName"));
+//					log(u.toString());
+//					HttpSession session = request.getSession();
+//					session.setAttribute("User", u);
+//					response.sendRedirect("http://localhost:8080/JavaEE/login.jsp");
+//					
+//					
+//				} else {
+//					RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+//	                PrintWriter out= response.getWriter();
+//	                out.println("<font color=red>User name and password didn't match,please try again. </font>");
+//	                out.println("<p>Don't have an account? Register here:<a href=\"http://localhost:8080/JavaEE/signup.jsp\">click me</a></p>");
+//	                rd.include(request, response);
+//				}
+//				
+//				
+//			} catch (SQLException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}finally{
+//				try {
+//					rs.close();
+//					ps.close();
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
+//			}
+			
+			//PrintWriter out = response.getWriter();
+			//out.println("<font size = '6' color = red>"+"login successfully" +"</font>");
 
 		}
 		
