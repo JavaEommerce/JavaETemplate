@@ -21,6 +21,8 @@ import dbconnectionlib.Dbconnection;
  * Servlet implementation class Login
  */
 @WebServlet(name = "loginSystem.LoginServlet", urlPatterns = { "/LoginServlet" })
+//@WebServlet(name = "loginSystem.LoginServlet", urlPatterns = { "/login" })
+
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -61,8 +63,6 @@ public class LoginServlet extends HttpServlet {
             out.println("<font color=red>"+errorMessage+"</font>");
             rd.include(request, response);
 			
-			
-			
 //          also a valid way
             
 //			PrintWriter out = response.getWriter();
@@ -81,10 +81,7 @@ public class LoginServlet extends HttpServlet {
             PrintWriter out= response.getWriter();
             out.println("<font color=red>User name and password didn't match,please try again. </font>");
             out.println("<p>Don't have an account? Sign up here:<a href=\"http://localhost:8080/JavaEE/signup.jsp\">click me</a></p>");
-            rd.include(request, response);
-			
-			
-			
+            rd.include(request, response);	
 			//Dbconnection dbconnection = new Dbconnection();
 			//Connection con = dbconnection.getConnection();
 			
