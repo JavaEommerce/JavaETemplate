@@ -93,6 +93,7 @@ function showtime(){
 						<li><a href="signup.jsp">Sign Up</a></li>
 						<li><a href="login.jsp">Forget Password</a></li>
 						<li><a href="abc">I'm a reviewer</a></li>
+						<li><a href="EditorTest.jsp">Editor Page Test</a></li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -106,7 +107,7 @@ function showtime(){
 			<div class="row">
 				<div class="col-sm-8 col-sm-push-4">
 					<div class="page-header">
-						<h1>New Blog Information</h1>
+						<h1>New Journal Information</h1>
 						<p>Posted by <span class="glyphicon glyphicon-user"></span> <a href="#">SomeUser</a> on <span class="glyphicon glyphicon-time"></span><div id="time"></div></p>
 					</div>
 				</div>
@@ -118,7 +119,7 @@ function showtime(){
 
 					<!-- Image -->
 					<figure class="margin-b-2">
-						<img class="img-responsive" src="http://placehold.it/900x400" alt="">
+						<img class="img-responsive" src="https://thesharkinthering.files.wordpress.com/2014/12/you-know-nothing.jpg" alt="">
 						<figcaption class="margin-t-h">Caption here</figcaption>
 					</figure>
 

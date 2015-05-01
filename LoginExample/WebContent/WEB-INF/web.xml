@@ -9,13 +9,20 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
-  
   <servlet>
-  	<servlet-name>loginSystem.LoginServlet</servlet-name>
-  	<servlet-class>loginSystem.LoginServlet</servlet-class>
+    <servlet-name>loginSystem.LoginServlet</servlet-name>
+    <servlet-class>loginSystem.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>loginSystem.LoginServlet</servlet-name>
-  	<url-pattern>/LoginServlet</url-pattern>
+    <servlet-name>loginSystem.LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>editor.Editor</servlet-name>
+    <servlet-class>editor.Editor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.Editor</servlet-name>
+    <url-pattern>/Editor</url-pattern>
   </servlet-mapping>
 </web-app>

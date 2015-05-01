@@ -1,3 +1,5 @@
+// not in use now this login page 
+
 package roseindia.net;
 
 import java.io.IOException;
@@ -53,9 +55,6 @@ public class Login extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-//		String url = "jdbc:mysql://stusql.dcs.shef.ac.uk";
-//		String user = "team153";
-//		String password = "80473623";
 		String DB = "jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
 	
 		Connection con = null;
@@ -87,7 +86,6 @@ public class Login extends HttpServlet {
 			return errorLog;
 		}
 		//return true;
-		
 	}
 
 	/**

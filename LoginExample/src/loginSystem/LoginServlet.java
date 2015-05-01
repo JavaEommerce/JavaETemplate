@@ -3,6 +3,7 @@ package loginSystem;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +15,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import com.mysql.jdbc.Statement;
 
 import dbconnectionlib.Dbconnection;
 
@@ -44,6 +47,96 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	public String connectWithSQL(String un,String pw)
+	{
+		try {
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			System.out.println("Driver found");
+		} catch (ClassNotFoundException e) {
+			System.out.println("Driver not found" + e);
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		String DB = "jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
+	
+		Connection con = null;
+		try {
+			con = DriverManager.getConnection(DB);
+			Statement myStmt = (Statement) con.createStatement();
+			ResultSet myRs = myStmt.executeQuery("select * from User");
+			System.out.println("Connected");
+			while(myRs.next())
+			{
+				System.out.println(myRs.getString("userName"));
+				if(un.equals(myRs.getString("userName"))&&pw.equals(myRs.getString("password")))
+				{
+					return un;
+				}
+//				System.out.println(myRs.getString("userName"));
+//				if(un.equals(myRs.getString("userName")))
+//				{
+//					return un;
+//				}
+				
+			}
+			
+			return myRs.getString("username")+"not found";
+			
+		} catch (SQLException e) {
+			System.out.println("Connection failed");
+			String errorLog = "Failed";
+			return errorLog;
+		}
+		//return true;
+	}
+	//check username and password from mysql
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		System.out.println("servlet method in servelt");
+		String username ="user";
+		String password = "root";
+		String errorMessage = null;
+		
+		String un = request.getParameter("username");
+		String pw = request.getParameter("password");
+		
+		if (un.equals("")||un==null) {
+			errorMessage="userName is empty";
+		}
+		if (pw.equals("")||pw==null) {
+			errorMessage="password is empty";
+		}
+		if (errorMessage!=null) {
+			
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+            PrintWriter out= response.getWriter();
+            out.println("<font color=red>"+errorMessage+"</font>");
+            rd.include(request, response);
+		}
+		else{
+		String msg = "";
+		String feedback = connectWithSQL(un,pw);
+		//String feedback = "Login successed";
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		//out.print(feedback);
+		//response.sendRedirect("http://localhost:8080/LoginExample/signup.jsp");
+		
+		out.println("<font size = '6' color = red>"+feedback +"</font>");
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO verify the identity of client
 		String userName = request.getParameter("username");
