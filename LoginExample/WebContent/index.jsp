@@ -109,8 +109,15 @@ function showtime(){
 				<div class="col-sm-8 col-sm-push-4">
 					<div class="page-header">
 						<h1>New Journal Information</h1>
-						<%User currentUser = (User)session.getAttribute("User"); %>
-						<p>Posted by <span class="glyphicon glyphicon-user"></span> <a href="#"><%=currentUser.getUserName() %></a> on <span class="glyphicon glyphicon-time"></span><div id="time"></div></p>
+						<%
+							User currentUser = (User)session.getAttribute("User"); 
+							String name = null;
+							if(currentUser!=null){
+								name= currentUser.getUserName();
+							}
+						
+						%>
+						<p>Posted by <span class="glyphicon glyphicon-user"></span> <a href="#"><%=name %></a> on <span class="glyphicon glyphicon-time"></span><div id="time"></div></p>
 					</div>
 				</div>
 			</div>
