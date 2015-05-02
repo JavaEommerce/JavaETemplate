@@ -127,8 +127,6 @@ public class LoginServlet extends HttpServlet {
 				
 			}
 			
-			//PrintWriter out = response.getWriter();
-			//out.println("<font size = '6' color = red>"+"login successfully" +"</font>");
 
 		}
 		

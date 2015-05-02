@@ -111,13 +111,15 @@ function showtime(){
 						<h1>New Journal Information</h1>
 						<%
 							User currentUser = (User)session.getAttribute("User"); 
-							String name = null;
+							String name = "please login";
+							String welcomeInfo = "";
 							if(currentUser!=null){
 								name= currentUser.getUserName();
+								welcomeInfo="Welcome!";
 							}
 						
 						%>
-						<p>Posted by <span class="glyphicon glyphicon-user"></span> <a href="#"><%=name %></a> on <span class="glyphicon glyphicon-time"></span><div id="time"></div></p>
+						<p><%=welcomeInfo %> <span class="glyphicon glyphicon-user"></span><%=name %><span class="glyphicon glyphicon-time"></span><div id="time"></div></p>
 					</div>
 				</div>
 			</div>

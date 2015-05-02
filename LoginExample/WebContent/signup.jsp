@@ -21,14 +21,7 @@
 					</button>
 					<a class="navbar-brand" href="http://localhost:8080/JavaEE/index.jsp">E--Jounalise</a>
 				</div>
-				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						<li><a href="login.jsp">Login</a></li>
-						<li><a href="signup.jsp">Sign Up</a></li>
-						<li><a href="login.jsp">Forget Password</a></li>
-						<li><a href="abc">I'm a reviewer</a></li>
-					</ul>
-				</div>
+				
 				<!-- /.navbar-collapse -->
 			</div>
 			<!-- /.container-fluid -->
