@@ -11,6 +11,7 @@
 
 	<h1>Welcome to reviewer's page</h1>
 	<p><a href="index.jsp">Home</a></p>
+	<p><a href="ReviewerLogin">Go to Review Centre</a>
 
 	
 

@@ -11,6 +11,7 @@
 <title>Login</title>
 </head>
 <body>
+<h1><a href="index.jsp">Home</a></h1>
 <div>
 	<h1>Login Form</h1>
 	<form name = "loginform" action = "LoginServlet" method = "post">
