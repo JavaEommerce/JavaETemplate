@@ -35,21 +35,21 @@
             <div class="sminputs">
               <div class="input full">
                 <label class="string optional" for="user-name">Username*</label>
-                <input class="string optional" maxlength="255" id="user-email" placeholder="Username" type="email" size="50" />
+                <input class="string optional" name= "username" maxlength="255" id="user-email" placeholder="Username" type="text" size="50" />
               </div>
             </div>
             <div class="sminputs">
               <div class="input string optional">
                 <label class="string optional" for="user-pw">Password *</label>
-                <input class="string optional" maxlength="255" id="user-pw" placeholder="Password" type="text" size="50" />
+                <input class="string optional" name="password" maxlength="255" id="user-pw" placeholder="Password" type="text" size="50" />
               </div>
               <div class="input string optional">
                 <label class="string optional" for="user-pw-repeat">Repeat password *</label>
-                <input class="string optional" maxlength="255" id="user-pw-repeat" placeholder="Repeat password" type="text" size="50" />
+                <input class="string optional" name="passwordVerify" maxlength="255" id="user-pw-repeat" placeholder="Repeat password" type="text" size="50" />
               </div>
             </div>
             <div class="simform__actions">
-              <input class="sumbit" name="commit" type="sumbit" value="Create Account" />
+              <input class="sumbit" name="commit" type="submit" value="Signup" />
               <span class="simform__actions-sidetext">By creating an account you agree to our <a class="special" href="#" target="_blank" role="link">Terms & Privacy</a></span>
             </div> 
           </form>
