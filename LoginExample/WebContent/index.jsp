@@ -90,9 +90,7 @@ function showtime(){
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						<li><a href="login.jsp">Login</a></li>
-						<li><a href="signup.jsp">Sign Up</a></li>
-						<li><a href="login.jsp">Forget Password</a></li>
+						<li><a href="login.jsp">Login and Signup</a></li>
 						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
 						<li><a href="EditorTest.jsp">Editor Page Test</a></li>
 					</ul>
