@@ -120,10 +120,10 @@ public class Signup extends HttpServlet {
 		            ps.execute();
 		            
 		            
-		            psLookupID = con.prepareStatement("select ID from User where username=? limit 1");
-		            psLookupID.setString(1, userName);
-		            rs =  psLookupID.executeQuery();
-		            int userID = rs.getInt("ID");
+//		            psLookupID = con.prepareStatement("select ID from User where username=? limit 1");
+//		            psLookupID.setString(1, userName);
+//		            rs =  psLookupID.executeQuery();
+//		            int userID = rs.getInt("ID");
 		            
 		            
 		            
@@ -133,7 +133,7 @@ public class Signup extends HttpServlet {
 		            psForAuthor.setString(1, userName);
 		            psForAuthor.setString(2,"sample@sheffield.ac.uk");
 		            psForAuthor.setInt(3,1);
-		            psForAuthor.setInt(4,userID);
+		            psForAuthor.setInt(4,1);
 		            psForAuthor.execute();
 		            
 		            System.out.println("register succeed");
