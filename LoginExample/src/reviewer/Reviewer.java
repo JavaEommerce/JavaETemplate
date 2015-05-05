@@ -42,4 +42,12 @@ public class Reviewer implements Serializable{
 		return this.id;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		String result = "id: "+this.id+" Number of article selected:"
+		+this.selectedNum+" Reviewer Name:"+this.reviewerName;
+		return result;
+	}
+	
 }

@@ -50,7 +50,7 @@ public class ReviewerLogin extends HttpServlet {
 		} else {
 			
 			User u = (User)session.getAttribute("User");
-			String reviewerName = u.getUserName();
+			int id = u.getId();
 			
 			Dbconnection db=null;
 			try {
@@ -76,8 +76,8 @@ public class ReviewerLogin extends HttpServlet {
 			
 			try {
 				
-				ps=con.prepareStatement("select * from Reviewer where username=? limit 1");
-				ps.setString(1, reviewerName);
+				ps=con.prepareStatement("select * from Reviewer where ID=? limit 1");
+				ps.setInt(1, id);
 				rs = ps.executeQuery();
 				
 				if (rs!=null&&rs.next()) {
