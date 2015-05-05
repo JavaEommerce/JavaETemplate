@@ -112,7 +112,7 @@ public class Signup extends HttpServlet {
 		            rd.include(request, response);
 		            
 				} else {
-					ps = con.prepareStatement("insert into User(id, username, password,role) values (?,?,?,?)");
+					ps = con.prepareStatement("insert into User(ID, username, password,role) values (?,?,?,?)");
 					ps.setString(1, null);
 		            ps.setString(2, userName);
 		            ps.setString(3, password);
@@ -123,7 +123,7 @@ public class Signup extends HttpServlet {
 		            psLookupID = con.prepareStatement("select ID from User where username=? limit 1");
 		            psLookupID.setString(1, userName);
 		            rs =  psLookupID.executeQuery();
-		            int userID = rs.getInt(0);
+		            int userID = rs.getInt("ID");
 		            
 		            
 		            
@@ -134,6 +134,7 @@ public class Signup extends HttpServlet {
 		            psForAuthor.setString(2,"sample@sheffield.ac.uk");
 		            psForAuthor.setInt(3,1);
 		            psForAuthor.setInt(4,userID);
+		            psForAuthor.execute();
 		            
 		            System.out.println("register succeed");
 		          //forward to index page
