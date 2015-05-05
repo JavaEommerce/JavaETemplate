@@ -96,7 +96,7 @@ public class LoginServlet extends HttpServlet {
 				
 				if (rs!=null&&rs.next()) {
 					
-					User u = new User(rs.getString("username"));
+					User u = new User(rs.getString("username"),rs.getInt("ID"));
 					log(u.toString());
 					HttpSession session = request.getSession();
 					session.setAttribute("User", u);

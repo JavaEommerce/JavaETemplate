@@ -76,13 +76,13 @@ public class ReviewerLogin extends HttpServlet {
 			
 			try {
 				
-				ps=con.prepareStatement("select username,selectenum from Reviewer where username=? limit 1");
+				ps=con.prepareStatement("select * from Reviewer where username=? limit 1");
 				ps.setString(1, reviewerName);
 				rs = ps.executeQuery();
 				
 				if (rs!=null&&rs.next()) {
 					
-					Reviewer r = new Reviewer(rs.getString("username"),rs.getInt("selectenum"));
+					Reviewer r = new Reviewer(rs.getString("username"),rs.getInt("selectednum"),rs.getInt("ID"));
 					log(r.getReviewerName());
 					
 					session.setAttribute("Reviewer", r);
@@ -122,13 +122,6 @@ public class ReviewerLogin extends HttpServlet {
 		// TODO Auto-generated method stub
 	}
 
-	protected boolean isLogin(HttpServletRequest request, HttpServletResponse response) {
-		
-		boolean result = false;
-		
-		
-		
-		return result;
-	}
+	
 	
 }

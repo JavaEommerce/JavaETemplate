@@ -3,10 +3,11 @@ package loginSystem;
 public class User {
 	
 	private String userName=null;
+	private int id;
 	
-	
-	public User(String userName){
+	public User(String userName,int ID){
 		this.userName=userName;
+		this.id=ID;
 	}
 	
 	public void setUserName(String userName) {
@@ -15,6 +16,14 @@ public class User {
 	
 	public String getUserName(){
 		return this.userName;
+	}
+	
+	public void setId(int newId) {
+		this.id=newId;
+	}
+	
+	public int getId() {
+		return this.id;
 	}
 	
 	@Override
