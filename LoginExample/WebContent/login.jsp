@@ -31,7 +31,7 @@
           <span class="logmod__heading-subtitle">Enter your personal details <strong>to create an acount</strong></span>
         </div>
         <div class="logmod__form">
-          <form accept-charset="utf-8" action="#" class="simform">
+          <form accept-charset="utf-8" action="signup" class="simform" method="post">
             <div class="sminputs">
               <div class="input full">
                 <label class="string optional" for="user-name">Username*</label>
