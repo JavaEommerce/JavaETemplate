@@ -7,6 +7,7 @@
 <title>Reviewer Centre</title>
 </head>
 <body>
-	<h1>wow!</h1>
+	<h1>Welcome to Reviewer Centre!</h1>
+	
 </body>
 </html>

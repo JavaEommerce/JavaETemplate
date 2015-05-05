@@ -17,7 +17,6 @@
     <servlet-name>Author.Upload</servlet-name>
     <url-pattern>/Upload</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>Author.SendEmail</servlet-name>
     <servlet-class>Author.SendEmail</servlet-class>
@@ -26,7 +25,7 @@
     <servlet-name>Author.SendEmail</servlet-name>
     <url-pattern>/SendEmail</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>Author.Download</servlet-name>
     <servlet-class>Author.Download</servlet-class>
   </servlet>
@@ -35,29 +34,27 @@
     <url-pattern>/Download</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>loginSystem.LoginServlet</servlet-name>
-  	<servlet-class>loginSystem.LoginServlet</servlet-class>
+    <servlet-name>loginSystem.LoginServlet</servlet-name>
+    <servlet-class>loginSystem.LoginServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>loginSystem.LoginServlet</servlet-name>
-  	<url-pattern>/LoginServlet</url-pattern>
-  </servlet-mapping>
-  
-   <servlet>
-  	<servlet-name>reviewer.ReviewerLogin</servlet-name>
-  	<servlet-class>reviewer.ReviewerLogin</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>reviewer.ReviewerLogin</servlet-name>
-  	<url-pattern>/ReviewerLogin</url-pattern>
+    <servlet-name>loginSystem.LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<servlet-name>loginSystem.Signup</servlet-name>
-  	<servlet-class>loginSystem.Signup</servlet-class>
+    <servlet-name>reviewer.ReviewerLogin</servlet-name>
+    <servlet-class>reviewer.ReviewerLogin</servlet-class>
   </servlet>
   <servlet-mapping>
-  	<servlet-name>loginSystem.Signup</servlet-name>
-  	<url-pattern>/signup</url-pattern>
+    <servlet-name>reviewer.ReviewerLogin</servlet-name>
+    <url-pattern>/ReviewerLogin</url-pattern>
   </servlet-mapping>
-  
+  <servlet>
+    <servlet-name>loginSystem.Signup</servlet-name>
+    <servlet-class>loginSystem.Signup</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginSystem.Signup</servlet-name>
+    <url-pattern>/signup</url-pattern>
+  </servlet-mapping>
 </web-app>

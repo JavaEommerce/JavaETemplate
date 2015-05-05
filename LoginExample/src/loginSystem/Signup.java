@@ -6,10 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -96,11 +93,12 @@ public class Signup extends HttpServlet {
 			
 			PreparedStatement ps = null;
 			PreparedStatement psLookup = null;
+			PreparedStatement psForAuthor = null;
 			ResultSet rs =null;
 			
 	        try {
 	            
-	        	psLookup = con.prepareStatement("select userName from User where userName=? limit 1");
+	        	psLookup = con.prepareStatement("select username from User where username=? limit 1");
 	        	psLookup.setString(1, userName);
 	        	rs = psLookup.executeQuery();
 	        	if (rs!=null&&rs.next()) {
@@ -112,11 +110,17 @@ public class Signup extends HttpServlet {
 		            rd.include(request, response);
 		            
 				} else {
-					ps = con.prepareStatement("insert into User(id, userName, password) values (?,?,?)");
+					ps = con.prepareStatement("insert into User(id, username, password,role) values (?,?,?,?)");
 					ps.setString(1, null);
 		            ps.setString(2, userName);
 		            ps.setString(3, password);
+		            ps.setInt(4, 1);
 		            ps.execute();
+		            
+		            psForAuthor=con.prepareStatement("insert into Author(authorname, email, submitstate,ID) values (?,?,?,?)");
+		            psForAuthor.setString(1, userName);
+		            psForAuthor
+		            
 		            System.out.println("register succeed");
 		          //forward to index page
 		            RequestDispatcher rd = getServletContext().getRequestDispatcher("/signup.jsp");

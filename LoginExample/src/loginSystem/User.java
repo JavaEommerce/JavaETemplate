@@ -1,13 +1,21 @@
 package loginSystem;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String userName=null;
 	private int id;
+	private int role;
 	
-	public User(String userName,int ID){
+	public User(String userName,int ID,int role){
 		this.userName=userName;
 		this.id=ID;
+		this.role=role;
 	}
 	
 	public void setUserName(String userName) {
@@ -26,10 +34,18 @@ public class User {
 		return this.id;
 	}
 	
+	public void setRole(int newRole) {
+		this.role=newRole;
+	}
+	
+	public int getRole() {
+		return this.role;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		String result = "User: "+this.userName;
+		String result = "User: "+this.userName+"Role: "+this.role;
 		return result;
 	}
 }	
