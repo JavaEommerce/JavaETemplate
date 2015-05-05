@@ -1,7 +1,6 @@
 package reviewer;
 
 import java.io.Serializable;
-import java.util.Map;
 
 public class Reviewer implements Serializable{
 	
@@ -11,10 +10,10 @@ public class Reviewer implements Serializable{
 	private static final long serialVersionUID = -229943365280689964L;
 	private String reviewerName = null;
 	private int selectedNum;
-	private Map<String, String> selectedArticlesMap;
 	
-	public Reviewer(String reviewerName){
+	public Reviewer(String reviewerName,int selectedNum){
 		this.reviewerName=reviewerName;
+		this.selectedNum=selectedNum;
 	}
 	
 	public String getReviewerName() {
@@ -23,6 +22,14 @@ public class Reviewer implements Serializable{
 	
 	public void setReviewerName(String newName) {
 		this.reviewerName=newName;
+	}
+	
+	public void setSelectedNum(int newNum) {
+		this.selectedNum=newNum;
+	}
+	
+	public int getSelectedNum() {
+		return this.selectedNum;
 	}
 	
 	

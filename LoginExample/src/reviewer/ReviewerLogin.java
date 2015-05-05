@@ -76,24 +76,23 @@ public class ReviewerLogin extends HttpServlet {
 			
 			try {
 				
-				ps=con.prepareStatement("select userName from Reviewer where userName=? limit 1");
+				ps=con.prepareStatement("select username,selectenum from Reviewer where username=? limit 1");
 				ps.setString(1, reviewerName);
 				rs = ps.executeQuery();
 				
 				if (rs!=null&&rs.next()) {
 					
-					Reviewer r = new Reviewer(rs.getString("userName"));
-					log(r.toString());
+					Reviewer r = new Reviewer(rs.getString("username"),rs.getInt("selectenum"));
+					log(r.getReviewerName());
 					
-					session.setAttribute("User", u);
-					response.sendRedirect("http://localhost:8080/JavaEE/index.jsp");
+					session.setAttribute("Reviewer", r);
+					response.sendRedirect("http://localhost:8080/JavaEE/reviewerCentre.jsp");
 					
 					
 				} else {
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
 	                PrintWriter out= response.getWriter();
-	                out.println("<font color=red>User name and password didn't match,please try again. </font>");
-	                out.println("<p>Don't have an account? Register here:<a href=\"http://localhost:8080/JavaEE/signup.jsp\">click me</a></p>");
+	                out.println("<font color=red>Currently you are not a reviewer. If you want to become the reviewer, see the introduction below. </font>");
 	                rd.include(request, response);
 				}
 				

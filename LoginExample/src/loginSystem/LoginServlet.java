@@ -89,14 +89,14 @@ public class LoginServlet extends HttpServlet {
 			
 			try {
 				
-				ps=con.prepareStatement("select userName from User where userName=? and password=? limit 1");
+				ps=con.prepareStatement("select username from User where username=? and password=? limit 1");
 				ps.setString(1, userName);
 				ps.setString(2, password);
 				rs = ps.executeQuery();
 				
 				if (rs!=null&&rs.next()) {
 					
-					User u = new User(rs.getString("userName"));
+					User u = new User(rs.getString("username"));
 					log(u.toString());
 					HttpSession session = request.getSession();
 					session.setAttribute("User", u);
