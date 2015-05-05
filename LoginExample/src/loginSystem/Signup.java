@@ -1,3 +1,4 @@
+
 package loginSystem;
 
 import java.io.IOException;
@@ -94,6 +95,7 @@ public class Signup extends HttpServlet {
 			PreparedStatement ps = null;
 			PreparedStatement psLookup = null;
 			PreparedStatement psForAuthor = null;
+			PreparedStatement psLookupID = null;
 			ResultSet rs =null;
 			
 	        try {
@@ -117,9 +119,21 @@ public class Signup extends HttpServlet {
 		            ps.setInt(4, 1);
 		            ps.execute();
 		            
-		            psForAuthor=con.prepareStatement("insert into Author(authorname, email, submitstate,ID) values (?,?,?,?)");
+		            
+		            psLookupID = con.prepareStatement("select ID from User where username=? limit 1");
+		            psLookupID.setString(1, userName);
+		            rs =  psLookupID.executeQuery();
+		            int userID = rs.getInt(0);
+		            
+		            
+		            
+		            
+		            
+		            psForAuthor = con.prepareStatement("insert into Author(authorname, email, submitstate,ID) values (?,?,?,?)");
 		            psForAuthor.setString(1, userName);
-		            psForAuthor
+		            psForAuthor.setString(2,"sample@sheffield.ac.uk");
+		            psForAuthor.setInt(3,1);
+		            psForAuthor.setInt(4,userID);
 		            
 		            System.out.println("register succeed");
 		          //forward to index page
