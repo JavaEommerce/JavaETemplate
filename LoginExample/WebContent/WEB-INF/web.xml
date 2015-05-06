@@ -89,4 +89,12 @@
     <servlet-name>reviewer.SelectPendingArticle</servlet-name>
     <url-pattern>/SelectPendingArticle</url-pattern>
   </servlet-mapping>
+   <servlet>
+    <servlet-name>editor.EditorRetireAndAppointOne</servlet-name>
+    <servlet-class>editor.EditorRetireAndAppointOne</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.EditorRetireAndAppointOne</servlet-name>
+    <url-pattern>/EditorRetireAndAppointOne</url-pattern>
+  </servlet-mapping>
 </web-app>
