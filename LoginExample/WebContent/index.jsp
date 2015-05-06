@@ -117,6 +117,7 @@ function showtime(){
 						
 						<%if(role==1){ %>
 						<li><a href="UploadNavigator.jsp"><%=showName %></a></li>
+						<li><a href="Upload.jsp"><%="Upload" %></a></li>
 						<%}else{%>
 						
 						<%if(role==3){ %>
