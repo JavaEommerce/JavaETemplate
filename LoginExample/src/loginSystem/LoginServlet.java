@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import reviewer.Reviewer;
+import editor.EditorCharacter;
 import dbconnectionlib.Dbconnection;
 
 /**
@@ -115,6 +116,7 @@ public class LoginServlet extends HttpServlet {
 						
 					case 3:
 						// create an Editor
+						createEditor(request,response,id,con);
 						break;
 					default:
 						System.out.println("invalid role");
@@ -153,6 +155,39 @@ public class LoginServlet extends HttpServlet {
 		
 	}
 	
+	private void createEditor(HttpServletRequest request,HttpServletResponse response, int ID, Connection con) throws ServletException,IOException{
+		PreparedStatement ps = null;
+		ResultSet rs =null;
+		
+        try {
+			ps = con.prepareStatement("select * from Editor where ID=? limit 1");
+			ps.setInt(1, ID);
+	        rs =  ps.executeQuery();
+	        if (rs.next()) {
+	        	EditorCharacter e = new EditorCharacter(rs.getString("editorname"), rs.getInt("selectednum"), ID);
+	 	        System.out.println(e.toString());
+	 	        HttpSession session = request.getSession();
+	 	        session.setAttribute("Editor", e);
+			}
+	       
+	        
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+            try {
+                
+            	if (ps!=null) {
+					ps.close();
+				}	
+               
+            } catch (SQLException e) {
+            	System.out.println("sql exception");
+            }
+	     }
+		
+	}
+
 	private void createReviewer(HttpServletRequest request,HttpServletResponse response,int ID,Connection con) throws ServletException,IOException {
 			
 			PreparedStatement ps = null;

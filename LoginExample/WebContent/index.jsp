@@ -4,7 +4,6 @@
     pageEncoding="UTF-8"%>
 <link href="css.loginform.css" rel="stylesheet" type="text/css" /> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -88,11 +87,36 @@ function showtime(){
 				<!-- /.navbar-header -->
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
+				<%
+							User currentUser = (User)session.getAttribute("User"); 
+							String name = "please login";
+							int role = 0;
+							String showName = " ";
+							String welcomeInfo = "";
+							if(currentUser!=null){
+								name= currentUser.getUserName();
+								role= currentUser.getRole();
+								if(role == 3)
+								{
+									showName = "Editor";
+								}
+								else if(role==2)
+								{
+									showName = "Other";
+								}
+								welcomeInfo="Welcome!";
+							}
+						
+						%>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li><a href="login.jsp">Login and Signup</a></li>
 						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
-						<li><a href="EditorTest.jsp">Editor Page Test</a></li>
+						<%if(role==3){ %>
+						<li><a href="EditorTest.jsp"><%=showName %>></a></li>
+						<%}else{ %>
+						<li><a><%=showName %>></a></li>
+						<%} %>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -107,16 +131,6 @@ function showtime(){
 				<div class="col-sm-8 col-sm-push-4">
 					<div class="page-header">
 						<h1>New Journal Information</h1>
-						<%
-							User currentUser = (User)session.getAttribute("User"); 
-							String name = "please login";
-							String welcomeInfo = "";
-							if(currentUser!=null){
-								name= currentUser.getUserName();
-								welcomeInfo="Welcome!";
-							}
-						
-						%>
 						<p><%=welcomeInfo %> <span class="glyphicon glyphicon-user"></span><%=name %><span class="glyphicon glyphicon-time"></span><div id="time"></div></p>
 					</div>
 				</div>
