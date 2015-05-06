@@ -13,10 +13,10 @@ public class Author implements Serializable{
 	private int submitState;
 	private int id;
 	
-	public Author(String reviewerName,int selectedNum,int id){
-		this.authorName=reviewerName;
+	public Author(String authorName,String email,int submitState,int id){
+		this.authorName=authorName;
 		this.email=email;
-		this.submitState=selectedNum;
+		this.submitState=submitState;
 		this.id=id;
 	}
 	
