@@ -36,9 +36,9 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @WebServlet("/Upload")
 public class Upload extends HttpServlet {
 	
-	private String uploadPath = "E:\\COM6514\\Data\\"; // 上传文件的目录    
-    private String tempPath = "E:\\COM6514\\Data\\"; // 临时文件目录    
-    private String serverPath = null;   
+	private String uploadPath = "Testtt\\"; // 上传文件的目录    
+	private String tempPath = "Testtt\\"; // 临时文件目录    
+	private String serverPath = null;   
     private String[] fileType = new String[]{".pdf"};  
     private int sizeMax = 5;//图片最大上限    
 	
@@ -64,7 +64,8 @@ public class Upload extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String serverPath = getServletContext().getRealPath("/").replace("\\", "/");    
+//		String serverPath = getServletContext().getRealPath("/").replace("\\", "/");    
+		String serverPath = "E:\\";
 //      System.out.println(serverPath);  
 		
 		String mainAuthorname="";
@@ -80,32 +81,35 @@ public class Upload extends HttpServlet {
 		
 		
       //Servlet初始化时执行,如果上传文件目录不存在则自动创建    
-      if(!new File(uploadPath).isDirectory()){   
-          new File(uploadPath).mkdirs();    
-      }    
-      if(!new File(tempPath).isDirectory()){  
-          new File(tempPath).mkdirs();  
-      }   
-      DiskFileItemFactory factory = new DiskFileItemFactory();  
-      factory.setSizeThreshold(5*1024); //最大缓存    
-      factory.setRepository(new File(tempPath));//临时文件目录    
+        if(!new File(serverPath+uploadPath).isDirectory()){   
+            new File(serverPath+uploadPath).mkdirs();    
+        }    
+        if(!new File(serverPath+tempPath).isDirectory()){  
+            new File(serverPath+tempPath).mkdirs();  
+        }   
+        DiskFileItemFactory factory = new DiskFileItemFactory();  
+        factory.setSizeThreshold(5*1024); //最大缓存    
+        factory.setRepository(new File(serverPath+tempPath));//临时文件目录    
+            
+        ServletFileUpload upload = new ServletFileUpload(factory);  
+        upload.setSizeMax(sizeMax*1024*1024);//文件最大上限   
           
-      ServletFileUpload upload = new ServletFileUpload(factory);  
-      upload.setSizeMax(sizeMax*1024*1024);//文件最大上限   
-          
-      String filePath = null;    
-      try {    
-          List<FileItem> items = upload.parseRequest(request);//获取所有文件列表   
-          //  
-          for (int i=0;i<items.size();i++) {  
-              //里面一个for循环，获取一行的数据  
-              FileItem item = items.get(i);  
+        String filePath = null;    
+        try {    
+            List<FileItem> items = upload.parseRequest(request);//获取所有文件列表   
+            //  
+            for (int i=0;i<items.size();i++) {  
+                //里面一个for循环，获取一行的数据  
+                FileItem item = items.get(i);  
               	if(!item.isFormField()){//文件名    
                   String fileName = item.getName().toLowerCase();  
                   if(fileName.endsWith(fileType[0])){    
-//                      String uuid = UUID.randomUUID().toString();    
-                      filePath = uploadPath+fileName;  
-//                      System.out.println(filePath);  
+//                    String uuid = UUID.randomUUID().toString();    
+                    filePath = serverPath+uploadPath+fileName;  
+                    
+                    System.out.println(filePath);  
+//                    System.out.println(serverPath);
+                    
                       File file = new File(filePath);  
                       item.write(file);  
                       System.out.println(fileName);  
