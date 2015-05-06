@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import reviewer.Reviewer;
 import dbconnectionlib.Dbconnection;
 
 /**
@@ -100,6 +101,26 @@ public class LoginServlet extends HttpServlet {
 					log(u.toString());
 					HttpSession session = request.getSession();
 					session.setAttribute("User", u);
+					int id = rs.getInt("ID");
+					// role instance creation
+					switch (rs.getInt("role")) {
+					case 1:
+						// create an Author
+						break;
+					
+					case 2:
+						// create an Reviewer
+						createReviewer(request, response, id, con);
+						break;
+						
+					case 3:
+						// create an Editor
+						break;
+					default:
+						System.out.println("invalid role");
+						break;
+					}
+					
 					response.sendRedirect("http://localhost:8080/JavaEE/index.jsp");
 					
 					
@@ -131,5 +152,40 @@ public class LoginServlet extends HttpServlet {
 		}
 		
 	}
-
+	
+	private void createReviewer(HttpServletRequest request,HttpServletResponse response,int ID,Connection con) throws ServletException,IOException {
+			
+			PreparedStatement ps = null;
+			ResultSet rs =null;
+			
+	        try {
+				ps = con.prepareStatement("select * from Reviewer where ID=? limit 1");
+				ps.setInt(1, ID);
+		        rs =  ps.executeQuery();
+		        if (rs.next()) {
+		        	Reviewer r = new Reviewer(rs.getString("reviewername"), rs.getInt("selectednum"), ID);
+		 	        System.out.println(r.toString());
+		 	        HttpSession session = request.getSession();
+		 	        session.setAttribute("Reviewer", r);
+				}
+		       
+		        
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+	            try {
+	                
+	            	if (ps!=null) {
+						ps.close();
+					}	
+	               
+	            } catch (SQLException e) {
+	            	System.out.println("sql exception");
+	            }
+		     }
+				
+			
+	        
+	}
 }

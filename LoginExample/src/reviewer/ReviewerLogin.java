@@ -39,7 +39,7 @@ public class ReviewerLogin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO identify user id
 		HttpSession session = request.getSession();
-		if (session.getAttribute("User")==null) {
+		if (session.getAttribute("Reviewer")==null) {
 			
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
             PrintWriter out= response.getWriter();
@@ -49,9 +49,7 @@ public class ReviewerLogin extends HttpServlet {
             
 		} else {
 			
-			User u = (User)session.getAttribute("User");
-			int id = u.getId();
-			
+			// connect db
 			Dbconnection db=null;
 			try {
 				db = new Dbconnection();
@@ -71,46 +69,9 @@ public class ReviewerLogin extends HttpServlet {
 				System.out.println("successfullllllll");
 			}
 			
-			PreparedStatement ps = null;
-			ResultSet rs =null;
+			/*create chosen article instances************************************************************/
+			Reviewer reviewer = (Reviewer)session.getAttribute("Reviewer");
 			
-			try {
-				
-				ps=con.prepareStatement("select * from Reviewer where ID=? limit 1");
-				ps.setInt(1, id);
-				rs = ps.executeQuery();
-				
-				if (rs!=null&&rs.next()) {
-					
-					Reviewer r = new Reviewer(rs.getString("username"),rs.getInt("selectednum"),rs.getInt("ID"));
-					log(r.getReviewerName());
-					
-					session.setAttribute("Reviewer", r);
-					response.sendRedirect("http://localhost:8080/JavaEE/reviewerCentre.jsp");
-					
-					
-				} else {
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
-	                PrintWriter out= response.getWriter();
-	                out.println("<font color=red>Currently you are not a reviewer. If you want to become the reviewer, see the introduction below. </font>");
-	                rd.include(request, response);
-				}
-				
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally{
-				try {
-					rs.close();
-					ps.close();
-					System.out.println("db closed");
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
 		}
 		
 	}

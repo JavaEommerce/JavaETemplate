@@ -8,6 +8,8 @@
 </head>
 <body>
 	<h1>Welcome to Reviewer Centre!</h1>
+	<p><a href="index.jsp">Home</a>
 	
+	<p><button onclick="AccessUnpublishedArticles">Choose unpublished articles</button>
 </body>
 </html>

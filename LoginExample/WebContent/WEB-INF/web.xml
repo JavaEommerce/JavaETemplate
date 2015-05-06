@@ -57,4 +57,13 @@
     <servlet-name>loginSystem.Signup</servlet-name>
     <url-pattern>/signup</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>reviewer.AccessUnpublishedArticles</servlet-name>
+    <servlet-class>reviewer.AccessUnpublishedArticles</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reviewer.AccessUnpublishedArticles</servlet-name>
+    <url-pattern>/AccessUnpublishedArticles</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
