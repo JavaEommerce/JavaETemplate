@@ -1,10 +1,11 @@
 
 <%@page import="loginSystem.User"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="java.sql.*" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   
+    
 <link href="css.loginform.css" rel="stylesheet" type="text/css" /> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -88,11 +89,46 @@ function showtime(){
 				<!-- /.navbar-header -->
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
+				<%
+							User currentUser = (User)session.getAttribute("User"); 
+							String name = "please login";
+							int role = 0;
+							String showName = " ";
+							String welcomeInfo = "";
+							if(currentUser!=null){
+								name= currentUser.getUserName();
+								role= currentUser.getRole();
+								if(role == 1){
+									showName = "Author Page";
+								}else if(role == 3)
+								{
+									showName = "Editor";
+								}
+								else if(role==2)
+								{
+									showName = "Other";
+								}
+								welcomeInfo="Welcome!";
+							}
+						
+						%>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li><a href="login.jsp">Login and Signup</a></li>
 						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
-						<li><a href="EditorTest.jsp">Editor Page Test</a></li>
+						
+						<%if(role==1){ %>
+						<li><a href="UploadNavigator.jsp"><%=showName %></a></li>
+						<li><a href="Upload.jsp"><%="Upload" %></a></li>
+						<%}else{%>
+						
+						<%if(role==3){ %>
+						<li><a href="EditorTest.jsp"><%=showName %>></a></li>
+						<%}else{ %>
+						<li><a><%=showName %>></a></li>
+						<%} %>
+						<%} %>
+						
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -107,16 +143,6 @@ function showtime(){
 				<div class="col-sm-8 col-sm-push-4">
 					<div class="page-header">
 						<h1>New Journal Information</h1>
-						<%
-							User currentUser = (User)session.getAttribute("User"); 
-							String name = "please login";
-							String welcomeInfo = "";
-							if(currentUser!=null){
-								name= currentUser.getUserName();
-								welcomeInfo="Welcome!";
-							}
-						
-						%>
 						<p><%=welcomeInfo %> <span class="glyphicon glyphicon-user"></span><%=name %><span class="glyphicon glyphicon-time"></span><div id="time"></div></p>
 					</div>
 				</div>
@@ -127,18 +153,66 @@ function showtime(){
 				<div class="col-sm-8 col-sm-push-4">
 
 					<!-- Image -->
-					<figure class="margin-b-2">
-						<img class="img-responsive" src="https://thesharkinthering.files.wordpress.com/2014/12/you-know-nothing.jpg" alt="">
-						<figcaption class="margin-t-h">Caption here</figcaption>
-					</figure>
+					
 
-					<p class="lead">Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper.</p>
-					<p>Vivamus risus ex, varius et libero quis, placerat rhoncus mi. Aenean sit amet aliquam nibh. Aliquam tortor est, consequat vitae libero at, vehicula mattis tellus. In condimentum consequat tempor. Nullam at lorem semper, ultricies mi et, mollis turpis. Mauris ut leo ac magna dapibus luctus. Mauris mi nibh, ornare et ipsum vel, finibus molestie nulla. Nunc eleifend leo eget ipsum pellentesque, vel varius ipsum placerat. Mauris tincidunt sapien et efficitur commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec at pellentesque arcu. Pellentesque justo enim, porttitor a arcu non, mollis venenatis felis.</p>
+	<!--插入显示Jounal List -->			
+<table border=1>
+<%String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
+String sqlStr = "select * from Journal";
+Class.forName("com.mysql.jdbc.Driver");
+Connection con = DriverManager.getConnection( url );
+Statement st = con.createStatement();
+ResultSet rs = st.executeQuery( sqlStr );
+    
+	while(rs.next())
+            {%>
+       <tr><td><%=rs.getString("journalname")%></td><td><%=rs.getString("version")%></td><td><%=rs.getString("publishtime")%></td></tr>
+               
+             
+            <div class="well">
+						<div class="media">
+							<div class="media-left">
+								<img src="http://placehold.it/70x70" alt="">
+							</div>
+							<div class="media-body">
+								<h4 class="margin-t-0"><a href="#"><%=rs.getString("journalname")%></a></h4>
+								<p><a href="#"><%=rs.getString("publishtime")%></a></p>
+                                <p><a href="#">Version:<%=rs.getString("version")%></a></p>
+								<p>Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut</p>
+								<p>
+									<button class="btn btn-sm btn-default">
+										<span class="glyphicon glyphicon-thumbs-up"></span> Upvote
+									</button>
+									<button class="btn btn-sm btn-default">
+										<span class="glyphicon glyphicon-thumbs-down"></span> Downvote
+									</button>
+									<button class="btn btn-sm btn-default">
+										<span class="glyphicon glyphicon-comment"></span> Reply
+									</button>
+								</p>
+							</div>
+						</div>
+					</div>   
+               
+               
+           <% }%>
+           <%
+            rs.close();
+            st.close();
+            con.close();
+    
+
+ %>
+ </table>
+ 
+ <%  %>
 
 					<hr>
 
-					<!-- Comments -->
-					<h3>Comments</h3>
+					<!-- Journal List -->
+					<h3>Journal List</h3>
+                    
+                    
 					<div class="well">
 						<div class="media">
 							<div class="media-left">
@@ -162,6 +236,11 @@ function showtime(){
 							</div>
 						</div>
 					</div>
+                    
+                    
+                    
+                    
+                    
 
 					<div class="well">
 						<div class="media">
