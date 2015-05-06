@@ -37,7 +37,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class Upload extends HttpServlet {
 	
 	private String uploadPath = "Testtt\\"; // 上传文件的目录    
-	private String tempPath = "Testtt\\"; // 临时文件目录    
+	private String tempPath = "Testttt\\"; // 临时文件目录    
 	private String serverPath = null;   
     private String[] fileType = new String[]{".pdf"};  
     private int sizeMax = 5;//图片最大上限    
@@ -66,7 +66,7 @@ public class Upload extends HttpServlet {
 		// TODO Auto-generated method stub
 //		String serverPath = getServletContext().getRealPath("/").replace("\\", "/");    
 		String serverPath = "E:\\";
-//      System.out.println(serverPath);  
+
 		
 		String mainAuthorname="";
         String mainEmail="";
@@ -87,6 +87,7 @@ public class Upload extends HttpServlet {
         if(!new File(serverPath+tempPath).isDirectory()){  
             new File(serverPath+tempPath).mkdirs();  
         }   
+        
         DiskFileItemFactory factory = new DiskFileItemFactory();  
         factory.setSizeThreshold(5*1024); //最大缓存    
         factory.setRepository(new File(serverPath+tempPath));//临时文件目录    
@@ -95,6 +96,7 @@ public class Upload extends HttpServlet {
         upload.setSizeMax(sizeMax*1024*1024);//文件最大上限   
           
         String filePath = null;    
+        
         try {    
             List<FileItem> items = upload.parseRequest(request);//获取所有文件列表   
             //  
@@ -102,20 +104,93 @@ public class Upload extends HttpServlet {
                 //里面一个for循环，获取一行的数据  
                 FileItem item = items.get(i);  
               	if(!item.isFormField()){//文件名    
-                  String fileName = item.getName().toLowerCase();  
-                  if(fileName.endsWith(fileType[0])){    
+                  String fileName = item.getName().toLowerCase(); 
+                  
+                  if(fileName.endsWith(fileType[0])){   
 //                    String uuid = UUID.randomUUID().toString();    
-                    filePath = serverPath+uploadPath+fileName;  
-                    
-                    System.out.println(filePath);  
-//                    System.out.println(serverPath);
-                    
+
+//************************************     
+  //email
+                if(!mainAuthorname.equals("")){
+                	System.out.println(mainAuthorname);
+                      if(mainEmail.indexOf("@") != -1){
+                    	  try{
+                              //send email
+                    			Properties props=new Properties();//也可用Properties props = System.getProperties(); 
+                    			props.put("mail.smtp.host","smtp.gmail.com");//存储发送邮件服务器的信息
+                    			props.put("mail.smtp.user", "javaeteam3@gmail.com");  
+                    			props.put("mail.smtp.password", "weizhao888");  
+                    			props.put("mail.smtp.auth", "true"); 
+
+                    			props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+                    			props.put("mail.smtp.socketFactory.fallback","false");
+                    			props.put("mail.smtp.port","465");
+                    			props.put("mail.smtp.socketFactory.port","465");
+
+                    			Session s=Session.getInstance(props);//根据属性新建一个邮件会话
+                    			s.setDebug(true);
+
+                    			MimeMessage message=new MimeMessage(s);//由邮件会话新建一个消息对象
+
+                    			//设置邮件
+                    			InternetAddress from=new InternetAddress("javaeteam3@gmail.com");
+                    			message.setFrom(from);//设置发件人
+                    			InternetAddress to=new InternetAddress(mainEmail);
+                    			message.setRecipient(Message.RecipientType.TO,to);//设置收件人,并设置其接收类型为TO
+                    			message.setSubject(title);//设置主题
+                    			message.setText(abst);//设置信件内容
+                    			message.setSentDate(new Date());//设置发信时间
+
+                    			//发送邮件
+                    			message.saveChanges();//存储邮件信息
+                    			Transport transport=s.getTransport("smtp");
+                    			transport.connect("smtp.gmail.com","javaeteam3@gmail.com","weizhao888");//以smtp方式登录邮箱
+                    			transport.sendMessage(message,message.getAllRecipients());//发送邮件,其中第二个参数是所有
+                    			//已设好的收件人地址
+                    			transport.close();
+
+                    			
+                    			
+                    			
+                    			
+                    			
+                    			
+                    			
+                    			
+                    			
+                    			
+                    			
+                    		}catch(MessagingException e){
+                    			System.out.println("emailerror");
+                    			System.out.println(e.toString());
+                    		}
+                      }else{
+                    	  System.out.println("emailelse");
+                    	  request.setAttribute("errorMsg", "fail!");  
+                          request.getRequestDispatcher("SendEmailerror.jsp").forward(request,response);  
+                          break;
+                      } 
+                      
+                }else{
+                	System.out.println("author else");
+                	request.getRequestDispatcher("MainAuthorerror.jsp").forward(request,response);  
+                	break;
+                }
+                
+//************************************                      
+                      
+                      filePath = serverPath+uploadPath+fileName;  
+                      
                       File file = new File(filePath);  
                       item.write(file);  
                       System.out.println(fileName);  
+                      
+                      
+                      
+                      
                    }else {  
-                      request.setAttribute("errorMsg", "fail!");  
-                      request.getRequestDispatcher("uploaderror.jsp").forward(request,response);   
+                	   request.setAttribute("errorMsg", "fail!");  
+                       request.getRequestDispatcher("uploaderror.jsp").forward(request,response);   
                   }  
               }else {  
                 //非文件流     
@@ -152,74 +227,18 @@ public class Upload extends HttpServlet {
                   }
                   
                   value = new String(value.getBytes("ISO-8859-1"),"UTF-8");  
-//                  System.out.println(value);  
-
-                  
-                  
-              }  
-                
+//                  System.out.println(value);             
+              } 
+              	
+              	if(i==18){
+                System.out.println( i);
+              	}
+              	
           } 
           
-          
-
-        	  
-            if(mainEmail.indexOf("@") != -1){
-        	  try{
-                  //send email
-        			Properties props=new Properties();//也可用Properties props = System.getProperties(); 
-        			props.put("mail.smtp.host","smtp.gmail.com");//存储发送邮件服务器的信息
-        			props.put("mail.smtp.user", "javaeteam3@gmail.com");  
-        			props.put("mail.smtp.password", "weizhao888");  
-        			props.put("mail.smtp.auth", "true"); 
-
-        			props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-        			props.put("mail.smtp.socketFactory.fallback","false");
-        			props.put("mail.smtp.port","465");
-        			props.put("mail.smtp.socketFactory.port","465");
-
-
-
-
-        			Session s=Session.getInstance(props);//根据属性新建一个邮件会话
-        			s.setDebug(true);
-
-        			MimeMessage message=new MimeMessage(s);//由邮件会话新建一个消息对象
-
-
-
-        			//设置邮件
-        			InternetAddress from=new InternetAddress("javaeteam3@gmail.com");
-        			message.setFrom(from);//设置发件人
-        			InternetAddress to=new InternetAddress(mainEmail);
-        			message.setRecipient(Message.RecipientType.TO,to);//设置收件人,并设置其接收类型为TO
-        			message.setSubject(title);//设置主题
-        			message.setText(abst);//设置信件内容
-        			message.setSentDate(new Date());//设置发信时间
-
-        			//发送邮件
-        			message.saveChanges();//存储邮件信息
-        			Transport transport=s.getTransport("smtp");
-        			transport.connect("smtp.gmail.com","javaeteam3@gmail.com","weizhao888");//以smtp方式登录邮箱
-        			transport.sendMessage(message,message.getAllRecipients());//发送邮件,其中第二个参数是所有
-        			//已设好的收件人地址
-        			transport.close();
-
-        			
-        			}catch(MessagingException e){
-        			System.out.println(e.toString());
-        			}
-          }else{
-        	  
-        	  request.setAttribute("errorMsg", "fail!");  
-              request.getRequestDispatcher("SendEmailerror.jsp").forward(request,response); 
-        	  
-          }
-        	  
-           
-   
-          
-          
+                
       } catch (Exception e) {  
+    	  System.out.println("catch");
           e.printStackTrace();    
           request.setAttribute("errorMsg", "fail!");  
           request.getRequestDispatcher("uploaderror.jsp").forward(request,response);   
