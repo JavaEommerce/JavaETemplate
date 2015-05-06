@@ -141,13 +141,9 @@ function showtime(){
 				<div class="col-sm-8 col-sm-push-4">
 
 					<!-- Image -->
-					<figure class="margin-b-2">
-						<img class="img-responsive" src="https://thesharkinthering.files.wordpress.com/2014/12/you-know-nothing.jpg" alt="">
-						<figcaption class="margin-t-h">Caption here</figcaption>
-					</figure>
+					
 
-					<p class="lead">Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper.</p>
-					<p>Vivamus risus ex, varius et libero quis, placerat rhoncus mi. Aenean sit amet aliquam nibh. Aliquam tortor est, consequat vitae libero at, vehicula mattis tellus. In condimentum consequat tempor. Nullam at lorem semper, ultricies mi et, mollis turpis. Mauris ut leo ac magna dapibus luctus. Mauris mi nibh, ornare et ipsum vel, finibus molestie nulla. Nunc eleifend leo eget ipsum pellentesque, vel varius ipsum placerat. Mauris tincidunt sapien et efficitur commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec at pellentesque arcu. Pellentesque justo enim, porttitor a arcu non, mollis venenatis felis.</p>
+	<!--插入显示Jounal List -->			
 
 					<hr>
 
