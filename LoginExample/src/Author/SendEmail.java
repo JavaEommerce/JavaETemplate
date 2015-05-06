@@ -47,7 +47,7 @@ public class SendEmail extends HttpServlet {
 			String tto=request.getParameter("to");
 			String ttitle=request.getParameter("title");
 			String tcontent=request.getParameter("content");
-
+			
 			Properties props=new Properties();//也可用Properties props = System.getProperties(); 
 			props.put("mail.smtp.host","smtp.gmail.com");//存储发送邮件服务器的信息
 			props.put("mail.smtp.user", "javaeteam3@gmail.com");  
@@ -85,8 +85,6 @@ public class SendEmail extends HttpServlet {
 			transport.sendMessage(message,message.getAllRecipients());//发送邮件,其中第二个参数是所有
 			//已设好的收件人地址
 			transport.close();
-
-			
 
 
 
