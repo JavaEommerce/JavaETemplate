@@ -34,6 +34,22 @@
     <url-pattern>/Download</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>Author.SubmissionGuide</servlet-name>
+    <servlet-class>Author.SubmissionGuide</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Author.SubmissionGuide</servlet-name>
+    <url-pattern>/SubmissionGuide</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Author.ReUpload</servlet-name>
+    <servlet-class>Author.ReUpload</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Author.ReUpload</servlet-name>
+    <url-pattern>/ReUpload</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>loginSystem.LoginServlet</servlet-name>
     <servlet-class>loginSystem.LoginServlet</servlet-class>
   </servlet>
