@@ -96,7 +96,9 @@ function showtime(){
 							if(currentUser!=null){
 								name= currentUser.getUserName();
 								role= currentUser.getRole();
-								if(role == 3)
+								if(role == 1){
+									showName = "Author Page";
+								}else if(role == 3)
 								{
 									showName = "Editor";
 								}
@@ -112,11 +114,18 @@ function showtime(){
 					<ul class="nav navbar-nav">
 						<li><a href="login.jsp">Login and Signup</a></li>
 						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
+						
+						<%if(role==1){ %>
+						<li><a href="UploadNavigator.jsp"><%=showName %></a></li>
+						<%}else{%>
+						
 						<%if(role==3){ %>
 						<li><a href="EditorTest.jsp"><%=showName %>></a></li>
 						<%}else{ %>
 						<li><a><%=showName %>></a></li>
 						<%} %>
+						<%} %>
+						
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
