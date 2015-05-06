@@ -1,11 +1,15 @@
 package reviewer;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class SelectPendingArticle
@@ -33,13 +37,36 @@ public class SelectPendingArticle extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// TODO insert selections in ArticleReview table in db
+		HttpSession session = request.getSession();
+		Reviewer reviewer = (Reviewer)session.getAttribute("Reviewer");
 		String[] selectedTitles=request.getParameterValues("pendingArticles");
-		if (selectedTitles!=null) {
-			for (String title : selectedTitles) {
-				System.out.println(title);
+		
+		if (reviewer!=null) {
+			if (selectedTitles!=null) {
+				
+				
+				for (String title : selectedTitles) {
+					System.out.println(title);
+				}
+			}
+			else {
+				// didnt choose any article, back to 
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingArticles.jsp");
+		        PrintWriter out= response.getWriter();
+		        out.println("<font color=red>Didn't choose any article</font>");
+		        rd.include(request, response);
 			}
 		}
+		
+		// access denied
+		else {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+	        PrintWriter out= response.getWriter();
+	        out.println("<font color=red>please login</font>");
+	        rd.include(request, response);
+		}
+		
 		
 	}
 

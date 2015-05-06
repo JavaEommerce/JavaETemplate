@@ -70,8 +70,10 @@ public class AccessUnpublishedArticles extends HttpServlet {
 				boolean flag = true;
 				// create pendingArticle instances
 				try {
-					ps = con.prepareStatement("select articlename,abstract,uploaddate from Article where ispublish=? ");
-					ps.setInt(1, 0);
+					ps = con.prepareStatement("select Article.articlename,Article.abstract,Article.uploaddate "
+							+ "from Article left join ArticleReview on Article.articlename=ArticleReview.articlename "
+							+ "where ArticleReview.articlename is null and Article.ispublish=0");
+					//ps.setInt(1, 0);
 					rs=ps.executeQuery();
 					
 					
@@ -95,6 +97,7 @@ public class AccessUnpublishedArticles extends HttpServlet {
 					// instances saved in the session**************************/
 					session.setAttribute("ForceToChoose", oldestOne);
 					session.setAttribute("pendingArticles", pendingArticles);
+					
 					if (oldestOne!=null) {
 						System.out.println(oldestOne.toString());
 					}
@@ -103,7 +106,6 @@ public class AccessUnpublishedArticles extends HttpServlet {
 					for (PendingArticle pa : pendingArticles) {
 						System.out.println(pa.toString());
 					}
-					System.out.println(pendingArticles);
 					//return a page of pending articles
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingArticles.jsp");
 			        rd.include(request, response);

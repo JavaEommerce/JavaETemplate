@@ -22,8 +22,14 @@ function home(){
 		
 		PendingArticle oldArticle = (PendingArticle)session.getAttribute("ForceToChoose");
 		int forceToChooseNum = 1;
+		String taskTitle="";
+		String taskAb="";
 		if(oldArticle==null){
 			forceToChooseNum=0;
+		}
+		else{
+			taskTitle = oldArticle.getArticleName();
+			taskAb = oldArticle.getAbstractContent();
 		}
 		
 		Reviewer r = (Reviewer)session.getAttribute("Reviewer");
@@ -34,6 +40,12 @@ function home(){
 	<div>
 		<p><span><br />Available Pending Articles:
 		<p><form name="selectArticle" action="SelectPendingArticle" method="post">
+			
+					
+				<p>Your review task:<%=taskTitle %></p>
+				<p><%=taskAb %></p>
+				
+			
 			<%
 				List<PendingArticle> pendingArticles=null;
 				if(session.getAttribute("pendingArticles") instanceof List){

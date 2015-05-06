@@ -2,7 +2,7 @@ package reviewer;
 
 import java.io.Serializable;
 
-public class ChosenArticle implements Serializable{
+public class MChosenArticle implements Serializable{
 
 	
 	
@@ -15,7 +15,7 @@ public class ChosenArticle implements Serializable{
 	private String reviewerName;
 	
 	
-	public ChosenArticle(String articleName, String reviewStatus, String reviewerName){
+	public MChosenArticle(String articleName, String reviewStatus, String reviewerName){
 		this.articleName=articleName;
 		this.reviewStatus=reviewStatus;
 		this.reviewerName=reviewerName;
