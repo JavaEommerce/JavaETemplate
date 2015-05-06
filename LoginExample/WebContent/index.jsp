@@ -1,7 +1,9 @@
 
 <%@page import="loginSystem.User"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="java.sql.*" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+   
+    
 <link href="css.loginform.css" rel="stylesheet" type="text/css" /> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
@@ -154,11 +156,63 @@ function showtime(){
 					
 
 	<!--插入显示Jounal List -->			
+<table border=1>
+<%String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
+String sqlStr = "select * from Journal";
+Class.forName("com.mysql.jdbc.Driver");
+Connection con = DriverManager.getConnection( url );
+Statement st = con.createStatement();
+ResultSet rs = st.executeQuery( sqlStr );
+    
+	while(rs.next())
+            {%>
+       <tr><td><%=rs.getString("journalname")%></td><td><%=rs.getString("version")%></td><td><%=rs.getString("publishtime")%></td></tr>
+               
+             
+            <div class="well">
+						<div class="media">
+							<div class="media-left">
+								<img src="http://placehold.it/70x70" alt="">
+							</div>
+							<div class="media-body">
+								<h4 class="margin-t-0"><a href="#"><%=rs.getString("journalname")%></a></h4>
+								<p><a href="#"><%=rs.getString("publishtime")%></a></p>
+                                <p><a href="#">Version:<%=rs.getString("version")%></a></p>
+								<p>Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut</p>
+								<p>
+									<button class="btn btn-sm btn-default">
+										<span class="glyphicon glyphicon-thumbs-up"></span> Upvote
+									</button>
+									<button class="btn btn-sm btn-default">
+										<span class="glyphicon glyphicon-thumbs-down"></span> Downvote
+									</button>
+									<button class="btn btn-sm btn-default">
+										<span class="glyphicon glyphicon-comment"></span> Reply
+									</button>
+								</p>
+							</div>
+						</div>
+					</div>   
+               
+               
+           <% }%>
+           <%
+            rs.close();
+            st.close();
+            con.close();
+    
+
+ %>
+ </table>
+ 
+ <%  %>
 
 					<hr>
 
-					<!-- Comments -->
-					<h3>Comments</h3>
+					<!-- Journal List -->
+					<h3>Journal List</h3>
+                    
+                    
 					<div class="well">
 						<div class="media">
 							<div class="media-left">
@@ -182,6 +236,11 @@ function showtime(){
 							</div>
 						</div>
 					</div>
+                    
+                    
+                    
+                    
+                    
 
 					<div class="well">
 						<div class="media">
