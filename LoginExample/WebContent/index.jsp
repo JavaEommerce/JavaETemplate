@@ -134,9 +134,7 @@ function showtime(){
 
 					<p class="lead">Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper.</p>
 					<p>Vivamus risus ex, varius et libero quis, placerat rhoncus mi. Aenean sit amet aliquam nibh. Aliquam tortor est, consequat vitae libero at, vehicula mattis tellus. In condimentum consequat tempor. Nullam at lorem semper, ultricies mi et, mollis turpis. Mauris ut leo ac magna dapibus luctus. Mauris mi nibh, ornare et ipsum vel, finibus molestie nulla. Nunc eleifend leo eget ipsum pellentesque, vel varius ipsum placerat. Mauris tincidunt sapien et efficitur commodo. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec at pellentesque arcu. Pellentesque justo enim, porttitor a arcu non, mollis venenatis felis.</p>
-					<p>Praesent viverra pellentesque enim, vitae porta erat elementum quis. Maecenas posuere mattis velit rutrum iaculis. Duis non efficitur nibh. Aliquam laoreet risus a nulla auctor interdum. Ut cursus leo eu justo laoreet porttitor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Suspendisse vitae nisi dictum, vulputate odio sed, blandit tortor. Fusce eu turpis ut mi porta bibendum nec eu libero.</p>
-					<p>Praesent libero sem, feugiat dapibus mattis et, vehicula eu turpis. In vitae consequat leo, quis venenatis justo. Fusce auctor bibendum aliquet. Nullam eu mi lectus. Maecenas risus mauris, feugiat nec ullamcorper non, efficitur et elit. Sed porta tellus ut aliquam auctor. Vivamus id lectus sed tellus cursus sodales sit amet a velit.</p>
-					<p>Quisque eu aliquam leo. Sed feugiat nulla massa, a faucibus nulla sagittis eget. Donec ullamcorper tincidunt risus et pharetra. Vivamus tristique dui metus, vitae gravida nisl volutpat eu. Vivamus dapibus leo sit amet metus luctus dapibus. Vivamus sodales tempor elit, at pellentesque elit eleifend sit amet. Aliquam erat volutpat.</p>
+
 					<hr>
 
 					<!-- Comments -->
@@ -215,15 +213,14 @@ function showtime(){
 					<hr>
 
 					<!-- Comment form -->
-					<h3>Leave a comment</h3>
-					<p>Please keep in mind that comments are moderated and rel="nofollow" is in use. So, please do not use a spammy keyword or a domain as your name, or else it will be deleted. Thank you!</p>
+					<h3>Register for email notification</h3>
+					<p>please fill in your email address and choose a subject you like
+                    or a particular journal you like, if new journal or article are 				                     publish, we will notify you by email
+                    </p>
 
 					<div class="well">
 						<form>
-							<div class="form-group">
-								<label for="contactName">Name</label>
-								<input type="email" class="form-control" id="contactName" placeholder="Enter your name">
-							</div>
+                        
 							<div class="form-group">
 								<label for="contactEmail">Email</label>
 								<input type="email" class="form-control" id="contactEmail" placeholder="Enter email">
@@ -267,9 +264,11 @@ function showtime(){
 
 					<!-- list group -->
 					<div class="list-group margin-b-3">
-					    <a href="#" class="active list-group-item">Category 1</a>
-					    <a href="#" class="list-group-item">Category 2</a>
-					    <a href="#" class="list-group-item">Category 3</a>
+					    <a href="#" class="list-group-item">2015</a>
+					    <a href="#" class="list-group-item">2014</a>
+					    <a href="#" class="list-group-item">2013</a>
+                        <a href="#" class="list-group-item">2012</a>
+                        <a href="#" class="list-group-item">earlier</a>
 					</div>
 
 					<!-- Panel -->
