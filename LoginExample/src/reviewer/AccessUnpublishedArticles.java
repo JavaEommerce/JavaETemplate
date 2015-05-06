@@ -67,7 +67,6 @@ public class AccessUnpublishedArticles extends HttpServlet {
 				ArrayList<PendingArticle> pendingArticles = new ArrayList<>();
 				PendingArticle oldestOne = null;
 				Date oldDate = new Date(0);
-				System.out.println(oldDate);
 				boolean flag = true;
 				// create pendingArticle instances
 				try {
@@ -82,6 +81,7 @@ public class AccessUnpublishedArticles extends HttpServlet {
 						
 						if (flag) {
 							oldDate=date;
+							System.out.println(oldDate);
 							flag=false;
 						}
 						PendingArticle pa = new PendingArticle(rs.getString("articlename"), rs.getString("abstract"));

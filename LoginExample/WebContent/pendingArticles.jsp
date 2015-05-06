@@ -33,7 +33,7 @@ function home(){
 	<h1>Here are some unpublished articles, you may choose <%=availableSelection %> of them, <%=forceToChooseNum %> forced to choose</h1>
 	<div>
 		<p><span><br />Available Pending Articles:
-		<p><form name="selectArticle">
+		<p><form name="selectArticle" action="SelectPendingArticle" method="post">
 			<%
 				List<PendingArticle> pendingArticles=null;
 				if(session.getAttribute("pendingArticles") instanceof List){
@@ -45,12 +45,12 @@ function home(){
 						String result = pa.toString();
 						String title = pa.getArticleName();
 					%>
-					<p><%=result %><input type="checkbox" name=<%=title %>></p>
+					<p><%=result %><input type="checkbox" name="pendingArticles" value=<%=title%>></p>
 				<% } %>
-				
+				<p><input type="submit" name="submit" value="Select Articles">
 		</form>
 		</span>
-		<button type="button" onclick="home()">Home</button>
+		
 	</div>
 	
 	

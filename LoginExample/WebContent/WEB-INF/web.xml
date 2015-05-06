@@ -65,4 +65,12 @@
     <servlet-name>reviewer.AccessUnpublishedArticles</servlet-name>
     <url-pattern>/AccessUnpublishedArticles</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>reviewer.SelectPendingArticle</servlet-name>
+    <servlet-class>reviewer.SelectPendingArticle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reviewer.SelectPendingArticle</servlet-name>
+    <url-pattern>/SelectPendingArticle</url-pattern>
+  </servlet-mapping>
 </web-app>
