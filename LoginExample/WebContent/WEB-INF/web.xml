@@ -65,5 +65,4 @@
     <servlet-name>reviewer.AccessUnpublishedArticles</servlet-name>
     <url-pattern>/AccessUnpublishedArticles</url-pattern>
   </servlet-mapping>
-  
 </web-app>
