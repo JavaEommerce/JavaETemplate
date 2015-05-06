@@ -170,7 +170,6 @@ public class Signup extends HttpServlet {
 		PreparedStatement psForAuthor = null;
 		PreparedStatement psLookupID = null;
 		ResultSet rs =null;
-		ResultSet rsA =null;
 		int userID=0;
 		
         try {
