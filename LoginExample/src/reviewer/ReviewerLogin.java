@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import loginSystem.User;
 import dbconnectionlib.Dbconnection;
 
 /**
@@ -42,11 +41,11 @@ public class ReviewerLogin extends HttpServlet {
 		if (session.getAttribute("Reviewer")==null) {
 			
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
-            PrintWriter out= response.getWriter();
-            out.println("<font color=red>please login</font>");
-            out.println("<p>Don't have an account? Register here:<a href=\"http://localhost:8080/JavaEE/signup.jsp\">click me</a></p>");
-            rd.include(request, response);
-            
+	        PrintWriter out= response.getWriter();
+	        out.println("<font color=red>please login</font>");
+	        out.println("<p>Don't have an account? Register here:<a href=\"http://localhost:8080/JavaEE/signup.jsp\">click me</a></p>");
+	        rd.include(request, response);
+	        
 		} else {
 			
 			// connect db
@@ -72,6 +71,10 @@ public class ReviewerLogin extends HttpServlet {
 			/*create chosen article instances************************************************************/
 			Reviewer reviewer = (Reviewer)session.getAttribute("Reviewer");
 			
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
+	        PrintWriter out= response.getWriter();
+	        out.println("<font color=green>hello "+reviewer.getReviewerName()+"</font>");
+	        rd.include(request, response);
 		}
 		
 	}
@@ -80,7 +83,8 @@ public class ReviewerLogin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+			
+		
 	}
 
 	

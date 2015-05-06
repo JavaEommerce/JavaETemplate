@@ -190,31 +190,19 @@ public class Signup extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
-			try {
-				if (psLookupID!=null) {
+            try {
+                
+            	if (psLookupID!=null) {
 					psLookupID.close();
 				}
-				if (psForAuthor!=null) {
-					psForAuthor.close();
-				}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally{
-	            try {
-	                
-	            	if (psLookupID!=null) {
-						psLookupID.close();
-					}
-	            	if (psForAuthor!=null) {
-		            	psForAuthor.close();
-	               }
-	               
-	            } catch (SQLException e) {
-	            	System.out.println("sql exception");
-	            }
-	        }
+            	if (psForAuthor!=null) {
+	            	psForAuthor.close();
+               }
+               
+            } catch (SQLException e) {
+            	System.out.println("sql exception");
+            }
+	        
 			
 		}
         

@@ -10,6 +10,11 @@
 	<h1>Welcome to Reviewer Centre!</h1>
 	<p><a href="index.jsp">Home</a>
 	
-	<p><button onclick="AccessUnpublishedArticles">Choose unpublished articles</button>
+	<!-- <div><form action="AccessUnpublishedArticles">
+		<button type="button" onclick="AccessUnpublishedArticles">Choose unpublished articles</button>
+	</form></div> -->
+	
+	<p><a href="AccessUnpublishedArticles">Choose unpublished articles</a>
 </body>
 </html>
+
