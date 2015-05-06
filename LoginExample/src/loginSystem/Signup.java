@@ -170,22 +170,30 @@ public class Signup extends HttpServlet {
 		PreparedStatement psForAuthor = null;
 		PreparedStatement psLookupID = null;
 		ResultSet rs =null;
+		ResultSet rsA =null;
+		int userID=0;
 		
         try {
 			psLookupID = con.prepareStatement("select ID from User where username=? limit 1");
 			psLookupID.setString(1, userName);
+			
+	        
 	        rs =  psLookupID.executeQuery();
 	        if (rs.next()) {
-	        	int userID = rs.getInt("ID");
+	        	userID = rs.getInt("ID");
 	 	        System.out.println(userID);
+	 	        rs.close();
 			}
 	       
 	        psForAuthor = con.prepareStatement("insert into Author(authorname, email, submitstate,ID) values (?,?,?,?)");
 	        psForAuthor.setString(1, userName);
 	        psForAuthor.setString(2,"sample@sheffield.ac.uk");
 	        psForAuthor.setInt(3,1);
-	        psForAuthor.setInt(4,1);
+	        psForAuthor.setInt(4,userID);
+	        
 	        psForAuthor.execute();
+			System.out.println("Author created");
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

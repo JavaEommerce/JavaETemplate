@@ -81,8 +81,11 @@ public class AccessUnpublishedArticles extends HttpServlet {
 					}
 					pendingArticles.add(pa);
 				}
+				
+				// instances saved in the session**************************/
 				session.setAttribute("ForceToChoose", oldestOne);
 				session.setAttribute("pendingArticles", pendingArticles);
+				
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
