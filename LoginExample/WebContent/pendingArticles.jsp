@@ -60,6 +60,8 @@ function home(){
 					<p><%=result %><input type="checkbox" name="pendingArticles" value=<%=title%>></p>
 				<% } %>
 				<p><input type="submit" name="submit" value="Select Articles">
+				<input type="hidden" name="pendingSelection" value="valid"> 
+				
 		</form>
 		</span>
 		
