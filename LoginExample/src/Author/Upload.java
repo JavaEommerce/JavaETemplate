@@ -175,7 +175,7 @@ public class Upload extends HttpServlet {
                               		ps.executeUpdate();
                               		currentAuthor.setSubmitState(2);
                               		
-                              		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations) values (?,?,?,?,?,?,?,?)");
+                              		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations, currentreviewnum) values (?,?,?,?,?,?,?,?,?)");
                     				pi.setString(1, title);
                     	            pi.setString(2, keywords);
                     	            pi.setString(3, abst);
@@ -184,6 +184,7 @@ public class Upload extends HttpServlet {
                     				pi.setDate(6, currentDate);
                     				pi.setBoolean(7, false);
                     				pi.setString(8, otherAffiliation);
+                    				pi.setInt(9,0);
                     	            pi.execute();
                               		
                     	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
