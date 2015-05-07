@@ -1,4 +1,4 @@
-
+<%@page import="Author.Author" %>
 <%@page import="loginSystem.User"%>
 <%@ page language="java" import="java.sql.*" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -91,10 +91,16 @@ function showtime(){
 				<!-- Collect the nav links, forms, and other content for toggling -->
 				<%
 							User currentUser = (User)session.getAttribute("User"); 
+							Author currentAuthor = (Author)session.getAttribute("Author");
 							String name = "please login";
 							int role = 0;
+							int state = 5;
 							String showName = " ";
 							String welcomeInfo = "";
+							if(currentAuthor!=null){
+								state = currentAuthor.getSubmitState();
+								System.out.println(state+"*********");
+							}
 							if(currentUser!=null){
 								name= currentUser.getUserName();
 								role= currentUser.getRole();
@@ -118,7 +124,7 @@ function showtime(){
 						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
 						
 						<%if(role==1){ %>
-						<li><a href="UploadNavigator.jsp"><%=showName %></a></li>
+						<li><a href="UploadNavigator.jsp"><%=state %></a></li>
 						<li><a href="Upload.jsp"><%="Upload" %></a></li>
 						<%}else{%>
 						
