@@ -168,6 +168,7 @@ public class LoginServlet extends HttpServlet {
 	        if (rs.next()) {
 	        	Author a = new Author(rs.getString("authorname"), rs.getString("email"), rs.getInt("submitstate"), ID);
 	 	        System.out.println(a.toString());
+	 	        System.out.println(rs.getInt("submitstate"));
 	 	        HttpSession session = request.getSession();
 	 	        session.setAttribute("Author", a);
 			}
