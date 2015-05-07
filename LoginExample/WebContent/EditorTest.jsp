@@ -82,8 +82,8 @@ table.hovertable td {
 <div id="article_name">
 </div></form>
 <p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
-			<table class="hovertable">
-			<tr><th>Article name</th><th>Article Abstract</th><th>Detail link</th></tr>
+			<table class="hovertable" align = "center">
+			<tr><th>Article name</th><th>Article Abstract</th><th>Reviewed Times</th><th>Detail link</th></tr>
 			<%
 				List<EditorAllArticlesInfo> articles=null;
 				if(session.getAttribute("allArticles") instanceof List){
@@ -93,9 +93,10 @@ table.hovertable td {
 				<%
 					String title = pa.getArticleName();
 					String abstracT = pa.getArticleAbstract();
+					String reviewedTime = pa.getArticleProfileUrl();
 				%>
 				<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-					<td><%=title %></td><td><%=abstracT %>></td><td><a href="#">Detail</a></td>
+					<td><%=title %></td><td><%=abstracT %></td><td><%=reviewedTime %>></td><td><a href="#">Detail</a></td>
 					</tr>
 				<%}%>
 				<p><input type="submit" name="submit" value="Select Articles">
