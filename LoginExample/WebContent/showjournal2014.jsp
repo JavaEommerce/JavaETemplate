@@ -13,13 +13,19 @@
 </head>
 <body>
 <%String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
-String sqlStr = "select * from Journal where publishtime >'2013-12-30' and publishtime <'2014-12-30'";
+//String sqlStr = "select * from Journal where publishtime >'2013-12-30' and publishtime < '2014-12-30' ";
+String sqljname =  "select distinct journalname from Journal where publishtime >'2013-12-30' and publishtime < '2014-12-30' ";
+
 Class.forName("com.mysql.jdbc.Driver");
 Connection con = DriverManager.getConnection( url );
-Statement st = con.createStatement();
-ResultSet rs = st.executeQuery( sqlStr );
+
+Statement st1 = con.createStatement();
+ResultSet nameresult = st1.executeQuery( sqljname );
+Statement st2 = con.createStatement();
+
+
     
-	while(rs.next())
+	while(nameresult.next())
             {%>   
             <div class="well">
 						<div class="media">
@@ -27,20 +33,31 @@ ResultSet rs = st.executeQuery( sqlStr );
 								<img src="http://placehold.it/70x70" alt="">
 							</div>
 							<div class="media-body">
-								<h4 class="margin-t-0"><a href="#"><%=rs.getString("journalname")%></a></h4>
-								<p><a href="#"><%=rs.getString("publishtime")%></a></p>
-                                <p><a href="#">Version:<%=rs.getString("version")%></a></p>
-								<p><%=rs.getString("Info")%></p>
-								
+							
+								<h4 class="margin-t-0"><a href="#"><%=nameresult.getString("journalname")%></a></h4>
+								<%
+								String sqljvsersion =  "select distinct version , publishtime from Journal where publishtime >'2013-12-30' and publishtime < '2014-12-30' and journalname ="+"\""+nameresult.getString("journalname")+"\"";
+								//System.out.println(nameresult.getString("journalname"));
+								ResultSet versionresult = st2.executeQuery( sqljvsersion );
+								while(versionresult.next())
+								{%>	
+								 <p><a href="#">Version: <%=versionresult.getString("version")%> &nbsp;&nbsp;&nbsp;&nbsp; Publish time:<%=versionresult.getString("publishtime")%></a> </p>	
+											
+							<%} 
+								   versionresult.close();
+							%>
+							
 							</div>
 						</div>
 					</div>   
     
            <% }%>
            <%
-            rs.close();
-            st.close();
-            con.close();
+        
+           nameresult.close();
+           st1.close();
+           st2.close();
+           con.close();
  %>
 </body>
 </html>
