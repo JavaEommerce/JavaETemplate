@@ -165,54 +165,29 @@ function showtime(){
 			<!-- /.row -->
 
 			<div class="row">
+			
 				<div class="col-sm-8 col-sm-push-4">
 
-					<!-- Image -->
+			
 					
 <!-- Journal List -->
 	<!--插入显示Jounal List -->			
 
-<%String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
-String sqlStr = "select * from Journal";
-Class.forName("com.mysql.jdbc.Driver");
-Connection con = DriverManager.getConnection( url );
-Statement st = con.createStatement();
-ResultSet rs = st.executeQuery( sqlStr );
-    
-	while(rs.next())
-            {%>   
-            <div class="well">
-						<div class="media">
-							<div class="media-left">
-								<img src="http://placehold.it/70x70" alt="">
-							</div>
-							<div class="media-body">
-								<h4 class="margin-t-0"><a href="#"><%=rs.getString("journalname")%></a></h4>
-								<p><a href="#"><%=rs.getString("publishtime")%></a></p>
-                                <p><a href="#">Version:<%=rs.getString("version")%></a></p>
-								<p><%=rs.getString("Info")%></p>
-								<p>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-up"></span> Upvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-down"></span> Downvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-comment"></span> Reply
-									</button>
-								</p>
-							</div>
-						</div>
-					</div>   
-    
-           <% }%>
-           <%
-            rs.close();
-            st.close();
-            con.close();
- %>
-
+			<div>
+		 	<iframe src="" frameborder="0" width="100%" height="80%" id="iframe" name="i"></iframe>    
+			
+<!--			<iframe src="" id="iframe" name="i" frameBorder=0 align="left" scrolling=no width="100%" onLoad="iFrameHeight()" ></iframe> 
+<script type="text/javascript" language="javascript"> 
+function iFrameHeight() { 
+var ifm= document.getElementById("iframepage"); 
+var subWeb = document.frames ? document.frames["iframepage"].document : ifm.contentDocument; 
+if(ifm != null && subWeb != null) { 
+ifm.height = subWeb.body.scrollHeight; 
+} 
+} 
+</script> 
+	 -->		
+			</div>
 					<hr>
 
 <<<<<<< Updated upstream
@@ -344,6 +319,9 @@ ResultSet rs = st.executeQuery( sqlStr );
 					</nav>
 
 				</div>
+				
+				
+				
 				<div class="col-sm-4 col-sm-pull-8">
 					<!-- Search -->
 					<div class="well">
@@ -364,11 +342,14 @@ ResultSet rs = st.executeQuery( sqlStr );
 
 					<!-- list group -->
 					<div class="list-group margin-b-3">
-					    <a href="#" class="list-group-item">2015</a>
-					    <a href="#" class="list-group-item">2014</a>
-					    <a href="#" class="list-group-item">2013</a>
-                        <a href="#" class="list-group-item">2012</a>
-                        <a href="#" class="list-group-item">earlier</a>
+					
+					
+					
+					
+					    <a href="showjournal2015.jsp" class="list-group-item" id="2015" name="a1.html" target="i">2015</a>
+					    <a href="showjournal2014.jsp" class="list-group-item" id="2014" name="a2.html" target="i">2014</a>
+					    <a href="showjournal2013.jsp" class="list-group-item" id="2013" name="a3.html" target="i">2013</a>
+                        <a href="showjournalearlier.jsp" class="list-group-item" id="earlier" name="a4.html" target="i">earlier</a>
 					</div>
 
 					<!-- Panel -->
