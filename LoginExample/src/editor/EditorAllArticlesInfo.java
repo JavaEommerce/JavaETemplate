@@ -6,16 +6,16 @@ public class EditorAllArticlesInfo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String articleName;
 	private String abstractContent;
-	private String articleProfileUrl;
+	private String articleReviewed;
 	private String articlePublisher;
 	private String articleuploadDate;
 	private String articleIsPublished;
 	
-	public EditorAllArticlesInfo(String articleName,String abstractContent,String articleProfileUrl, String articleuploadDate,String articleIsPublished){
+	public EditorAllArticlesInfo(String articleName,String abstractContent,String articleReviewed, String articleuploadDate,String articleIsPublished){
 		this.articleIsPublished = articleIsPublished;
 		this.abstractContent= abstractContent;
 		this.articleName = articleName;
-		this.articleProfileUrl=articleProfileUrl;
+		this.articleReviewed=articleReviewed;
 		this.articleuploadDate = articleuploadDate;
 	}
 	
@@ -35,12 +35,12 @@ public class EditorAllArticlesInfo implements Serializable{
 		this.abstractContent = AbstractContent;
 	}
 	
-	public void setArticleProfileUrl(String url){
-		this.articleProfileUrl = url;
+	public void setArticleProfileUrl(String reviewd){
+		this.articleReviewed = reviewd;
 		
 	}
 	public String getArticleProfileUrl(){
-		return this.articleProfileUrl;
+		return this.articleReviewed;
 	}
 	public void setArticlePublisher(String publisher){
 		this.articlePublisher = publisher;

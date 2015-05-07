@@ -77,11 +77,12 @@ public class EditorAccessToAllArticle extends HttpServlet {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 	        	//al.add(rs.getString("articleName"));
-	        	EditorAllArticlesInfo artiCle2= new EditorAllArticlesInfo(rs.getString("articleName"), rs.getString("abstract"), null, null, null);
+				
+	        	EditorAllArticlesInfo artiCle2= new EditorAllArticlesInfo(rs.getString("articleName"), rs.getString("abstract"), rs.getString("currentreviewnum"), null, null);
 				//artiCle2.setArticleName(rs.getString("articleName"));
 	        	//artiCle2.setArticleAbstract(rs.getString("abstract"));
 	        	al.add(artiCle2);
-	        	System.out.println(rs.getString("articleName") + " + "+rs.getString("abstract"));
+	        	System.out.println(rs.getString("articleName") + " + "+rs.getString("abstract")+" + "+rs.getString("currentreviewnum"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

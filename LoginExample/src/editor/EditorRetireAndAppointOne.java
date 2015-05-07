@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,9 +15,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 
+import editor.userInfo;
 import dbconnectionlib.Dbconnection;
 
 /**
@@ -41,6 +44,7 @@ public class EditorRetireAndAppointOne extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		Dbconnection db=null;
+		ArrayList<userInfo> ui = new ArrayList<userInfo>();
 		String userList = null;
 		try {
 			db = new Dbconnection();
@@ -64,11 +68,15 @@ public class EditorRetireAndAppointOne extends HttpServlet {
 		ResultSet rs =null;
 		
 		try {
-			ps=con.prepareStatement("select username from User");
+			ps=con.prepareStatement("select * from User");
 			rs = ps.executeQuery();
-			if (rs.next()) {
+			while (rs.next()) {
 	        	//al.add(rs.getString("username"));
-	        	System.out.println(rs.getString("username"));
+				userInfo ui2= new userInfo(rs.getString("username"), rs.getString("role"));
+				//artiCle2.setArticleName(rs.getString("articleName"));
+	        	//artiCle2.setArticleAbstract(rs.getString("abstract"));
+	        	ui.add(ui2);
+	        	System.out.println(rs.getString("username")+" " + rs.getString("role"));
 	        	userList = rs.getString("username");
 			}
 		} catch (SQLException e) {
@@ -87,6 +95,8 @@ public class EditorRetireAndAppointOne extends HttpServlet {
 			
 		}
 		 String name=null;
+		 	HttpSession session = request.getSession();
+		  session.setAttribute("userInfo", ui);
 		  name = "Retire successed, There are all users that U can choose to Appoint. "+userList;
 		  response.setContentType("text/plain");  
 		  response.setCharacterEncoding("UTF-8"); 
