@@ -125,10 +125,67 @@ public class Upload extends HttpServlet {
                 	  
                 	  
 //************************************     
-  //email
+
                 if(!mainAuthorname.equals("")){
                 	System.out.println(mainAuthorname);
                       if(mainEmail.indexOf("@") != -1){
+                    	  
+                    	  
+//database ***************************************
+                      	  Dbconnection db=null;
+                      	  db = new Dbconnection();
+                      	  Connection con = db.getConnection();
+                      	  
+                      	PreparedStatement ps = null;
+                      	PreparedStatement pi = null;
+                      	PreparedStatement paa = null;
+                      	
+                      	java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+                      	  
+                      	  if(con!=null) {
+                      		  try{  
+                      		  System.out.println("enter database");
+            					HttpSession session = request.getSession();
+                      		Author currentAuthor = (Author)session.getAttribute("Author");
+                      		String aname = currentAuthor.getAuthorName();
+
+                      		ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
+                            ps.setInt(1,2);
+                      		ps.setString(2, aname);
+                      		ps.executeUpdate();
+                      		currentAuthor.setSubmitState(2);
+                      		
+                      		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations) values (?,?,?,?,?,?,?,?)");
+            				pi.setString(1, title);
+            	            pi.setString(2, keywords);
+            	            pi.setString(3, abst);
+            	            pi.setString(4, filePath);
+            				pi.setString(5, "computer");
+            				pi.setDate(6, currentDate);
+            				pi.setBoolean(7, false);
+            				pi.setString(8, otherAffiliation);
+            	            pi.execute();
+                      		
+            	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
+            	            paa.setString(1, mainAuthorname);
+            	            paa.setString(2, title);
+            	            paa.execute();
+                      		
+                      	    ps.close();
+                      	    pi.close();
+                      	    paa.close();
+                      	    con.close();
+                      	  	System.out.println(keywords);
+                      		  }catch(SQLException e){  
+                                    
+                                    System.out.println("SQLException;"+e.getMessage());   
+                                }  
+                      		  
+                      	  }
+//**********************************************************************************************                   			                	  
+//email                    	  
+                    	  
+                    	  
                     	  try{
                               //send email
                     		  String password="";
@@ -174,58 +231,7 @@ public class Upload extends HttpServlet {
 
                     			
                     			
-//database ***************************************
-                          	  Dbconnection db=null;
-                          	  db = new Dbconnection();
-                          	  Connection con = db.getConnection();
-                          	  
-                          	PreparedStatement ps = null;
-                          	PreparedStatement pi = null;
-                          	PreparedStatement paa = null;
-                          	
-                          	java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
-                          	  
-                          	  if(con!=null) {
-                          		  try{  
-                          		  System.out.println("enter database");
-                					HttpSession session = request.getSession();
-                          		Author currentAuthor = (Author)session.getAttribute("Author");
-                          		String aname = currentAuthor.getAuthorName();
 
-                          		ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
-                                ps.setInt(1,2);
-                          		ps.setString(2, aname);
-                          		ps.executeUpdate();
-                          		currentAuthor.setSubmitState(2);
-                          		
-                          		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations) values (?,?,?,?,?,?,?,?)");
-                				pi.setString(1, title);
-                	            pi.setString(2, keywords);
-                	            pi.setString(3, abst);
-                	            pi.setString(4, filePath);
-                				pi.setString(5, "computer");
-                				pi.setDate(6, currentDate);
-                				pi.setBoolean(7, false);
-                				pi.setString(8, otherAffiliation);
-                	            pi.execute();
-                          		
-                	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
-                	            paa.setString(1, mainAuthorname);
-                	            paa.setString(2, title);
-                	            paa.execute();
-                          		
-                          	    ps.close();
-                          	    pi.close();
-                          	    paa.close();
-                          	    con.close();
-                          	  	System.out.println(keywords);
-                          		  }catch(SQLException e){  
-                                        
-                                        System.out.println("SQLException;"+e.getMessage());   
-                                    }  
-                          		  
-                          	  }
-//**********************************************************************************************                   			
                     			
                     			
              			
