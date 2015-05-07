@@ -89,7 +89,9 @@ public class Upload extends HttpServlet {
         String title="";
         String keywords="";
 		
-		
+		HttpSession session = request.getSession();
+		Author currentAuthor = (Author)session.getAttribute("Author");
+	if(currentAuthor.getSubmitState()!=2){
 		
       //Servlet初始化时执行,如果上传文件目录不存在则自动创建    
         if(!new File(serverPath+uploadPath).isDirectory()){   
@@ -154,8 +156,7 @@ public class Upload extends HttpServlet {
                       		  try{  
                       	
                       		  System.out.println("enter database");
-            					HttpSession session = request.getSession();
-            					Author currentAuthor = (Author)session.getAttribute("Author");
+
             					String aname = currentAuthor.getAuthorName();
 
             					
@@ -424,7 +425,10 @@ public class Upload extends HttpServlet {
           request.getRequestDispatcher("uploaderror.jsp").forward(request,response);   
       }  
       
-      
+	}else{
+		PrintWriter out= response.getWriter();
+        out.println("<font color=green>FFFFFF,do not.</font>");
+	}
       
 	}
 //end do post
