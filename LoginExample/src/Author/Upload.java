@@ -122,7 +122,7 @@ public class Upload extends HttpServlet {
                 	  
                 	  
 
-                      filePath = serverPath+uploadPath+fileName;  
+                      filePath = serverPath + uploadPath + fileName;  
                 	  
                 	  
                 	  
