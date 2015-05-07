@@ -94,7 +94,7 @@ function showtime(){
 							Author currentAuthor = (Author)session.getAttribute("Author");
 							String name = "please login";
 							int role = 0;
-							int state = 5;
+							int state = 0;
 							String showName = " ";
 							String welcomeInfo = "";
 							if(currentAuthor!=null){
@@ -105,7 +105,7 @@ function showtime(){
 								name= currentUser.getUserName();
 								role= currentUser.getRole();
 								if(role == 1){
-									showName = "Author Page";
+									showName = "Upload";
 								}else if(role == 3)
 								{
 									showName = "Editor";
@@ -124,8 +124,17 @@ function showtime(){
 						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
 						
 						<%if(role==1){ %>
-						<li><a href="UploadNavigator.jsp"><%=state %></a></li>
-						<li><a href="Upload.jsp"><%="Upload" %></a></li>
+							<li><a href="UploadNavigator.jsp"><%="Guide" %></a></li>
+							<%if(state==1){ %>
+								<li><a href="Upload.jsp"><%=showName %></a></li>
+							<%} %>
+							<%if(state==2){ %>
+								<li><a href="Checking.jsp"><%=showName %></a></li>
+							<%} %>
+							<%if(state==3){ %>
+								<li><a href="ReUpLoad.jsp"><%=showName %></a></li>
+							<%} %>
+
 						<%}else{%>
 						
 						<%if(role==3){ %>
