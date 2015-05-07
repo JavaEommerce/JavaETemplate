@@ -17,7 +17,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+
 import Author.Author;
+import editor.EditorAllArticlesInfo;
 import dbconnectionlib.Dbconnection;
 /**
  * Servlet implementation class EditorAccessToAllArticle
@@ -25,6 +28,7 @@ import dbconnectionlib.Dbconnection;
 @WebServlet("/EditorAccessToAllArticle")
 public class EditorAccessToAllArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private EditorAllArticlesInfo artiCle;
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -46,7 +50,7 @@ public class EditorAccessToAllArticle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		ArrayList<String> al = new ArrayList();
+		ArrayList<EditorAllArticlesInfo> al = new ArrayList<EditorAllArticlesInfo>();
 		Dbconnection db=null;
 		try {
 			db = new Dbconnection();
@@ -69,11 +73,15 @@ public class EditorAccessToAllArticle extends HttpServlet {
 		PreparedStatement ps = null;
 		ResultSet rs =null;
 		try{
-			ps=con.prepareStatement("select articleName from Article");
+			ps=con.prepareStatement("select * from Article");
 			rs = ps.executeQuery();
-			if (rs.next()) {
-	        	al.add(rs.getString("articleName"));
-	        	System.out.println("_____"+al.iterator());
+			while (rs.next()) {
+	        	//al.add(rs.getString("articleName"));
+	        	EditorAllArticlesInfo artiCle2= new EditorAllArticlesInfo(rs.getString("articleName"), rs.getString("abstract"), null, null, null);
+				//artiCle2.setArticleName(rs.getString("articleName"));
+	        	//artiCle2.setArticleAbstract(rs.getString("abstract"));
+	        	al.add(artiCle2);
+	        	System.out.println(rs.getString("articleName") + " + "+rs.getString("abstract"));
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -90,17 +98,18 @@ public class EditorAccessToAllArticle extends HttpServlet {
             	System.out.println("sql exception");
             }
 	     }
-//			String name=null;
-//		  name = "Hello "+request.getParameter("user");
-//		  if(request.getParameter("user").toString().equals("")){
-//		   name="Hello User";
-//		  }
+
 		  try {
-			Thread.sleep(5);
-			response.setContentType("text/plain");  
-			  response.setCharacterEncoding("UTF-8"); 
-			  response.getWriter().write(al.get(0));
-			  System.out.println("+++++++"+al.iterator());
+			  Thread.sleep(5);
+			  HttpSession session = request.getSession();
+			  session.setAttribute("allArticles", al);
+			  response.setContentType("application/json");
+			  String json = new Gson().toJson(al);
+			  System.out.println(json);
+			  //response.setContentType("text/plain");  
+			  response.setCharacterEncoding("UTF-8");
+			  response.getWriter().write(json);
+			  
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
