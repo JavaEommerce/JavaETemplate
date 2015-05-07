@@ -131,6 +131,12 @@ public class Upload extends HttpServlet {
                       if(mainEmail.indexOf("@") != -1){
                     	  try{
                               //send email
+                    		  String password="";
+                    		  for(int w=0;w<=7;w++){
+                    			  password += (int)(Math.random()*10);
+                    		  }
+                    		  
+                    		  
                     			Properties props=new Properties();//也可用Properties props = System.getProperties(); 
                     			props.put("mail.smtp.host","smtp.gmail.com");//存储发送邮件服务器的信息
                     			props.put("mail.smtp.user", "javaeteam3@gmail.com");  
@@ -147,13 +153,15 @@ public class Upload extends HttpServlet {
 
                     			MimeMessage message=new MimeMessage(s);//由邮件会话新建一个消息对象
 
+                    			String content = "username: "+ mainEmail + "\n"+"password: "+password;
+                    			
                     			//设置邮件
                     			InternetAddress from=new InternetAddress("javaeteam3@gmail.com");
                     			message.setFrom(from);//设置发件人
                     			InternetAddress to=new InternetAddress(mainEmail);
                     			message.setRecipient(Message.RecipientType.TO,to);//设置收件人,并设置其接收类型为TO
-                    			message.setSubject(title);//设置主题
-                    			message.setText(abst);//设置信件内容
+                    			message.setSubject("Reviewer account");//设置主题
+                    			message.setText(content);//设置信件内容
                     			message.setSentDate(new Date());//设置发信时间
 
                     			//发送邮件
@@ -173,6 +181,7 @@ public class Upload extends HttpServlet {
                           	  
                           	PreparedStatement ps = null;
                           	PreparedStatement pi = null;
+                          	PreparedStatement paa = null;
                           	
                           	java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
                           	  
@@ -181,11 +190,11 @@ public class Upload extends HttpServlet {
                           		  System.out.println("enter database");
                 					HttpSession session = request.getSession();
                           		Author currentAuthor = (Author)session.getAttribute("Author");
-                          		String name = currentAuthor.getAuthorName();
+                          		String aname = currentAuthor.getAuthorName();
 
                           		ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
-                                	ps.setInt(1,2);
-                          		ps.setString(2, name);
+                                ps.setInt(1,2);
+                          		ps.setString(2, aname);
                           		ps.executeUpdate();
                           		currentAuthor.setSubmitState(2);
                           		
@@ -200,12 +209,16 @@ public class Upload extends HttpServlet {
                 				pi.setString(8, otherAffiliation);
                 	            pi.execute();
                           		
-                          		
+                	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
+                	            paa.setString(1, mainAuthorname);
+                	            paa.setString(2, title);
+                	            paa.execute();
                           		
                           	    ps.close();
                           	    pi.close();
+                          	    paa.close();
                           	    con.close();
-                          	  	System.out.println("\'"+name+"\'"+"**********");
+                          	  	System.out.println(keywords);
                           		  }catch(SQLException e){  
                                         
                                         System.out.println("SQLException;"+e.getMessage());   
@@ -215,11 +228,7 @@ public class Upload extends HttpServlet {
 //**********************************************************************************************                   			
                     			
                     			
-                    			
-                    			
-                    			
-                    			
-                    			
+             			
                     		}catch(MessagingException e){
                     			System.out.println("emailerror");
                     			System.out.println(e.toString());
@@ -238,14 +247,13 @@ public class Upload extends HttpServlet {
                 }
                 
 //************************************                      
-                      
+//upload***************************************                      
 
                       
                       File file = new File(filePath);  
-                      item.write(file);  
-                      System.out.println(fileName);  
+                      item.write(file);    
                       
-                      
+//******************************************                      
                       
                       
                    }else {  
@@ -282,8 +290,54 @@ public class Upload extends HttpServlet {
                   if("title".equals(name))  {           	  
                 	  title=item.getString("utf-8");
                   }
-                  if("keys".equals(name))  {           	  
-                	  keywords=item.getString("utf-8");
+                  if("key1".equals(name))  {           	  
+                	  String key =item.getString("utf-8");
+                	  keywords += key;
+                	  keywords += ";";
+                  }
+                  if("key2".equals(name))  {           	  
+                	  String key =item.getString("utf-8");
+                	  keywords += key;
+                	  keywords += ";";
+                  }
+                  if("key3".equals(name))  {           	  
+                	  String key =item.getString("utf-8");
+                	  keywords += key;
+                	  keywords += ";";
+                  }
+                  if("key4".equals(name))  {           	  
+                	  String key =item.getString("utf-8");
+                	  keywords += key;
+                	  keywords += ";";
+                  }
+                  if("key5".equals(name))  {           	  
+                	  String key =item.getString("utf-8");
+                	  keywords += key;
+                	  keywords += ";";
+                  }
+                  if("key6".equals(name))  {           	  
+                	  String key =item.getString("utf-8");
+                	  keywords += key;
+                	  keywords += ";";
+                  }
+                  if("key7".equals(name))  {           	  
+                	  String key =item.getString("utf-8");
+                	  keywords += key;
+                	  keywords += ";";
+                  }
+                  if("key8".equals(name))  {           	  
+                	  String key =item.getString("utf-8");
+                	  keywords += key;
+                	  keywords += ";";
+                  }
+                  if("key9".equals(name))  {           	  
+                	  String key =item.getString("utf-8");
+                	  keywords += key;
+                	  keywords += ";";
+                  }
+                  if("key10".equals(name))  {           	  
+                	  String key =item.getString("utf-8");
+                	  keywords += key;
                   }
                   
                   value = new String(value.getBytes("ISO-8859-1"),"UTF-8");  

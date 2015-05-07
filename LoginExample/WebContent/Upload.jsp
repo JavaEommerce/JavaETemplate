@@ -18,11 +18,11 @@
                 
         title:<input name="title" type="text" id="title"><br /> 
         abstract:<textarea name="abstract" cols="250" rows="5" id="abstract"></textarea><br />
-        keywords:<input name="keys" type="text" id="key"><input name="key" type="text" id="key">
-        <input name="key" type="text" id="key"><input name="key" type="text" id="key">
-        <input name="key" type="text" id="key"><input name="key" type="text" id="key">
-        <input name="key" type="text" id="key"><input name="key" type="text" id="key">
-        <input name="key" type="text" id="key"><input name="key" type="text" id="key"><br />             
+        keywords:<input name="key1" type="text" id="key1"><input name="key2" type="text" id="key2">
+        <input name="key3" type="text" id="key3"><input name="key4" type="text" id="key4">
+        <input name="key5" type="text" id="key5"><input name="key6" type="text" id="key6">
+        <input name="key7" type="text" id="key7"><input name="key8" type="text" id="key8">
+        <input name="key9" type="text" id="key9"><input name="key10" type="text" id="key10"><br />             
                    
         <input type="file" value="upload"  name="input_value5">
         <input type="submit"" value="submit" id="save5">  
