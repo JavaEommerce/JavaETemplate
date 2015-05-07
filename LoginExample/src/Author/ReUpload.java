@@ -158,7 +158,8 @@ public class ReUpload extends HttpServlet {
                       item.write(file);   
                       System.out.println(filePath); 
                       
-                      
+                      PrintWriter out= response.getWriter();
+			          out.println("<font color=green>ReUploaded!.</font>");
                       
                       
                    }else {  
