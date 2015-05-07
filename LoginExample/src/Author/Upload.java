@@ -201,11 +201,7 @@ public class Upload extends HttpServlet {
             			            
                               	  File file = new File(filePath);  
                                   item.write(file);    
-            			            
-            			            
-            			            
-            			            
-            			            
+        			            
             			            
             			            break;
             					}
