@@ -94,13 +94,14 @@ public class EditorRetireAndAppointOne extends HttpServlet {
 			}
 			
 		}
-		 String name=null;
-		 	HttpSession session = request.getSession();
+		  HttpSession session = request.getSession();
 		  session.setAttribute("userInfo", ui);
-		  name = "Retire successed, There are all users that U can choose to Appoint. "+userList;
-		  response.setContentType("text/plain");  
-		  response.setCharacterEncoding("UTF-8"); 
-		  response.getWriter().write(name); 
+		  String LOGIN_PAGE = "EditorTest.jsp";
+		  response.sendRedirect(LOGIN_PAGE);
+//		  name = "Retire successed, There are all users that U can choose to Appoint. "+userList;
+//		  response.setContentType("text/plain");  
+//		  response.setCharacterEncoding("UTF-8"); 
+//		  response.getWriter().write(name); 
 		
 	}
 

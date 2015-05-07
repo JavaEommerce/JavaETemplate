@@ -69,11 +69,12 @@ public class EditorAccessToAllArticle extends HttpServlet {
 		else{
 			System.out.println("successful");
 		}
-		
+		System.out.println("bcd");
 		PreparedStatement ps = null;
 		ResultSet rs =null;
 		try{
 			ps=con.prepareStatement("select * from Article");
+			System.out.println("abc");
 			rs = ps.executeQuery();
 			while (rs.next()) {
 	        	//al.add(rs.getString("articleName"));
@@ -83,7 +84,10 @@ public class EditorAccessToAllArticle extends HttpServlet {
 	        	//artiCle2.setArticleAbstract(rs.getString("abstract"));
 	        	al.add(artiCle2);
 	        	System.out.println(rs.getString("articleName") + " + "+rs.getString("abstract")+" + "+rs.getString("currentreviewnum"));
+	        	
 			}
+			HttpSession session = request.getSession();
+			session.setAttribute("allArticles", al);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -105,11 +109,14 @@ public class EditorAccessToAllArticle extends HttpServlet {
 			  HttpSession session = request.getSession();
 			  session.setAttribute("allArticles", al);
 			  response.setContentType("application/json");
-			  String json = new Gson().toJson(al);
-			  System.out.println(json);
-			  //response.setContentType("text/plain");  
-			  response.setCharacterEncoding("UTF-8");
-			  response.getWriter().write(json);
+			  String LOGIN_PAGE = "EditorTest.jsp";
+			// other code here ...
+			  response.sendRedirect(LOGIN_PAGE);
+//			  String json = new Gson().toJson(al);
+//			  System.out.println(json);
+//			  //response.setContentType("text/plain");  
+//			  response.setCharacterEncoding("UTF-8");
+//			  response.getWriter().write(json);
 			  
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block

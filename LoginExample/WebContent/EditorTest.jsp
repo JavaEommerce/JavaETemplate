@@ -1,3 +1,4 @@
+<%@page import="editor.EditorCharacter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
@@ -8,7 +9,7 @@
 <%@ page import="java.util.Map"%>
 <%@ page import="editor.EditorAllArticlesInfo" %>
 <%@ page import="loginSystem.User"%>
-
+<%@ page import="editor.userInfo" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <style type="text/css">
 table.hovertable {
@@ -67,8 +68,10 @@ table.hovertable td {
 <%	
 	User currentUser = (User)session.getAttribute("User");  
 	String name = currentUser.getUserName();
+	//EditorCharacter e = (EditorCharacter)session.getAttribute("Editor");
+	//String name = e.getEditorName();
 %>
-<h1>Hello Editor <%= name %></h1>
+<h1>Hello Editor <%=name %></h1>
 <li><a href="index.jsp">Back to Homepage</a></li><br>
 <form id="form1">
 <input type="button" id="submit" value="Editor Retire"/>
@@ -81,51 +84,58 @@ table.hovertable td {
 <input type = "button" id="submit_2" value="show articles"/>
 <div id="article_name">
 </div></form>
-<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
+	<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
 			<table class="hovertable" align = "center">
 			<tr><th>Article name</th><th>Article Abstract</th><th>Reviewed Times</th><th>Detail link</th></tr>
 			<%
-				List<EditorAllArticlesInfo> articles=null;
+			System.out.println("asdasdasdasdasdasds");
+
+				List<EditorAllArticlesInfo> articles=new ArrayList<EditorAllArticlesInfo>();
 				if(session.getAttribute("allArticles") instanceof List){
 					articles = (ArrayList<EditorAllArticlesInfo>)session.getAttribute("allArticles");
 				}
-				for(EditorAllArticlesInfo pa:articles){%>
-				<%
+				System.out.println(articles.toString());
+				for(EditorAllArticlesInfo pa : articles){
+				
 					String title = pa.getArticleName();
 					String abstracT = pa.getArticleAbstract();
 					String reviewedTime = pa.getArticleProfileUrl();
+					System.out.println(title+abstracT+reviewedTime);
 				%>
 				<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
 					<td><%=title %></td><td><%=abstracT %></td><td><%=reviewedTime %>></td><td><a href="#">Detail</a></td>
 					</tr>
 				<%}%>
-				<p><input type="submit" name="submit" value="Select Articles">
-				<input type="hidden" name="pendingSelection" value="valid"> 
-</table>				
-</form>
-<%-- <p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
-			<table class="hovertable">
-			<tr><th>Article name</th><th>Article Abstract</th><th>Detail link</th></tr>
+				<p><input type="submit" name="submit" value="Show articles"></p>
+				<!-- <input type="hidden" name="pendingSelection" value="valid">  -->
+		</table>				
+	</form> 
+	
+	<p><form name="selectUser" action="EditorRetireAndAppointOne" method="get">
+			<table class="hovertable" align = "center">
+			<tr><th>User name</th><th>User role</th><th>Detail link</th></tr>
 			<%
-				List<EditorAllArticlesInfo> articles=null;
-				if(session.getAttribute("allArticles") instanceof List){
-					articles = (ArrayList<EditorAllArticlesInfo>)session.getAttribute("allArticles");
+				List<userInfo> uI=new ArrayList<userInfo>();
+				if(session.getAttribute("userInfo") instanceof List){
+					uI = (ArrayList<userInfo>)session.getAttribute("userInfo");
 				}
-				for(EditorAllArticlesInfo pa:articles){%>
-					<%
-						String title = pa.getArticleName();
-						String abstracT = pa.getArticleAbstract();
-					%>
-					<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-					<td><%=title %></td><td><%=abstracT %>></td><td><a href="#">Detail</a></td>
+				for (userInfo u : uI) {
+					String username = u.getUserName();
+					String userRole = u.getUserRole();
+					String role = null;
+					if(userRole.equals("1")){role = "user";}
+					else if(userRole.equals("2")){role = "author";}
+					else role = "editor";
+				%>
+				<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+					<td><%= username %></td><td><%= role%></td><td></td><td><a href="#">Detail</a></td>
 					</tr>
-					<p><%=title +"  "+ abstracT %><a href="http://www.w3schools.com">Detail</a>
-					<input type="checkbox" name="pendingArticles" value=<%=title%>></p>
-				<% } %>
-				<p><input type="submit" name="submit" value="Select Articles">
-				<input type="hidden" name="pendingSelection" value="valid"> 
-</table>				
-</form> --%>
+				<%}%>
+				<p><input type="submit" name="submit" value="Show all users"></p>
+				
+			</table>				
+	</form>
+
 <h3>show all journals</h3>
 
  <%! private int count = 0; %>
