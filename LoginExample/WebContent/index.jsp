@@ -121,12 +121,14 @@ function showtime(){
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<li><a href="login.jsp">Login and Signup</a></li>
+						<li><a href="UploadNavigator.jsp"><%="Guide" %></a></li>
+						<li><a href="Upload.jsp"><%="Upload" %></a></li>
 						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
 						
 						<%if(role==1){ %>
-							<li><a href="UploadNavigator.jsp"><%="Guide" %></a></li>
+							
 							<%if(state==1){ %>
-								<li><a href="Upload.jsp"><%=showName %></a></li>
+								
 							<%} %>
 							<%if(state==2){ %>
 								<li><a href="Checking.jsp"><%=showName %></a></li>
