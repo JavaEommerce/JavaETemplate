@@ -3,6 +3,7 @@ package Author;
 
 import java.io.File;  
 import java.io.IOException;  
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;  
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;  
@@ -130,15 +132,22 @@ public class Upload extends HttpServlet {
                 	System.out.println(mainAuthorname);
                       if(mainEmail.indexOf("@") != -1){
                     	  
-                    	  
+                    	  String password="";
+                		  for(int w=0;w<=7;w++){
+                			  password += (int)(Math.random()*10);
+                		  }
 //database ***************************************
-                      	  Dbconnection db=null;
+                    	  Dbconnection db=null;
                       	  db = new Dbconnection();
                       	  Connection con = db.getConnection();
                       	  
-                      	PreparedStatement ps = null;
-                      	PreparedStatement pi = null;
-                      	PreparedStatement paa = null;
+                      	PreparedStatement pch = null;		//check whether reviewer exist
+                      	PreparedStatement pnu = null;		//new user
+                      	PreparedStatement pgi = null;		//get new user id
+                      	PreparedStatement pnr = null;		//new reviewer
+                      	PreparedStatement ps = null;		//update author state
+                      	PreparedStatement pi = null;		//new article
+                      	PreparedStatement paa = null;		//new AuthorArticle
                       	
                       	java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
                       	  
@@ -146,9 +155,12 @@ public class Upload extends HttpServlet {
                       		  try{  
                       		  System.out.println("enter database");
             					HttpSession session = request.getSession();
-                      		Author currentAuthor = (Author)session.getAttribute("Author");
-                      		String aname = currentAuthor.getAuthorName();
+            					Author currentAuthor = (Author)session.getAttribute("Author");
+            					String aname = currentAuthor.getAuthorName();
 
+            					insertUser(response, request, mainEmail, password,con);
+            					insertReviewer(response, request, mainEmail, password, con);
+            					
                       		ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
                             ps.setInt(1,2);
                       		ps.setString(2, aname);
@@ -188,10 +200,7 @@ public class Upload extends HttpServlet {
                     	  
                     	  try{
                               //send email
-                    		  String password="";
-                    		  for(int w=0;w<=7;w++){
-                    			  password += (int)(Math.random()*10);
-                    		  }
+                    		  
                     		  
                     		  
                     			Properties props=new Properties();//Ò²¿ÉÓÃProperties props = System.getProperties(); 
@@ -367,5 +376,92 @@ public class Upload extends HttpServlet {
       
       
 	}
+//end do post
+	
+	
+	private void insertUser(HttpServletResponse response,HttpServletRequest request,String userName,String password,Connection con) throws ServletException, IOException,SQLException {
+		
+		
+		PreparedStatement ps = null;
+		
+        try {
+            
+				ps = con.prepareStatement("insert into User(ID, username, password,role) values (?,?,?,?)");
+				ps.setString(1, null);
+	            ps.setString(2, userName);
+	            ps.setString(3, password);
+	            ps.setInt(4, 2);
+	            ps.execute();
+	           
+			
+          
+          
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("DB Connection problem.");
+        }finally{
+            try {
+            	if (ps!=null) {
+	            	ps.close();
+               }
+               
+            } catch (SQLException e) {
+            	System.out.println("sql exception");
+            }
+        }
+	}
+	
+	private void insertReviewer(HttpServletResponse response,HttpServletRequest request,String userName,String password,Connection con) throws ServletException,IOException {
+		
+		PreparedStatement psForReviewer = null;
+		PreparedStatement psLookupID = null;
+		ResultSet rs =null;
+		int userID=0;
+		
+        try {
+			psLookupID = con.prepareStatement("select ID from User where username=? and role=? limit 1");
+			psLookupID.setString(1, userName);
+			psLookupID.setInt(2, 2);
+			
+	        
+	        rs =  psLookupID.executeQuery();
+	        if (rs.next()) {
+	        	userID = rs.getInt("ID");
+	 	        System.out.println(userID);
+	 	        rs.close();
+			}
+	       
+	        psForReviewer = con.prepareStatement("insert into Reviewer(reviewername, selectednum,ID) values (?,?,?)");
+	        psForReviewer.setString(1, userName);
+	        psForReviewer.setInt(2,0);
+	        psForReviewer.setInt(3,userID);
+	        
+	        psForReviewer.execute();
+			System.out.println("Author created");
 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+            try {
+                
+            	if (psLookupID!=null) {
+					psLookupID.close();
+				}
+            	if (psForReviewer!=null) {
+            		psForReviewer.close();
+               }
+               
+            } catch (SQLException e) {
+            	System.out.println("sql exception");
+            }
+	        
+			
+		}
+        
+	}
+	
+	
+	
+	
 }
