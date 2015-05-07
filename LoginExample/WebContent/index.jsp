@@ -160,9 +160,9 @@ function showtime(){
 
 					<!-- Image -->
 					
-
+<!-- Journal List -->
 	<!--插入显示Jounal List -->			
-<table border=1>
+
 <%String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
 String sqlStr = "select * from Journal";
 Class.forName("com.mysql.jdbc.Driver");
@@ -171,10 +171,7 @@ Statement st = con.createStatement();
 ResultSet rs = st.executeQuery( sqlStr );
     
 	while(rs.next())
-            {%>
-       <tr><td><%=rs.getString("journalname")%></td><td><%=rs.getString("version")%></td><td><%=rs.getString("publishtime")%></td></tr>
-               
-             
+            {%>   
             <div class="well">
 						<div class="media">
 							<div class="media-left">
@@ -199,105 +196,17 @@ ResultSet rs = st.executeQuery( sqlStr );
 							</div>
 						</div>
 					</div>   
-               
-               
+    
            <% }%>
            <%
             rs.close();
             st.close();
             con.close();
-    
-
  %>
- </table>
- 
- <%  %>
 
 					<hr>
 
-					<!-- Journal List -->
-					<h3>Journal List</h3>
-                    
-                    
-					<div class="well">
-						<div class="media">
-							<div class="media-left">
-								<img src="http://placehold.it/70x70" alt="">
-							</div>
-							<div class="media-body">
-								<h4 class="margin-t-0"><a href="#">Mayahuel Rodriguez</a></h4>
-								<p><a href="#">12 January 2015 11:13 pm</a></p>
-								<p>Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut</p>
-								<p>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-up"></span> Upvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-down"></span> Downvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-comment"></span> Reply
-									</button>
-								</p>
-							</div>
-						</div>
-					</div>
-                    
-                    
-                    
-                    
-                    
-
-					<div class="well">
-						<div class="media">
-							<div class="media-left">
-								<img src="http://placehold.it/70x70" alt="">
-							</div>
-							<div class="media-body">
-								<h4 class="margin-t-0"><a href="#">Mayahuel Rodriguez</a></h4>
-								<p><a href="#">12 January 2015 11:13 pm</a></p>
-								<p>Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut</p>
-								<p>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-up"></span> Upvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-down"></span> Downvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-comment"></span> Reply
-									</button>
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="well">
-						<div class="media">
-							<div class="media-left">
-								<img src="http://placehold.it/70x70" alt="">
-							</div>
-							<div class="media-body">
-								<h4 class="margin-t-0"><a href="#">Mayahuel Rodriguez</a></h4>
-								<p><a href="#">12 January 2015 11:13 pm</a></p>
-								<p>Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut</p>
-								<p>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-up"></span> Upvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-down"></span> Downvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-comment"></span> Reply
-									</button>
-								</p>
-							</div>
-						</div>
-					</div>
-					<hr>
-
-					<!-- Comment form -->
+					<!-- Register for email notification -->
 					<h3>Register for email notification</h3>
 					<p>please fill in your email address and choose a subject you like
                     or a particular journal you like, if new journal or article are 				                     publish, we will notify you by email
