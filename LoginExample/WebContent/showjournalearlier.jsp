@@ -13,7 +13,7 @@
 </head>
 <body>
 <%String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
-String sqljname =  "select distinct journalname from Journal where publishtime <'2013-1-1'";
+String sqljname =  "select distinct journalname, Info from Journal where publishtime <'2013-1-1'";
 
 Class.forName("com.mysql.jdbc.Driver");
 Connection con = DriverManager.getConnection( url );
@@ -34,6 +34,7 @@ Statement st2 = con.createStatement();
 							<div class="media-body">
 							
 								<h4 class="margin-t-0"><a href="#"><%=nameresult.getString("journalname")%></a></h4>
+								<p><%=nameresult.getString("Info")%></p>
 								<%
 								String sqljvsersion =  "select distinct version , publishtime from Journal where publishtime <'2013-1-1'and journalname ="+"\""+nameresult.getString("journalname")+"\"";
 								//System.out.println(nameresult.getString("journalname"));
