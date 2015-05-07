@@ -43,12 +43,11 @@ public class ReviewerLogin extends HttpServlet {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 	        PrintWriter out= response.getWriter();
 	        out.println("<font color=red>please login</font>");
-	        out.println("<p>Don't have an account? Register here:<a href=\"http://localhost:8080/JavaEE/signup.jsp\">click me</a></p>");
 	        rd.include(request, response);
 	        
 		} else {
 			
-			// connect db
+			// connect db------------------------------------------
 			Dbconnection db=null;
 			try {
 				db = new Dbconnection();
@@ -66,7 +65,7 @@ public class ReviewerLogin extends HttpServlet {
 			}
 			else{
 				System.out.println("successfullllllll");
-			}
+			}// end of connecting db--------------------------------
 			
 			/*create chosen article instances************************************************************/
 			Reviewer reviewer = (Reviewer)session.getAttribute("Reviewer");
@@ -84,9 +83,165 @@ public class ReviewerLogin extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
+		HttpSession session = request.getSession();
+		Reviewer reviewer = (Reviewer)session.getAttribute("Reviewer");
+		if (reviewer!=null) {
+			// connect db------------------------------------------
+			Dbconnection db=null;
+			try {
+				db = new Dbconnection();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Connection con = db.getConnection();
+			
+			if (con==null) {
+				System.out.println("it's closed!");
+			}
+			else{
+				System.out.println("db connection successfullllllll");
+			}// end of connecting db--------------------------------
+			
+			
+			
+			// recerive posting info. from PendingArticles.jsp*************************************************/
+			System.out.println("updating chosen articles----------------------------");
+			String formName = request.getParameter("pendingSelection");
+			System.out.println("status: "+formName);
+			if (formName.equalsIgnoreCase("valid")) {
+				// update selected articles
+				String[] selectedTitles=request.getParameterValues("pendingArticles");
+				if (selectedTitles!=null) {
+					if (selectedTitles.length<=3-reviewer.getSelectedNum()) {
+						for (String title : selectedTitles) {
+							try {
+								boolean a = updateChosenArticle(request, response, title, reviewer, con);
+								reviewer.addSelectedNum1();
+								boolean b = updateReviewer(request, response, reviewer, con);
+								if (a&&b) {
+									System.out.println("selected article: "+title);
+								}
+								// redirect to centre
+								RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
+						        PrintWriter out= response.getWriter();
+						        out.println("<font color=red>selection successful</font>");
+						        rd.include(request, response);
+								
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.toString();
+							}
+						}
+						session.setAttribute("Reviewer", reviewer);
+					}
+					else {
+						System.out.println("You have chosen enough articles");
+						// didnt choose any article, back to 
+						RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
+				        PrintWriter out= response.getWriter();
+				        out.println("<font color=red>You have chosen enough articles</font>");
+				        rd.include(request, response);
+					}
+					
+				}
+				else {
+					System.out.println("Didn't choose any article");
+					// didnt choose any article, back to 
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingArticles.jsp");
+			        PrintWriter out= response.getWriter();
+			        out.println("<font color=red>Didn't choose any article</font>");
+			        rd.include(request, response);
+				}
+			}
+			else {
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
+		        PrintWriter out= response.getWriter();
+		        out.println("<font color=red>didnt operate</font>");
+		        rd.include(request, response);
+			}
+			
+		}
+		
+		
+		else {
+			// redirect to login page
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
+	        PrintWriter out= response.getWriter();
+	        out.println("<font color=red>please login</font>");
+	        rd.include(request, response);
+		}
 		
 	}
 
 	
+	private boolean updateChosenArticle(HttpServletRequest request, HttpServletResponse response,String title,Reviewer reviewer,Connection con) throws ServletException, SQLException, IOException {
+			
+			boolean result = false;
+			PreparedStatement psLookup = null;
+			PreparedStatement ps = null;
+			ResultSet rs = null;
+			
+	        try {
+	        	psLookup = con.prepareStatement("select articlename,reviewername from ArticleReview where articlename=? ");
+	        	psLookup.setString(1, title);
+	        	rs = psLookup.executeQuery();
+	        	int count = 0;
+	        	boolean self = true;
+	        	String name="";
+	            while (rs.next()) {
+					count++;
+					name = rs.getString("reviewername");
+					if (name.equals(reviewer.getReviewerName())) {
+						self=false;
+					}
+				}
+	            if (self&&(count<=5)) {
+	            	ps = con.prepareStatement("insert into ArticleReview(reviewername,articlename,reviewstatus) values (?,?,?) ");
+		        	ps.setString(1, reviewer.getReviewerName());
+		        	ps.setString(2, title);
+		        	ps.setString(3, "selected");
+		        	ps.execute();
+		        	result=true;
+				}
+	            else {
+	            	System.out.println(name+" is already taken by someone, please change another one");
+					// didnt choose any article, back to 
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingArticles.jsp");
+			        PrintWriter out= response.getWriter();
+			        out.println("<font color=red>"+name+" is already taken by someone, please change another one</font>");
+			        rd.include(request, response);
+				}
+	        	
+	          
+	          return result;
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            throw new ServletException("DB Connection problem.");
+	        }
+	}
+		
+	private boolean updateReviewer(HttpServletRequest request, HttpServletResponse response,Reviewer reviewer,Connection con) throws ServletException, SQLException, IOException {
+		
+		boolean result = false;
+		PreparedStatement ps = null;
+		
+        try {
+        	
+        	ps = con.prepareStatement("update Reviewer set selectednum=? where reviewername=? ");
+        	ps.setInt(1, reviewer.getSelectedNum());
+        	ps.setString(2, reviewer.getReviewerName());
+        	ps.execute();
+        	result=true;
+			
+          return result;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("DB Connection problem.");
+        }
+	}
 	
 }

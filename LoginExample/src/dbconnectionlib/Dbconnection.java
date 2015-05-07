@@ -10,7 +10,7 @@ public class Dbconnection {
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
-			System.out.println("Driver found");
+			//System.out.println("Driver found");
 			
 		} catch (ClassNotFoundException e) {
 			System.out.println("Driver not found" + e);

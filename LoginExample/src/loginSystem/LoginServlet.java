@@ -108,11 +108,13 @@ public class LoginServlet extends HttpServlet {
 					switch (rs.getInt("role")) {
 					case 1:
 						// create an Author
+						createReviewer(request, response, id, con);
 						createAuthor(request, response, id, con);
 						break;
 					
 					case 2:
 						// create an Reviewer
+						createAuthor(request, response, id, con);
 						createReviewer(request, response, id, con);
 						break;
 						

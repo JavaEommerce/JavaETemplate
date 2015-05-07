@@ -63,34 +63,40 @@ public class AccessUnpublishedArticles extends HttpServlet {
 					System.out.println("successfullllllll");
 				}
 				PreparedStatement ps = null;
+				PreparedStatement psLookUpForOldest=null;
+				ResultSet old = null;
 				ResultSet rs =null;
 				ArrayList<PendingArticle> pendingArticles = new ArrayList<>();
 				PendingArticle oldestOne = null;
-				Date oldDate = new Date(0);
+				Date oldDate = null;
 				boolean flag = true;
 				// create pendingArticle instances
 				try {
-					ps = con.prepareStatement("select Article.articlename,Article.abstract,Article.uploaddate "
+					ps = con.prepareStatement("select Article.articlename,Article.abstract,"
+							+ "Article.uploaddate from Article where Article.ispublish=0");
+					rs=ps.executeQuery();
+					
+					psLookUpForOldest = con.prepareStatement("select Article.articlename,Article.abstract,Article.uploaddate "
 							+ "from Article left join ArticleReview on Article.articlename=ArticleReview.articlename "
 							+ "where ArticleReview.articlename is null and Article.ispublish=0");
-					//ps.setInt(1, 0);
-					rs=ps.executeQuery();
+				    old= psLookUpForOldest.executeQuery();
+					
+					while (old.next()) {
+						Date date = old.getDate("uploaddate");
+						if (flag) {
+							oldDate=date;
+							flag=false;
+						}
+						if (date.before(oldDate)) {
+							oldDate=date;
+							oldestOne=new PendingArticle(old.getString("articlename"), old.getString("abstract"));
+						}
+					}
 					
 					
 					while (rs.next()) {
 						
-						Date date = rs.getDate("uploaddate");
-						
-						if (flag) {
-							oldDate=date;
-							System.out.println(oldDate);
-							flag=false;
-						}
 						PendingArticle pa = new PendingArticle(rs.getString("articlename"), rs.getString("abstract"));
-						if (date.before(oldDate)) {
-							oldDate=date;
-							oldestOne=pa;
-						}
 						pendingArticles.add(pa);
 					}
 					
@@ -103,8 +109,9 @@ public class AccessUnpublishedArticles extends HttpServlet {
 					}
 					
 					System.out.println("pending articles-----------");
+					int count=0;
 					for (PendingArticle pa : pendingArticles) {
-						System.out.println(pa.toString());
+						System.out.println(++count+" "+pa.getArticleName());
 					}
 					//return a page of pending articles
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingArticles.jsp");
@@ -142,6 +149,8 @@ public class AccessUnpublishedArticles extends HttpServlet {
 		PrintWriter out= response.getWriter();
         out.println("<font color=red>bu dui ba !!!</font>");
 	}
-	//asd
+	//select Article.articlename,Article.abstract,Article.uploaddate "
+	//+ "from Article left join ArticleReview on Article.articlename=ArticleReview.articlename "
+	//+ "where ArticleReview.articlename is null and Article.ispublish=0
 	
 }

@@ -34,6 +34,10 @@ public class Reviewer implements Serializable{
 		return this.selectedNum;
 	}
 	
+	public void addSelectedNum1() {
+		this.selectedNum=this.selectedNum+1;
+	}
+	
 	public void setId(int newId) {
 		this.id=newId;
 	}
