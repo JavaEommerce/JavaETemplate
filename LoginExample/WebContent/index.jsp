@@ -329,7 +329,7 @@ ifm.height = subWeb.body.scrollHeight;
 						<form action="#">
 							<div class="input-group">
 								<label class="sr-only" for="search-form">Search the site</label>
-								<input type="text" class="form-control" id="search-form">
+								<input type="text" class="form-control" id="search-form" name="search-form">
 								<span class="input-group-btn">
 									<button class="btn btn-default" type="button">
 										<span class="glyphicon glyphicon-search"></span>
