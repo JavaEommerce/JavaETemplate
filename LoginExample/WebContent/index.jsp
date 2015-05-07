@@ -178,7 +178,7 @@ ResultSet rs = st.executeQuery( sqlStr );
 								<h4 class="margin-t-0"><a href="#"><%=rs.getString("journalname")%></a></h4>
 								<p><a href="#"><%=rs.getString("publishtime")%></a></p>
                                 <p><a href="#">Version:<%=rs.getString("version")%></a></p>
-								<p>Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut</p>
+								<p><%=rs.getString("Info")%></p>
 								<p>
 									<button class="btn btn-sm btn-default">
 										<span class="glyphicon glyphicon-thumbs-up"></span> Upvote
