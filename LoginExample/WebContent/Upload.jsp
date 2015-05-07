@@ -18,7 +18,7 @@
                 
         title:<input name="title" type="text" id="title"><br /> 
         abstract:<textarea name="abstract" cols="250" rows="5" id="abstract"></textarea><br />
-        keywords:<input name="key" type="text" id="key"><input name="key" type="text" id="key">
+        keywords:<input name="keys" type="text" id="key"><input name="key" type="text" id="key">
         <input name="key" type="text" id="key"><input name="key" type="text" id="key">
         <input name="key" type="text" id="key"><input name="key" type="text" id="key">
         <input name="key" type="text" id="key"><input name="key" type="text" id="key">

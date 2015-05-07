@@ -3,6 +3,11 @@ package Author;
 
 import java.io.File;  
 import java.io.IOException;  
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;  
 import java.util.Date;
 import java.util.List;  
@@ -23,6 +28,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;  
   
 
+import javax.servlet.http.HttpSession;
+
+import Author.Author;
+import dbconnectionlib.Dbconnection;
 
 import org.apache.commons.fileupload.FileItem;  
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;  
@@ -108,7 +117,13 @@ public class Upload extends HttpServlet {
                   
                   if(fileName.endsWith(fileType[0])){   
 //                    String uuid = UUID.randomUUID().toString();    
+                	  
+                	  
 
+                      filePath = serverPath+uploadPath+fileName;  
+                	  
+                	  
+                	  
 //************************************     
   //email
                 if(!mainAuthorname.equals("")){
@@ -151,8 +166,53 @@ public class Upload extends HttpServlet {
 
                     			
                     			
-                    			
-                    			
+//database ***************************************
+                          	  Dbconnection db=null;
+                          	  db = new Dbconnection();
+                          	  Connection con = db.getConnection();
+                          	  
+                          	PreparedStatement ps = null;
+                          	PreparedStatement pi = null;
+                          	
+                          	java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+                          	  
+                          	  if(con!=null) {
+                          		  try{  
+                          		  System.out.println("enter database");
+                					HttpSession session = request.getSession();
+                          		Author currentAuthor = (Author)session.getAttribute("Author");
+                          		String name = currentAuthor.getAuthorName();
+
+                          		ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
+                                	ps.setInt(1,2);
+                          		ps.setString(2, name);
+                          		ps.executeUpdate();
+                          		currentAuthor.setSubmitState(2);
+                          		
+                          		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations) values (?,?,?,?,?,?,?,?)");
+                				pi.setString(1, title);
+                	            pi.setString(2, keywords);
+                	            pi.setString(3, abst);
+                	            pi.setString(4, filePath);
+                				pi.setString(5, "computer");
+                				pi.setDate(6, currentDate);
+                				pi.setBoolean(7, false);
+                				pi.setString(8, otherAffiliation);
+                	            pi.execute();
+                          		
+                          		
+                          		
+                          	    ps.close();
+                          	    pi.close();
+                          	    con.close();
+                          	  	System.out.println("\'"+name+"\'"+"**********");
+                          		  }catch(SQLException e){  
+                                        
+                                        System.out.println("SQLException;"+e.getMessage());   
+                                    }  
+                          		  
+                          	  }
+//**********************************************************************************************                   			
                     			
                     			
                     			
@@ -179,7 +239,7 @@ public class Upload extends HttpServlet {
                 
 //************************************                      
                       
-                      filePath = serverPath+uploadPath+fileName;  
+
                       
                       File file = new File(filePath);  
                       item.write(file);  
@@ -222,7 +282,7 @@ public class Upload extends HttpServlet {
                   if("title".equals(name))  {           	  
                 	  title=item.getString("utf-8");
                   }
-                  if("key".equals(name))  {           	  
+                  if("keys".equals(name))  {           	  
                 	  keywords=item.getString("utf-8");
                   }
                   
