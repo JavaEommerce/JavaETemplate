@@ -142,9 +142,8 @@ public class Upload extends HttpServlet {
                       	  Connection con = db.getConnection();
                       	  
                       	PreparedStatement pch = null;		//check whether reviewer exist
-                      	PreparedStatement pnu = null;		//new user
-                      	PreparedStatement pgi = null;		//get new user id
-                      	PreparedStatement pnr = null;		//new reviewer
+                		ResultSet rs =null;
+                		
                       	PreparedStatement ps = null;		//update author state
                       	PreparedStatement pi = null;		//new article
                       	PreparedStatement paa = null;		//new AuthorArticle
@@ -153,11 +152,64 @@ public class Upload extends HttpServlet {
                       	  
                       	  if(con!=null) {
                       		  try{  
+                      	
                       		  System.out.println("enter database");
             					HttpSession session = request.getSession();
             					Author currentAuthor = (Author)session.getAttribute("Author");
             					String aname = currentAuthor.getAuthorName();
 
+            					
+            					pch = con.prepareStatement("select reviewername from Reviewer where reviewername=?");
+            					pch.setString(1, mainEmail);
+            		        	rs = pch.executeQuery();
+            		        	if (rs!=null&&rs.next()) {
+            		        		System.out.println(mainEmail);
+            		        		//forward to login page to login
+            			            PrintWriter out= response.getWriter();
+            			            out.println("<font color=green>Uploaded!.</font>");
+
+            			            
+            			            ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
+                                    ps.setInt(1,2);
+                              		ps.setString(2, aname);
+                              		ps.executeUpdate();
+                              		currentAuthor.setSubmitState(2);
+                              		
+                              		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations) values (?,?,?,?,?,?,?,?)");
+                    				pi.setString(1, title);
+                    	            pi.setString(2, keywords);
+                    	            pi.setString(3, abst);
+                    	            pi.setString(4, filePath);
+                    				pi.setString(5, "computer");
+                    				pi.setDate(6, currentDate);
+                    				pi.setBoolean(7, false);
+                    				pi.setString(8, otherAffiliation);
+                    	            pi.execute();
+                              		
+                    	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
+                    	            paa.setString(1, mainAuthorname);
+                    	            paa.setString(2, title);
+                    	            paa.execute();
+                              		
+                              	    ps.close();
+                              	    pi.close();
+                              	    paa.close();
+                              	    con.close();
+            			            
+            			            
+                              	  File file = new File(filePath);  
+                                  item.write(file);    
+            			            
+            			            
+            			            
+            			            
+            			            
+            			            
+            			            break;
+            					}
+            					
+            					
+            					
             					insertUser(response, request, mainEmail, password,con);
             					insertReviewer(response, request, mainEmail, password, con);
             					
