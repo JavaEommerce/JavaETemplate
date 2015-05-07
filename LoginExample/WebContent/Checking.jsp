@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+Reviewers are reviewing your article ! Please waiting for feedbacks
 </body>
 </html>
