@@ -1,14 +1,10 @@
 package editor;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,24 +14,19 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import loginSystem.User;
-
-import com.google.gson.Gson;
-
-import editor.userInfo;
 import dbconnectionlib.Dbconnection;
 
 /**
- * Servlet implementation class EditorRetireAndAppointOne
+ * Servlet implementation class EditorRetire
  */
-@WebServlet("/EditorRetireAndAppointOne")
-
-public class EditorRetireAndAppointOne extends HttpServlet {
+@WebServlet("/EditorRetire")
+public class EditorRetire extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditorRetireAndAppointOne() {
+    public EditorRetire() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,10 +35,19 @@ public class EditorRetireAndAppointOne extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession ses = request.getSession();
+		User currentUser = (User)ses.getAttribute("User"); 
+		String retireEditorname = currentUser.getUserName();
+		System.out.println("are you sure to retire");
 		Dbconnection db=null;
-		ArrayList<userInfo> ui = new ArrayList<userInfo>();
-		String userList = null;
 		try {
 			db = new Dbconnection();
 		} catch (ClassNotFoundException e1) {
@@ -67,27 +67,18 @@ public class EditorRetireAndAppointOne extends HttpServlet {
 		}
 		
 		PreparedStatement ps = null;
-		ResultSet rs =null;
 		
 		try {
-			ps=con.prepareStatement("select * from User");
-			rs = ps.executeQuery();
-			while (rs.next()) {
-	        	//al.add(rs.getString("username"));
-				userInfo ui2= new userInfo(rs.getString("username"), rs.getString("role"));
-				//artiCle2.setArticleName(rs.getString("articleName"));
-	        	//artiCle2.setArticleAbstract(rs.getString("abstract"));
-	        	ui.add(ui2);
-	        	System.out.println(rs.getString("username")+" " + rs.getString("role"));
-	        	userList = rs.getString("username");
-			}
+			ps = con.prepareStatement("update User set role = 1 where username=?");
+        	ps.setString(1, retireEditorname);
+        	ps.executeUpdate();
+			System.out.println("set user "+retireEditorname+"as user");
 		} catch (SQLException e) {
 			
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {
-				rs.close();
 				ps.close();
 				System.out.println("db closed");
 			} catch (SQLException e) {
@@ -96,26 +87,10 @@ public class EditorRetireAndAppointOne extends HttpServlet {
 			}
 			
 		}
-		  HttpSession session = request.getSession();
-		  session.setAttribute("userInfo", ui);
-		  String LOGIN_PAGE = "EditorTest.jsp";
+//		  HttpSession session = request.getSession();
+//		  session.setAttribute("userInfo", ui);
+		  String LOGIN_PAGE = "index.jsp";
 		  response.sendRedirect(LOGIN_PAGE);
-		
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-	}
-	
-	private void write(HttpServletResponse response,Map<String,Object> map) throws IOException
-	{
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		response.getWriter().write(new Gson().toJson(map));
-	}
-	
 
 }

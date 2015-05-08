@@ -113,4 +113,12 @@
     <servlet-name>editor.EditorAppointOne</servlet-name>
     <url-pattern>/EditorAppointOne</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>editor.EditorRetire</servlet-name>
+    <servlet-class>editor.EditorRetire</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.EditorRetire</servlet-name>
+    <url-pattern>/EditorRetire</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -73,25 +73,23 @@ table.hovertable td {
 %>
 <h1>Hello Editor <%=name %></h1>
 <li><a href="index.jsp">Back to Homepage</a></li><br>
-<form id="form1">
-<input type="button" id="submit" value="Editor Retire"/>
-<br/>
-
-
-
-<div id="welcometext">
-</div>
+<!-- <form id="form1">
+<input type="button" id="submit" value="Editor Retire"/><br/>
+		<div id="welcometext">
+		</div>
+</form> -->
+<form action = "EditorRetire" method = "post" accept-charset="utf-8" class="simform">
+            <input class="sumbit" type="submit" value="Ready to retire"/>
 </form>
 <form id="form2">
 <input type = "button" id="submit_2" value="Edit Journal"/>
 <div id="article_name">
 </div></form>
-	<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
+
+<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
 			<table class="hovertable" align = "center">
 			<tr><th>Article name</th><th>Article Abstract</th><th>Reviewed Times</th><th>Detail link</th></tr>
 			<%
-			System.out.println("asdasdasdasdasdasds");
-
 				List<EditorAllArticlesInfo> articles=new ArrayList<EditorAllArticlesInfo>();
 				if(session.getAttribute("allArticles") instanceof List){
 					articles = (ArrayList<EditorAllArticlesInfo>)session.getAttribute("allArticles");
@@ -112,7 +110,7 @@ table.hovertable td {
 				<!-- <input type="hidden" name="pendingSelection" value="valid">  -->
 		</table>				
 	</form> 
-	
+	<h4>appoint one user as a new editor<h4>
 	<p><form name="selectUser" action="EditorRetireAndAppointOne" method="get">
 			<table class="hovertable" align = "center">
 			<tr><th>User name</th><th>User role</th><th>Detail link</th></tr>
