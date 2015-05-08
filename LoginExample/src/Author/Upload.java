@@ -292,8 +292,11 @@ public class Upload extends HttpServlet {
              	
              	java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
            			
-             	 ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
-                 ps.setInt(1,2);
+             	
+             	if(con!=null) {
+                	try{  
+             	ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
+                ps.setInt(1,2);
            		ps.setString(2, currentAuthor.getAuthorName());
            		ps.executeUpdate();
            		currentAuthor.setSubmitState(2);
@@ -324,8 +327,13 @@ public class Upload extends HttpServlet {
            	  File file = new File(filePath);  
                item.write(file);    
 	            
-		            
+		            System.out.println("作者上传成功");
 		            break;		
+                	}catch(SQLException e){                                      
+                        System.out.println("SQLException;"+e.getMessage());   
+    		            System.out.println("作者上传失败");
+                    }  
+             	}
 		            
            		}
 //************************************************************************author end                	  
