@@ -129,4 +129,12 @@
     <servlet-name>editor.ArticleDetail</servlet-name>
     <url-pattern>/ArticleDetail</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>editor.EditorGetAllJournals</servlet-name>
+    <servlet-class>editor.EditorGetAllJournals</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.EditorGetAllJournals</servlet-name>
+    <url-pattern>/EditorGetAllJournals</url-pattern>
+  </servlet-mapping>
 </web-app>
