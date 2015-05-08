@@ -36,8 +36,9 @@ public class SubmissionGuide extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		String filename = "1234.txt";
-		String filepath = "E:\\COM6514\\Data\\1234.txt";
+		String filename = "memon.pdf";
+//		String filepath = "E:\\export\\tomtemp\\clubcard.pdf";
+		String filepath = "/export/tomtemp/memon.pdf";
 		response.setContentType("APPLICATION/OCTET-STREAM");
 		response.setHeader("Content-Disposition","attachment; filename=\""+filename+"\"");
 		java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath);

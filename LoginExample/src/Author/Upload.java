@@ -47,8 +47,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 @WebServlet("/Upload")
 public class Upload extends HttpServlet {
 	
-	private String uploadPath = "Testtt\\"; // 上传文件的目录    
-	private String tempPath = "Testttt\\"; // 临时文件目录    
+	private String uploadPath = ""; // 上传文件的目录    
+	private String tempPath = ""; // 临时文件目录    
 	private String serverPath = null;   
     private String[] fileType = new String[]{".pdf"};  
     private int sizeMax = 5;//图片最大上限    
@@ -76,7 +76,7 @@ public class Upload extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		String serverPath = getServletContext().getRealPath("/").replace("\\", "/");    
-		String serverPath = "E:\\";
+		String serverPath = "/export/tomtemp/";
 
 		
 		String mainAuthorname="";
@@ -124,6 +124,9 @@ public class Upload extends HttpServlet {
                   if(fileName.endsWith(fileType[0])){   
 //                    String uuid = UUID.randomUUID().toString();    
                    filePath = serverPath + uploadPath + fileName;  
+                   
+                   PrintWriter out1= response.getWriter();
+			       out1.println("<font color=green>"+filePath+"</font>"); 
                    
 //************************************************************************
            		//not author

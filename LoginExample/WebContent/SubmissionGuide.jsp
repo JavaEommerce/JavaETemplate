@@ -13,7 +13,7 @@ fill all the information and choose a article in pdf style then press submit.
 <form action="SubmissionGuide" enctype="multipart/form-data" method="POST" target="aa">
 <input type="submit" name="button" value="down template" onclick="SubmissionGuide"/>
 </form>
-<iframe name="aa" src="" style="display:none"></iframe>
+
 
 </body>
 </html>
