@@ -21,19 +21,24 @@
 		reviewingArticles = (ArrayList<ReviewingArticle>)session.getAttribute("reviewingArticles");
 		String saDisplay = "";
 		String raDisplay= "";
-		if(chosenArticles.isEmpty()){
-			saDisplay = "None";
+		if(chosenArticles!=null&&reviewingArticles!=null){
+			if(chosenArticles.isEmpty()){
+				saDisplay = "None";
+			}
+			
+			if(reviewingArticles.isEmpty()){
+				raDisplay = "None";
+			}
 		}
-		if(reviewingArticles.isEmpty()){
-			raDisplay = "None";
-		}
+		
 		System.out.println(saDisplay);
+		System.out.println(raDisplay);
 	%>
 	<h1>Welcome to Reviewer Centre!</h1>
 	<p><a href="index.jsp">Home</a> <a href="AccessUnpublishedArticles">Choose unpublished articles</a>
 	<a href="reviewSubmission.jsp">Submit Review</a>
 	
-	<form action="ReviewerLogin" name="selected" method="post">
+	<form action="DownloadArticle" name="selected" method="post">
 		<p>Selected Articles: <%=saDisplay %>
 		<ol>
 			<%
@@ -42,29 +47,35 @@
 				String ca="";
 				for (String cArticle : chosenArticles) {
 					ca = cArticle;
-					%><li><%=ca%><input type="submit" name="<%=ca%>" value="Confirm & Download"></li>
+					%><li><%=ca%><input type="submit" name="confirm" value="Confirm & Download">
+					<input type="submit" name="cancel" value="cancel">
+					<input type="hidden" name="selected" value="<%=ca%>"></li>
 					
 			<% }}
 			
 			%>
 		</ol>
+		<input type="hidden" name="selected" value="valid"> 
 	</form>
 	
-	<form action="ReviewerLogin" name="downloaded">
-		<p>Reviewing Articles: <%=raDisplay %>
+	<form action="DownloadArticle" name="downloaded" method="post">
+		<p>Reviewing Articles: <%=raDisplay%>
 		<ol>
 			<%
 			
 			if(reviewingArticles!=null){
 				String ra="";
-				for (String cArticle : chosenArticles) {
-					ra = cArticle;
-					%><li><%=ra%><input type="submit" name="<%=ra%>" value="Download"></li>
+				for (ReviewingArticle rArticle : reviewingArticles) {
+					ra = rArticle.getArticleName();
+					%><li><%=ra%><input type="submit" name="<%=ra%>" value="Download">
+					<input type="hidden" name="downloaded" value="<%=ra%>">
+					</li>
 					
 			<% }}
 			
 			%>
-		</ol>
+		</ol> 
+		
 	</form>
 	
 	

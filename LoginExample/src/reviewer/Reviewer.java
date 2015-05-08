@@ -50,7 +50,7 @@ public class Reviewer implements Serializable{
 	public String toString() {
 		// TODO Auto-generated method stub
 		String result = "id: "+this.id+" Number of article selected:"
-		+this.selectedNum+" Reviewer Name:"+this.reviewerName;
+		+this.selectedNum+" Reviewer Name:"+" ; "+this.reviewerName;
 		return result;
 	}
 	

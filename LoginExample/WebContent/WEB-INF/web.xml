@@ -122,11 +122,11 @@
     <url-pattern>/EditorRetire</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>editor.ArticleDetail</servlet-name>
-    <servlet-class>editor.ArticleDeatil</servlet-class>
+    <servlet-name>editor.EditorArticleDetail</servlet-name>
+    <servlet-class>editor.EditorArticleDetail</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>editor.ArticleDetail</servlet-name>
+    <servlet-name>editor.EditorArticleDetail</servlet-name>
     <url-pattern>/ArticleDetail</url-pattern>
   </servlet-mapping>
   <servlet>
@@ -136,5 +136,13 @@
   <servlet-mapping>
     <servlet-name>editor.EditorGetAllJournals</servlet-name>
     <url-pattern>/EditorGetAllJournals</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>reviewer.DownloadArticle</servlet-name>
+    <servlet-class>reviewer.DownloadArticle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reviewer.DownloadArticle</servlet-name>
+    <url-pattern>/DownloadArticle</url-pattern>
   </servlet-mapping>
 </web-app>
