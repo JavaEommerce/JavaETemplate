@@ -142,7 +142,18 @@
     <servlet-name>reviewer.DownloadArticle</servlet-name>
     <url-pattern>/DownloadArticle</url-pattern>
   </servlet-mapping>
+<<<<<<< Updated upstream
 =======
   
 >>>>>>> origin/master
+=======
+    <servlet>
+    <servlet-name>editor.EditorEditJournal</servlet-name>
+    <servlet-class>editor.EditorEditJournal</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.EditorEditJournal</servlet-name>
+    <url-pattern>/EditorEditJournal</url-pattern>
+  </servlet-mapping>
+>>>>>>> Stashed changes
 </web-app>

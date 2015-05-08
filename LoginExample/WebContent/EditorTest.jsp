@@ -82,8 +82,8 @@ table.hovertable td {
             <input class="sumbit" type="submit" value="Ready to retire"/>
 </form>
 
-<form id="form2" action = "EditorGetAllJournals method = "post" >
-<input type = "button" id="submit_2" value="Edit Journal Page"/>
+<form id="form2" action = "EditorGetAllJournals" method = "post" >
+<input type = "submit" id="submit_2" value="Edit Journal Page"/>
 </form>
 
 <p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">

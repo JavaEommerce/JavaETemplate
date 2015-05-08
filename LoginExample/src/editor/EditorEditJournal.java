@@ -11,22 +11,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dbconnectionlib.Dbconnection;
 
 /**
- * Servlet implementation class EditorAppointOne
+ * Servlet implementation class EditorEditJournal
  */
-@WebServlet(name="editor.EditorAppointOne",urlPatterns = {"/EditorAppointOne"})
-
-public class EditorAppointOne extends HttpServlet {
+@WebServlet("/EditorEditJournal")
+public class EditorEditJournal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EditorAppointOne() {
+    public EditorEditJournal() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,30 +33,35 @@ public class EditorAppointOne extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = request.getParameter("username").toString();
-		System.out.println("hello user +++ " + username);
+//		System.out.println("Journal information received");
+//		String title = request.getParameter("title");
+//		System.out.println(title);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		System.out.println("get post information");
-		String gi =request.getParameter("appointname");
-		System.out.print("button value ++++++ " +gi);
-		String usernameN = removeLastChar(gi);
-		appointUserAsEditor(usernameN);
+		// TODO Auto-generated method stub
+		System.out.println("Journal information received");
+		String title = request.getParameter("title");
+		String aims =request.getParameter("aims");
+		String goals=request.getParameter("goals");
+		String profile = request.getParameter("profileUrl");
+		String id=request.getParameter("id");
+		String newID = removeLastChar(id);
+		System.out.println("changed journal detail " + newID);
+		int foo = Integer.parseInt(newID);
+		updateJournal(title,aims,goals,profile,foo);
 		String LOGIN_PAGE = "EditorTest.jsp";
 		response.sendRedirect(LOGIN_PAGE);
 		
 	}
-	
 	private static String removeLastChar(String str) {
         return str.substring(0,str.length()-1);
     }
-	public void appointUserAsEditor(String username){
-		String newEditorname = username;
+	public void updateJournal(String title,String aims,String goals,String profile,int id){
+		
 		Dbconnection db=null;
 		try {
 			db = new Dbconnection();
@@ -81,10 +84,15 @@ public class EditorAppointOne extends HttpServlet {
 		PreparedStatement psLookup = null;
 		ResultSet rs =null;
 		try{
-			psLookup = con.prepareStatement("update User set role = 3 where username=?");
-        	psLookup.setString(1, newEditorname);
+			psLookup = con.prepareStatement("update Journal set journalname = ? , journalAims = ?, journalGoals=?, journalProfileUrl=?  where journalID= ?");
+        	psLookup.setString(1,title);
+        	psLookup.setString(2, aims);
+        	psLookup.setString(3, goals);
+        	psLookup.setString(4,profile);
+        	psLookup.setInt(5, id);
         	psLookup.executeUpdate();
-			System.out.println("set user "+newEditorname+"as a new Editor");
+        	
+			System.out.println(title + aims + goals + profile);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -99,4 +107,5 @@ public class EditorAppointOne extends HttpServlet {
             }
 	}
 	}
+
 }
