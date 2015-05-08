@@ -90,14 +90,6 @@
     <url-pattern>/AccessUnpublishedArticles</url-pattern>
   </servlet-mapping>
   <servlet>
-    <servlet-name>reviewer.SelectPendingArticle</servlet-name>
-    <servlet-class>reviewer.SelectPendingArticle</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>reviewer.SelectPendingArticle</servlet-name>
-    <url-pattern>/SelectPendingArticle</url-pattern>
-  </servlet-mapping>
-  <servlet>
     <servlet-name>editor.EditorRetireAndAppointOne</servlet-name>
     <servlet-class>editor.EditorRetireAndAppointOne</servlet-class>
   </servlet>
@@ -112,7 +104,6 @@
   <servlet-mapping>
     <servlet-name>editor.EditorAppointOne</servlet-name>
     <url-pattern>/EditorAppointOne</url-pattern>
-<<<<<<< HEAD
   </servlet-mapping>
   <servlet>
     <servlet-name>editor.EditorRetire</servlet-name>
@@ -133,18 +124,16 @@
   <servlet>
     <servlet-name>editor.EditorGetAllJournals</servlet-name>
     <servlet-class>editor.EditorGetAllJournals</servlet-class>
-=======
+
   </servlet-mapping>  
     <servlet>
     <servlet-name>reader.Search</servlet-name>
     <servlet-class>reader.Search</servlet-class>
->>>>>>> origin/master
   </servlet>
   <servlet-mapping>
     <servlet-name>reader.Search</servlet-name>
     <url-pattern>/Search</url-pattern>
   </servlet-mapping>
-<<<<<<< HEAD
   <servlet>
     <servlet-name>reviewer.DownloadArticle</servlet-name>
     <servlet-class>reviewer.DownloadArticle</servlet-class>
