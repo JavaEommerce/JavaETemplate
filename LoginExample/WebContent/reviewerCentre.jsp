@@ -27,6 +27,7 @@
 	%>
 	<h1>Welcome to Reviewer Centre!</h1>
 	<p><a href="index.jsp">Home</a> <a href="AccessUnpublishedArticles">Choose unpublished articles</a>
+	<a href="reviewSubmission.jsp">Submit Review</a>
 	
 	<form action="ReviewerLogin" name="forms" method="post">
 		<p>Selected Articles: <%=saDisplay %>
@@ -37,15 +38,15 @@
 				String ca="";
 				for (String cArticle : chosenArticles) {
 					ca = cArticle;
-					%><li><%=ca%><input type="submit" name="<%=ca%>" value="Confirm & Downoad"></li>
-				
+					%><li><%=ca%><input type="submit" name="<%=ca%>" value="Confirm & Download"></li>
+					
 			<% }}
 			
 			%>
 		</ol>
 	</form>
 	
-	
+	<form action=""></form>
 	
 	
 </body>

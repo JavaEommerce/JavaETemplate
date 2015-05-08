@@ -127,14 +127,14 @@ public class LoginServlet extends HttpServlet {
 						break;
 					}
 					
-					response.sendRedirect("http://localhost:8080/JavaEE/index.jsp");
-					
+					//response.sendRedirect("stucat.dcs.shef.ac.uk:8080/stucat003/index.jsp");
+					response.sendRedirect("localhost:http://localhost:8080/JavaEE/index.jsp");
 					
 				} else {
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 	                PrintWriter out= response.getWriter();
 	                out.println("<font color=red>User name and password didn't match,please try again. </font>");
-	                out.println("<p>Don't have an account? Register here:<a href=\"http://localhost:8080/JavaEE/signup.jsp\">click me</a></p>");
+	                //out.println("<p>Don't have an account? Register here:<a href=\"stucat.dcs.shef.ac.uk:8080/stucat003/signup.jsp\">click me</a></p>");
 	                rd.include(request, response);
 				}
 				
