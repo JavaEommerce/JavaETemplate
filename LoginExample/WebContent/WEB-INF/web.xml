@@ -124,8 +124,11 @@
   <servlet>
     <servlet-name>editor.EditorGetAllJournals</servlet-name>
     <servlet-class>editor.EditorGetAllJournals</servlet-class>
-
-  </servlet-mapping>  
+   </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.EditorGetAllJournals</servlet-name>
+    <url-pattern>/EditorGetAllJournals</url-pattern>
+  </servlet-mapping>
     <servlet>
     <servlet-name>reader.Search</servlet-name>
     <servlet-class>reader.Search</servlet-class>
@@ -142,11 +145,7 @@
     <servlet-name>reviewer.DownloadArticle</servlet-name>
     <url-pattern>/DownloadArticle</url-pattern>
   </servlet-mapping>
-<<<<<<< Updated upstream
-=======
-  
->>>>>>> origin/master
-=======
+
     <servlet>
     <servlet-name>editor.EditorEditJournal</servlet-name>
     <servlet-class>editor.EditorEditJournal</servlet-class>
@@ -155,5 +154,5 @@
     <servlet-name>editor.EditorEditJournal</servlet-name>
     <url-pattern>/EditorEditJournal</url-pattern>
   </servlet-mapping>
->>>>>>> Stashed changes
+
 </web-app>
