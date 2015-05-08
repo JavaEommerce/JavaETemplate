@@ -109,10 +109,10 @@ public class AccessUnpublishedArticles extends HttpServlet {
 					}
 					
 					System.out.println("pending articles-----------");
-					int count=0;
-					for (PendingArticle pa : pendingArticles) {
-						System.out.println(++count+" "+pa.getArticleName());
-					}
+//					int count=0;
+//					for (PendingArticle pa : pendingArticles) {
+//						System.out.println(++count+" "+pa.getArticleName());
+//					}
 					//return a page of pending articles
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingArticles.jsp");
 			        rd.include(request, response);

@@ -2,7 +2,7 @@ package reviewer;
 
 import java.io.Serializable;
 
-public class MChosenArticle implements Serializable{
+public class ReviewingArticle implements Serializable{
 
 	
 	
@@ -12,13 +12,12 @@ public class MChosenArticle implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String articleName;
 	private String reviewStatus;
-	private String reviewerName;
+	private String url;
 	
-	
-	public MChosenArticle(String articleName, String reviewStatus, String reviewerName){
+	public ReviewingArticle(String articleName, String reviewStatus, String url){
 		this.articleName=articleName;
 		this.reviewStatus=reviewStatus;
-		this.reviewerName=reviewerName;
+		this.url=url;
 	}
 	
 	public void setReviewStatus(String reviewStatus) {
@@ -30,14 +29,6 @@ public class MChosenArticle implements Serializable{
 	}
 	
 	
-	public void setReviewerName(String reviewerName) {
-		this.reviewerName=reviewerName;
-	}
-	
-	public String getReviewerName() {
-		return this.reviewerName;
-	}
-	
 	public void setArticleName(String articleName) {
 		this.articleName=articleName;
 	}
@@ -46,10 +37,18 @@ public class MChosenArticle implements Serializable{
 		return this.articleName;
 	}
 	
+	public void setURL(String url) {
+		this.url=url;
+	}
+	
+	public String getURL() {
+		return this.url;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		String result = "Article name: "+this.articleName+"Reviewer name: "+this.reviewerName+"Reviewer status: "+reviewStatus;
+		String result = "Article name: "+this.articleName+"Reviewer status: "+reviewStatus;
 		return result;
 	}
 }

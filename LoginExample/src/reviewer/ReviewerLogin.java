@@ -3,7 +3,8 @@ package reviewer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +20,10 @@ import dbconnectionlib.Dbconnection;
  */
 @WebServlet("/ReviewerLogin")
 public class ReviewerLogin extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 	
+	private static final long serialVersionUID = 1L;
+	private Set<String> chosenArticles = new HashSet<String>();
+	private Set<ReviewingArticle> reviewingArticles = new HashSet<ReviewingArticle>();
 	
        
     /**
@@ -36,9 +39,10 @@ public class ReviewerLogin extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO identify user id
+		// TODO identify user id and create instance of info displayed
 		HttpSession session = request.getSession();
-		if (session.getAttribute("Reviewer")==null) {
+		Reviewer reviewer = (Reviewer)session.getAttribute("Reviewer");
+		if (reviewer==null) {
 			
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 	        PrintWriter out= response.getWriter();
@@ -67,8 +71,25 @@ public class ReviewerLogin extends HttpServlet {
 				System.out.println("successfullllllll");
 			}// end of connecting db--------------------------------
 			
-			/*create chosen article instances************************************************************/
-			Reviewer reviewer = (Reviewer)session.getAttribute("Reviewer");
+			
+			
+			/*create article instances************************************************************/
+			try {
+				boolean c = getChosenArticles(request, response, reviewer, con);
+				boolean r = getReviewingArticles(request, response, reviewer, con);
+				if (c&&r) {
+					System.out.println("initialize successfully");
+					session.setAttribute("ChosenArticles", chosenArticles);
+					session.setAttribute("reviewingArticles", reviewingArticles);
+					
+				}
+				else {
+					System.out.println("initialize failure");
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
 	        PrintWriter out= response.getWriter();
@@ -125,6 +146,9 @@ public class ReviewerLogin extends HttpServlet {
 								if (a&&b) {
 									System.out.println("selected article: "+title);
 								}
+								else {
+									System.out.println("error");
+								}
 								// redirect to centre
 								RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
 						        PrintWriter out= response.getWriter();
@@ -157,6 +181,7 @@ public class ReviewerLogin extends HttpServlet {
 			        rd.include(request, response);
 				}
 			}
+			// end of PendingArtilce.jsp******************************************************************/
 			else {
 				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
 		        PrintWriter out= response.getWriter();
@@ -244,4 +269,48 @@ public class ReviewerLogin extends HttpServlet {
         }
 	}
 	
+	private boolean getChosenArticles(HttpServletRequest request, HttpServletResponse response,Reviewer reviewer,Connection con) throws ServletException, SQLException, IOException {
+		
+		boolean result = false;
+		ResultSet rs = null;
+		PreparedStatement ps = con.prepareStatement("select articlename from ArticleReview where reviewername=? and reviewstatus=? ");
+		ps.setString(1, reviewer.getReviewerName());
+		ps.setString(2, "selected");
+		rs = ps.executeQuery();
+		if (rs!=null) {
+			while (rs.next()) {
+				String articleName = rs.getString("articlename");
+				chosenArticles.add(articleName);
+			}
+			result=true;
+		}
+		return result;
+	}
+	
+	private boolean getReviewingArticles(HttpServletRequest request, HttpServletResponse response,Reviewer reviewer,Connection con) throws ServletException, SQLException, IOException {
+		
+		boolean result = false;
+		ResultSet rs = null;
+		PreparedStatement ps = con.prepareStatement("select Article.url,ArticleReview.articlename,ArticleReview.reviewstatus "
+				+ "from ArticleReview,Article where reviewername=? and not reviewstatus=? "
+				+ "and Article.articlename=ArticleReview.articlename");
+		ps.setString(1, reviewer.getReviewerName());
+		ps.setString(2, "selected");
+		rs = ps.executeQuery();
+		if (rs!=null) {
+			String articleName=null;
+			String url = null;
+			String reviewStatus = null;
+			while (rs.next()) {
+				articleName = rs.getString("articlename");
+				url = rs.getString("url");
+				reviewStatus = rs.getString("reviewstatus");
+				ReviewingArticle ra = new ReviewingArticle(articleName, reviewStatus, url);
+				reviewingArticles.add(ra);
+				System.out.println(ra.toString()+"--");
+			}
+			result=true;
+		}
+		return result;
+	}
 }
