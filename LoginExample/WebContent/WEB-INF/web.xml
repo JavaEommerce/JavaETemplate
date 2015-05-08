@@ -74,6 +74,14 @@
     <url-pattern>/signup</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>loginSystem.Logout</servlet-name>
+    <servlet-class>loginSystem.Logout</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>loginSystem.Logout</servlet-name>
+    <url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>reviewer.AccessUnpublishedArticles</servlet-name>
     <servlet-class>reviewer.AccessUnpublishedArticles</servlet-class>
   </servlet>

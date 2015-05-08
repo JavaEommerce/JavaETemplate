@@ -144,14 +144,14 @@ function showtime(){
 						<%}%>
 						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
 						
-
-
-							
-						
 						<%if(role==3){ %>
-						<li><a href="EditorTest.jsp"><%=showName %>></a></li>
+						<li><a href="EditorTest.jsp"><%=showName %></a></li>
+						<li><a href="Logout">log out</a><li>
+						<%}else if(role==1){ %>
+						<li><a href="#"><%=showName %></a></li>
+						<li><a href="Logout">logout</a><li>
 						<%}else{ %>
-						<li><a><%=showName %>></a></li>
+						<li><a><%=showName %></a></li>
 						<%} %>
 						
 						
