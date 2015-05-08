@@ -19,13 +19,17 @@
 		List<ReviewingArticle> reviewingArticles = new ArrayList<ReviewingArticle>();
 		chosenArticles = (ArrayList)session.getAttribute("ChosenArticles");
 		reviewingArticles = (ArrayList<ReviewingArticle>)session.getAttribute("reviewingArticles");
-		
+		String saDisplay = "";
+		if(chosenArticles.isEmpty()){
+			saDisplay = "None";
+		}
+		System.out.println(saDisplay);
 	%>
 	<h1>Welcome to Reviewer Centre!</h1>
-	<p><a href="index.jsp">Home</a>
+	<p><a href="index.jsp">Home</a> <a href="AccessUnpublishedArticles">Choose unpublished articles</a>
 	
 	<form action="ReviewerLogin" name="forms" method="post">
-		<p>Selected Articles: 
+		<p>Selected Articles: <%=saDisplay %>
 		<ol>
 			<%
 			
@@ -35,13 +39,15 @@
 					ca = cArticle;
 					%><li><%=ca%><input type="submit" name="<%=ca%>" value="Confirm & Downoad"></li>
 				
-			<% }}%>
+			<% }}
+			
+			%>
 		</ol>
 	</form>
 	
 	
 	
-	<p><a href="AccessUnpublishedArticles">Choose unpublished articles</a>
+	
 </body>
 </html>
 
