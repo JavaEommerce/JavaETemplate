@@ -92,6 +92,7 @@ function showtime(){
 				<%
 							User currentUser = (User)session.getAttribute("User"); 
 							Author currentAuthor = (Author)session.getAttribute("Author");
+							//Editor currentEditor = (Editor)session.getAttribute("Editor");
 							String name = "please login";
 							int role = 0;
 							int state = 0;
@@ -124,7 +125,9 @@ function showtime(){
 						%>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
+						<%if((currentUser==null)&&(currentAuthor==null)) {%>
 						<li><a href="login.jsp">Login and Signup</a></li>
+						<%} %>
 						<li><a href="UploadNavigator.jsp"><%="Guide" %></a></li>
 						
 						<%if(state==0){ %>
