@@ -121,4 +121,12 @@
     <servlet-name>editor.EditorRetire</servlet-name>
     <url-pattern>/EditorRetire</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>editor.ArticleDetail</servlet-name>
+    <servlet-class>editor.ArticleDeatil</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.ArticleDetail</servlet-name>
+    <url-pattern>/ArticleDetail</url-pattern>
+  </servlet-mapping>
 </web-app>

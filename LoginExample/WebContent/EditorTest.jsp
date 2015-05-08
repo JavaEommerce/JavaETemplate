@@ -103,7 +103,10 @@ table.hovertable td {
 					System.out.println(title+abstracT+reviewedTime);
 				%>
 				<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-					<td><%=title %></td><td><%=abstracT %></td><td><%=reviewedTime %>></td><td><a href="#">Detail</a></td>
+					<td><%=title %></td><td><%=abstracT %></td><td><%=reviewedTime %></td>
+					<td><form action="EditorArticleDetail" method="post">
+					<input type="text" name="appointname" value = <%=title%>/> 
+					<input type="submit" value="viewDetail"/></form> </td>
 					</tr>
 				<%}%>
 				<p><input type="submit" name="submit" value="Show articles"></p>
