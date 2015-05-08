@@ -129,7 +129,7 @@ public class ReviewerLogin extends HttpServlet {
 			
 			
 			// recerive posting info. from PendingArticles.jsp*************************************************/
-			String formName = request.getParameter("forms");
+			String formName = request.getParameter("pendingSelection");
 			if (formName!=null&&formName.equalsIgnoreCase("valid")) {
 				handlePendingForm(request, response, session, reviewer, con, formName);
 			}
