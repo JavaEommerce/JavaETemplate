@@ -51,7 +51,7 @@ ResultSet rs = st.executeQuery( sqlStr );
                 
         	while(rs2.next()) {   
         		
-        		if(rs2.getBoolean("ispublish")){
+        		if(!rs2.getBoolean("ispublish")){
       			num = rs2.getInt("currentreviewnum");
         		}
               }

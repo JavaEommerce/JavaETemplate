@@ -36,8 +36,8 @@ import dbconnectionlib.Dbconnection;
 @WebServlet("/ReUpload")
 public class ReUpload extends HttpServlet {
 	
-	private String uploadPath = "Testtt\\"; // 上传文件的目录    
-	private String tempPath = "Testttt\\"; // 临时文件目录    
+	private String uploadPath = ""; // 上传文件的目录    
+	private String tempPath = ""; // 临时文件目录    
     private String serverPath = null;   
     private String[] fileType = new String[]{".pdf"};  
     private int sizeMax = 5;//图片最大上限    
@@ -65,7 +65,7 @@ public class ReUpload extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		String serverPath = getServletContext().getRealPath("/").replace("\\", "/");    
-		String serverPath = "E:\\";
+		String serverPath = "/export/tomtemp/";
 //      System.out.println(serverPath);  	
       //Servlet初始化时执行,如果上传文件目录不存在则自动创建    
       if(!new File(uploadPath).isDirectory()){   
