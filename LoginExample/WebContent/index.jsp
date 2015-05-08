@@ -98,8 +98,12 @@ function showtime(){
 							String showName = " ";
 							String welcomeInfo = "";
 							if(currentAuthor!=null){
+								
 								state = currentAuthor.getSubmitState();
-								System.out.println(state+"*********");
+								System.out.println(state+"现在是AUTHOR*********");
+								System.out.println(currentAuthor);
+								System.out.println(currentUser);
+
 							}
 							if(currentUser!=null){
 								name= currentUser.getUserName();

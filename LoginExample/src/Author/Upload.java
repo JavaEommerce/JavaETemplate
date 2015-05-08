@@ -262,6 +262,8 @@ public class Upload extends HttpServlet {
               		        		
                             	  File file = new File(filePath);  
                                   item.write(file);    
+                                  PrintWriter out= response.getWriter();
+            			          out.println("<font color=green>Up load successful! Please check your email to find your accoutn!</font>"); 
                                   break;
               		        		
               		        	}
