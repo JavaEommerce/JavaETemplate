@@ -1,3 +1,4 @@
+    <%@page import="Author.Author" %>
     <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>       
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">  
     <html>  
@@ -7,11 +8,34 @@
         
       <body>  
         <form id="form5" method="post" enctype="multipart/form-data" action="Upload" >  
-         
-        main author name:<input name="mainAuthor" type="text" id="mainAuthor"><br />   
-		email address:<input name="mainEmail" type="text" id="mainEmail"><br />   
-        affiliation:<input name="mainAffiliation" type="text" id="mainAffiliation"><br />           
-                
+         <%
+         String authorname="";
+         String email="";
+         Author currentAuthor = (Author)session.getAttribute("Author");
+         if(currentAuthor!=null){
+         authorname = currentAuthor.getAuthorName();
+         email = currentAuthor.getEmail();    
+         }
+         %>
+        main author name:
+        
+        <%if(currentAuthor==null){ %>
+        <input name="mainAuthor" type="text" id="mainAuthor"><br />   
+        <%}else { %>
+        <input name="mainAuthor" type="text" id="mainAuthor" value=<%=authorname %> readonly><br />   
+        <%} %>
+		email address:
+		
+		 <%if(currentAuthor==null){ %>
+        <input name="mainEmail" type="text" id="mainEmail"><br />  
+        <%}else { %>
+        <input name="mainEmail" type="text" id="mainEmail" value=<%=email %> readonly><br />   
+        <%} %>
+		
+		
+		
+		   
+        affiliation:<input name="mainAffiliation" type="text" id="mainAffiliation"><br />                          
         other author name:<input name="otherAuthor" type="text" id="otherAuthor"><br />   
 		other email address:<input name="otherEmail" type="text" id="otherEmail"><br />   
         other affiliation:<input name="otherAffiliation" type="text" id="mainAffiliation"><br />            
