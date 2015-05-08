@@ -122,29 +122,34 @@ function showtime(){
 					<ul class="nav navbar-nav">
 						<li><a href="login.jsp">Login and Signup</a></li>
 						<li><a href="UploadNavigator.jsp"><%="Guide" %></a></li>
+						
+						<%if(state==0){ %>
+							<li><a href="Upload.jsp"><%="Upload" %></a></li>
+						<%} %>
+						<%if(state==1){ %>
 						<li><a href="Upload.jsp"><%="Upload" %></a></li>
+							<li><a href="Canupload.jsp"><%="Author Centre" %></a></li>
+						<%} %>
+						<%if(state==2){ %>
+						<li><a href="Waitingpublish.jsp"><%="Upload" %></a></li>
+							<li><a href="Checking.jsp"><%="Author Centre" %></a></li>
+						<%} %>
+						<%if(state==3){ %>
+						<li><a href="Waitingpublish.jsp"><%="Upload" %></a></li>
+							<li><a href="ReUpLoad.jsp"><%="Author Centre" %></a></li>
+						<%}%>
 						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
 						
 
 
-							<%if(state==1){ %>
-								<li><a href="Checking.jsp"><%="Author Centre" %></a></li>
-							<%} %>
-							<%if(state==2){ %>
-								<li><a href="Checking.jsp"><%="Author Centre" %></a></li>
-							<%} %>
-							<%if(state==3){ %>
-								<li><a href="ReUpLoad.jsp"><%="Author Centre" %></a></li>
-
-
-						<%}else{%>
+							
 						
 						<%if(role==3){ %>
 						<li><a href="EditorTest.jsp"><%=showName %>></a></li>
 						<%}else{ %>
 						<li><a><%=showName %>></a></li>
 						<%} %>
-						<%} %>
+						
 						
 					</ul>
 				</div>
