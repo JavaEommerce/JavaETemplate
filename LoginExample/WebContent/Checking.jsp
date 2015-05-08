@@ -33,38 +33,41 @@ ResultSet rs = st.executeQuery( sqlStr );
 	while(rs.next())
             {   
 		articleTitle = rs.getString("articlename");
-            }
+		System.out.println(articleTitle);
+
            
 
             
             
-            String sqlStr2 = "select currentreviewnum from Article where articlename=";
+            String sqlStr2 = "select currentreviewnum,ispublish from Article where articlename=";
             sqlStr2 = sqlStr2 + "\""+articleTitle+"\"";
             System.out.println(sqlStr);
             System.out.println(sqlStr2);
             
             Statement st2 = con.createStatement();
-           ResultSet rs2 = st.executeQuery( sqlStr2 );
+            ResultSet rs2 = st2.executeQuery( sqlStr2 );
             
 
                 
-        	while(rs2.next())
-                  {   
-      		num = rs2.getInt("currentreviewnum");
-    		System.out.println(num);
+        	while(rs2.next()) {   
+        		
+        		if(rs2.getBoolean("ispublish")){
+      			num = rs2.getInt("currentreviewnum");
+        		}
               }
                        
-            	
-            	
+            rs2.close();
+            st2.close();
+            }          	
             	
                 rs.close();
                 st.close();
-                rs2.close();
-                st2.close();
+
        
             con.close();
             
-            out.println("Please waiting for reviewer, there are "+num+" reviewer(s) have reviewed your article");
+            out.println("Please waiting for reviewer, there are "+num+" reviewer(s) have reviewed your article.");
+            out.println("You can get all feedback after 3 reviewer reviewing your article");
  %>
 </body>
 </html>
