@@ -91,7 +91,9 @@ public class Upload extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		Author currentAuthor = (Author)session.getAttribute("Author");
-	if(currentAuthor.getSubmitState()!=2){
+		System.out.println(currentAuthor);
+
+//		if(currentAuthor.getSubmitState()!=2){
 		
       //Servlet初始化时执行,如果上传文件目录不存在则自动创建    
         if(!new File(serverPath+uploadPath).isDirectory()){   
@@ -121,206 +123,407 @@ public class Upload extends HttpServlet {
                   
                   if(fileName.endsWith(fileType[0])){   
 //                    String uuid = UUID.randomUUID().toString();    
-                	  
-                	  
-
-                      filePath = serverPath + uploadPath + fileName;  
-                	  
-                	  
-                	  
-//************************************     
-
-                if(!mainAuthorname.equals("")){
-                	System.out.println(mainAuthorname);
-                      if(mainEmail.indexOf("@") != -1){
-                    	  
-                    	  String password="";
-                		  for(int w=0;w<=7;w++){
-                			  password += (int)(Math.random()*10);
-                		  }
+                   filePath = serverPath + uploadPath + fileName;  
+                   
+//************************************************************************
+           		//not author
+           		if(currentAuthor==null){
+           			System.out.println("==null");
+           			
+           			
+           			if(!mainAuthorname.equals("")){
+//                    	System.out.println(mainAuthorname);
+                          if(mainEmail.indexOf("@") != -1){
+                        	  
+                        	  String password="";
+                    		  for(int w=0;w<=7;w++){
+                    			  password += (int)(Math.random()*10);
+                    		  }
+           			
 //database ***************************************
-                    	  Dbconnection db=null;
-                      	  db = new Dbconnection();
-                      	  Connection con = db.getConnection();
-                      	  
-                      	PreparedStatement pch = null;		//check whether reviewer exist
-                		ResultSet rs =null;
-                		
-                      	PreparedStatement ps = null;		//update author state
-                      	PreparedStatement pi = null;		//new article
-                      	PreparedStatement paa = null;		//new AuthorArticle
-                      	
-                      	java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
-                      	  
-                      	  if(con!=null) {
-                      		  try{  
-                      	
-                      		  System.out.println("enter database");
+                        	  Dbconnection db=null;
+                          	  db = new Dbconnection();
+                          	  Connection con = db.getConnection();
+                    		  
+                          	  PreparedStatement pch = null;		//check whether reviewer exist
+                          	  ResultSet rs =null;
+                          	  
+                          	PreparedStatement pi = null;		//new article
+                          	PreparedStatement paa = null;		//new AuthorArticle
+                          	
+                          	java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+                    		  
+                    if(con!=null) {
+                        	try{  
+                        	
+                        		  System.out.println("enter database");
 
-            					String aname = currentAuthor.getAuthorName();
+              					
+              					pch = con.prepareStatement("select username from User where username=?");
+              					pch.setString(1, mainEmail);
+              		        	rs = pch.executeQuery();
+              		        	
+              		        	
+              		        	if (rs!=null&&rs.next()) {
+              		        		//have account
+              		        		System.out.println(mainEmail);
 
-            					
-            					pch = con.prepareStatement("select reviewername from Reviewer where reviewername=?");
-            					pch.setString(1, mainEmail);
-            		        	rs = pch.executeQuery();
-            		        	if (rs!=null&&rs.next()) {
-            		        		System.out.println(mainEmail);
-            		        		//forward to login page to login
-            			            PrintWriter out= response.getWriter();
-            			            out.println("<font color=green>Uploaded!.</font>");
-
-            			            
-            			            ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
-                                    ps.setInt(1,2);
-                              		ps.setString(2, aname);
-                              		ps.executeUpdate();
-                              		currentAuthor.setSubmitState(2);
-                              		
-                              		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations, currentreviewnum) values (?,?,?,?,?,?,?,?,?)");
-                    				pi.setString(1, title);
-                    	            pi.setString(2, keywords);
-                    	            pi.setString(3, abst);
-                    	            pi.setString(4, filePath);
-                    				pi.setString(5, "computer");
-                    				pi.setDate(6, currentDate);
-                    				pi.setBoolean(7, false);
-                    				pi.setString(8, otherAffiliation);
-                    				pi.setInt(9,0);
-                    	            pi.execute();
-                              		
-                    	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
-                    	            paa.setString(1, currentAuthor.getAuthorName());
-                    	            paa.setString(2, title);
-                    	            paa.execute();
-                    	            System.out.println("AuthorArticle111");
-                              		
-                              	    ps.close();
-                              	    pi.close();
-                              	    paa.close();
-                              	    con.close();
-            			            
-            			            
-                              	  File file = new File(filePath);  
+              			            PrintWriter out= response.getWriter();
+              			            out.println("<font color=green>You have account,please login first.</font>"); 
+              			            
+              			            rs.close();   //????
+              			            pch.close();
+              			            con.close();
+              			            break;
+              		        	}else{
+              		        		//don't have account
+              		        	insertUser(response, request, mainEmail, password,con);
+                				insertReviewer(response, request, mainEmail, password, con);
+                				insertAuthor(response,request,mainEmail,password,mainAuthorname,mainEmail,con);
+                          		
+                          		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations) values (?,?,?,?,?,?,?,?)");
+                				pi.setString(1, title);
+                	            pi.setString(2, keywords);
+                	            pi.setString(3, abst);
+                	            pi.setString(4, filePath);
+                				pi.setString(5, "computer");
+                				pi.setDate(6, currentDate);
+                				pi.setBoolean(7, false);
+                				pi.setString(8, otherAffiliation);
+                	            pi.execute();
+                          		
+                	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
+                	            paa.setString(1, mainAuthorname);
+                	            paa.setString(2, title);
+                	            paa.execute();
+                          		
+                          	  
+                          	    pi.close();
+                          	    paa.close();
+                          	    con.close();
+              		        		
+              		        		
+              		        		
+                            	  System.out.println("Send email");
+//**********************************************************************************************                   			                	  
+                            	//email                    	  
+                            	                    	  
+                            	                    	  System.out.println("Send mail");
+                            	                    	  try{
+                            	                              //send email
+                            	                    		  
+                            	                    		  
+                            	                    		  
+                            	                    			Properties props=new Properties();//也可用Properties props = System.getProperties(); 
+                            	                    			props.put("mail.smtp.host","smtp.gmail.com");//存储发送邮件服务器的信息
+                            	                    			props.put("mail.smtp.user", "javaeteam3@gmail.com");  
+                            	                    			props.put("mail.smtp.password", "weizhao888");  
+                            	                    			props.put("mail.smtp.auth", "true"); 
+                            	
+                            	                    			props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+                            	                    			props.put("mail.smtp.socketFactory.fallback","false");
+                            	                    			props.put("mail.smtp.port","465");
+                            	                    			props.put("mail.smtp.socketFactory.port","465");
+                            	
+                            	                    			Session s=Session.getInstance(props);//根据属性新建一个邮件会话
+                            	                    			s.setDebug(true);
+                            	
+                            	                    			MimeMessage message=new MimeMessage(s);//由邮件会话新建一个消息对象
+                            	
+                            	                    			String content = "username: "+ mainEmail + "\n"+"password: "+password;
+                            	                    			
+                            	                    			//设置邮件
+                            	                    			InternetAddress from=new InternetAddress("javaeteam3@gmail.com");
+                            	                    			message.setFrom(from);//设置发件人
+                            	                    			InternetAddress to=new InternetAddress(mainEmail);
+                            	                    			message.setRecipient(Message.RecipientType.TO,to);//设置收件人,并设置其接收类型为TO
+                            	                    			message.setSubject("Reviewer account");//设置主题
+                            	                    			message.setText(content);//设置信件内容
+                            	                    			message.setSentDate(new Date());//设置发信时间
+                            	
+                            	                    			//发送邮件
+                            	                    			message.saveChanges();//存储邮件信息
+                            	                    			Transport transport=s.getTransport("smtp");
+                            	                    			transport.connect("smtp.gmail.com","javaeteam3@gmail.com","weizhao888");//以smtp方式登录邮箱
+                            	                    			transport.sendMessage(message,message.getAllRecipients());//发送邮件,其中第二个参数是所有
+                            	                    			//已设好的收件人地址
+                            	                    			transport.close();
+                            	
+                            	                    			
+                            	                    			
+                            	
+                            	                    			
+                            	                    			
+                            	             			
+                            	                    		}catch(MessagingException e){
+                            	                    			System.out.println("emailerror");
+                            	                    			System.out.println(e.toString());
+                            	                    		}                            	  
+              		        		
+                            	  File file = new File(filePath);  
                                   item.write(file);    
-        			            
-            			            
-            			            break;
-            					}
-            					
-            					
-            					
-            					insertUser(response, request, mainEmail, password,con);
-            					insertReviewer(response, request, mainEmail, password, con);
-            					
-                      		ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
-                            ps.setInt(1,2);
-                      		ps.setString(2, aname);
-                      		ps.executeUpdate();
-                      		currentAuthor.setSubmitState(2);
-                      		
-                      		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations) values (?,?,?,?,?,?,?,?)");
-            				pi.setString(1, title);
-            	            pi.setString(2, keywords);
-            	            pi.setString(3, abst);
-            	            pi.setString(4, filePath);
-            				pi.setString(5, "computer");
-            				pi.setDate(6, currentDate);
-            				pi.setBoolean(7, false);
-            				pi.setString(8, otherAffiliation);
-            	            pi.execute();
-                      		
-            	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
-            	            paa.setString(1, currentAuthor.getAuthorName());
-            	            paa.setString(2, title);
-            	            paa.execute();
-                      	  System.out.println("AuthorAtricle2");
-                      		
-                      	    ps.close();
-                      	    pi.close();
-                      	    paa.close();
-                      	    con.close();
-                      	  	System.out.println(keywords);
-                      		  }catch(SQLException e){  
-                                    
+                                  break;
+              		        		
+              		        	}
+            		        }catch(SQLException e){                                      
                                     System.out.println("SQLException;"+e.getMessage());   
                                 }  
-                      		  
-                      	  }
-//**********************************************************************************************                   			                	  
-//email                    	  
-                    	  
-                    	  System.out.println("Send mail");
-                    	  try{
-                              //send email
+              			            
                     		  
-                    		  
-                    		  
-                    			Properties props=new Properties();//也可用Properties props = System.getProperties(); 
-                    			props.put("mail.smtp.host","smtp.gmail.com");//存储发送邮件服务器的信息
-                    			props.put("mail.smtp.user", "javaeteam3@gmail.com");  
-                    			props.put("mail.smtp.password", "weizhao888");  
-                    			props.put("mail.smtp.auth", "true"); 
-
-                    			props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
-                    			props.put("mail.smtp.socketFactory.fallback","false");
-                    			props.put("mail.smtp.port","465");
-                    			props.put("mail.smtp.socketFactory.port","465");
-
-                    			Session s=Session.getInstance(props);//根据属性新建一个邮件会话
-                    			s.setDebug(true);
-
-                    			MimeMessage message=new MimeMessage(s);//由邮件会话新建一个消息对象
-
-                    			String content = "username: "+ mainEmail + "\n"+"password: "+password;
-                    			
-                    			//设置邮件
-                    			InternetAddress from=new InternetAddress("javaeteam3@gmail.com");
-                    			message.setFrom(from);//设置发件人
-                    			InternetAddress to=new InternetAddress(mainEmail);
-                    			message.setRecipient(Message.RecipientType.TO,to);//设置收件人,并设置其接收类型为TO
-                    			message.setSubject("Reviewer account");//设置主题
-                    			message.setText(content);//设置信件内容
-                    			message.setSentDate(new Date());//设置发信时间
-
-                    			//发送邮件
-                    			message.saveChanges();//存储邮件信息
-                    			Transport transport=s.getTransport("smtp");
-                    			transport.connect("smtp.gmail.com","javaeteam3@gmail.com","weizhao888");//以smtp方式登录邮箱
-                    			transport.sendMessage(message,message.getAllRecipients());//发送邮件,其中第二个参数是所有
-                    			//已设好的收件人地址
-                    			transport.close();
-
-                    			
-                    			
-
-                    			
-                    			
-             			
-                    		}catch(MessagingException e){
-                    			System.out.println("emailerror");
-                    			System.out.println(e.toString());
-                    		}
-                      }else{
-                    	  System.out.println("emailelse");
-                    	  request.setAttribute("errorMsg", "fail!");  
-                          request.getRequestDispatcher("SendEmailerror.jsp").forward(request,response);  
-                          break;
-                      } 
-                      
-                }else{
-                	System.out.println("author else");
-                	request.getRequestDispatcher("MainAuthorerror.jsp").forward(request,response);  
-                	break;
-                }
-                
-//************************************                      
-//upload***************************************                      
-
-                      
-                      File file = new File(filePath);  
-                      item.write(file);    
-                      
-//******************************************                      
+                          }                         
+           			}else{System.out.println("没输入邮箱");	break;}       			
+           		}else{System.out.println("没输入作者");break;	}    
+           	}
+//************************************************************************not author end
+           		//author
+           		if(currentAuthor!=null){
+           			System.out.println("!=");
+          			
+           		 Dbconnection db=null;
+             	  db = new Dbconnection();
+             	  Connection con = db.getConnection();
+             	  
+             	PreparedStatement pch = null;		//check whether reviewer exist
+             	ResultSet rs =null;
+       		
+             	PreparedStatement ps = null;		//update author state
+             	PreparedStatement pi = null;		//new article
+             	PreparedStatement paa = null;		//new AuthorArticle
+             	
+             	java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+           			
+             	 ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
+                 ps.setInt(1,2);
+           		ps.setString(2, currentAuthor.getAuthorName());
+           		ps.executeUpdate();
+           		currentAuthor.setSubmitState(2);
+           		
+           		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations, currentreviewnum) values (?,?,?,?,?,?,?,?,?)");
+ 				pi.setString(1, title);
+ 	            pi.setString(2, keywords);
+ 	            pi.setString(3, abst);
+ 	            pi.setString(4, filePath);
+ 				pi.setString(5, "computer");
+ 				pi.setDate(6, currentDate);
+ 				pi.setBoolean(7, false);
+ 				pi.setString(8, otherAffiliation);
+ 				pi.setInt(9,0);
+ 	            pi.execute();
+           		
+ 	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
+ 	            paa.setString(1, currentAuthor.getAuthorName());
+ 	            paa.setString(2, title);
+ 	            paa.execute();
+           		
+           	    ps.close();
+           	    pi.close();
+           	    paa.close();
+           	    con.close();
+		            
+		            
+           	  File file = new File(filePath);  
+               item.write(file);    
+	            
+		            
+		            break;		
+		            
+           		}
+//************************************************************************author end                	  
+                	  
+                	  
+////**************************************************     
+//
+//                if(!mainAuthorname.equals("")){
+////                	System.out.println(mainAuthorname);
+//                      if(mainEmail.indexOf("@") != -1){
+//                    	  
+//                    	  String password="";
+//                		  for(int w=0;w<=7;w++){
+//                			  password += (int)(Math.random()*10);
+//                		  }
+////database ***************************************
+//                    	  Dbconnection db=null;
+//                      	  db = new Dbconnection();
+//                      	  Connection con = db.getConnection();
+//                      	  
+//                      	PreparedStatement pch = null;		//check whether reviewer exist
+//                		ResultSet rs =null;
+//                		
+//                      	PreparedStatement ps = null;		//update author state
+//                      	PreparedStatement pi = null;		//new article
+//                      	PreparedStatement paa = null;		//new AuthorArticle
+//                      	
+//                      	java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+//                      	  
+//                      	  if(con!=null) {
+//                      		  try{  
+//                      	
+//                      		  System.out.println("enter database");
+//
+//            					String aname = currentAuthor.getAuthorName();
+//
+//            					
+//            					pch = con.prepareStatement("select reviewername from Reviewer where reviewername=?");
+//            					pch.setString(1, mainEmail);
+//            		        	rs = pch.executeQuery();
+//            		        	if (rs!=null&&rs.next()) {
+//            		        		System.out.println(mainEmail);
+//            		        		//forward to login page to login
+//            			            PrintWriter out= response.getWriter();
+//            			            out.println("<font color=green>Uploaded!.</font>");
+//
+//            			            
+//            			            ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
+//                                    ps.setInt(1,2);
+//                              		ps.setString(2, aname);
+//                              		ps.executeUpdate();
+//                              		currentAuthor.setSubmitState(2);
+//                              		
+//                              		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations, currentreviewnum) values (?,?,?,?,?,?,?,?,?)");
+//                    				pi.setString(1, title);
+//                    	            pi.setString(2, keywords);
+//                    	            pi.setString(3, abst);
+//                    	            pi.setString(4, filePath);
+//                    				pi.setString(5, "computer");
+//                    				pi.setDate(6, currentDate);
+//                    				pi.setBoolean(7, false);
+//                    				pi.setString(8, otherAffiliation);
+//                    				pi.setInt(9,0);
+//                    	            pi.execute();
+//                              		
+//                    	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
+//                    	            paa.setString(1, currentAuthor.getAuthorName());
+//                    	            paa.setString(2, title);
+//                    	            paa.execute();
+//                    	            System.out.println("AuthorArticle111");
+//                              		
+//                              	    ps.close();
+//                              	    pi.close();
+//                              	    paa.close();
+//                              	    con.close();
+//            			            
+//            			            
+//                              	  File file = new File(filePath);  
+//                                  item.write(file);    
+//        			            
+//            			            
+//            			            break;
+//            					}
+//            					
+//            					
+//            					
+//            					insertUser(response, request, mainEmail, password,con);
+//            					insertReviewer(response, request, mainEmail, password, con);
+//            					
+//                      		ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
+//                            ps.setInt(1,2);
+//                      		ps.setString(2, aname);
+//                      		ps.executeUpdate();
+//                      		currentAuthor.setSubmitState(2);
+//                      		
+//                      		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations) values (?,?,?,?,?,?,?,?)");
+//            				pi.setString(1, title);
+//            	            pi.setString(2, keywords);
+//            	            pi.setString(3, abst);
+//            	            pi.setString(4, filePath);
+//            				pi.setString(5, "computer");
+//            				pi.setDate(6, currentDate);
+//            				pi.setBoolean(7, false);
+//            				pi.setString(8, otherAffiliation);
+//            	            pi.execute();
+//                      		
+//            	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
+//            	            paa.setString(1, currentAuthor.getAuthorName());
+//            	            paa.setString(2, title);
+//            	            paa.execute();
+//                      	  System.out.println("AuthorAtricle2");
+//                      		
+//                      	    ps.close();
+//                      	    pi.close();
+//                      	    paa.close();
+//                      	    con.close();
+//                      	  	System.out.println(keywords);
+//                      		  }catch(SQLException e){  
+//                                    
+//                                    System.out.println("SQLException;"+e.getMessage());   
+//                                }  
+//                      		  
+//                      	  }
+////**********************************************************************************************                   			                	  
+////email                    	  
+//                    	  
+//                    	  System.out.println("Send mail");
+//                    	  try{
+//                              //send email
+//                    		  
+//                    		  
+//                    		  
+//                    			Properties props=new Properties();//也可用Properties props = System.getProperties(); 
+//                    			props.put("mail.smtp.host","smtp.gmail.com");//存储发送邮件服务器的信息
+//                    			props.put("mail.smtp.user", "javaeteam3@gmail.com");  
+//                    			props.put("mail.smtp.password", "weizhao888");  
+//                    			props.put("mail.smtp.auth", "true"); 
+//
+//                    			props.put("mail.smtp.socketFactory.class","javax.net.ssl.SSLSocketFactory");
+//                    			props.put("mail.smtp.socketFactory.fallback","false");
+//                    			props.put("mail.smtp.port","465");
+//                    			props.put("mail.smtp.socketFactory.port","465");
+//
+//                    			Session s=Session.getInstance(props);//根据属性新建一个邮件会话
+//                    			s.setDebug(true);
+//
+//                    			MimeMessage message=new MimeMessage(s);//由邮件会话新建一个消息对象
+//
+//                    			String content = "username: "+ mainEmail + "\n"+"password: "+password;
+//                    			
+//                    			//设置邮件
+//                    			InternetAddress from=new InternetAddress("javaeteam3@gmail.com");
+//                    			message.setFrom(from);//设置发件人
+//                    			InternetAddress to=new InternetAddress(mainEmail);
+//                    			message.setRecipient(Message.RecipientType.TO,to);//设置收件人,并设置其接收类型为TO
+//                    			message.setSubject("Reviewer account");//设置主题
+//                    			message.setText(content);//设置信件内容
+//                    			message.setSentDate(new Date());//设置发信时间
+//
+//                    			//发送邮件
+//                    			message.saveChanges();//存储邮件信息
+//                    			Transport transport=s.getTransport("smtp");
+//                    			transport.connect("smtp.gmail.com","javaeteam3@gmail.com","weizhao888");//以smtp方式登录邮箱
+//                    			transport.sendMessage(message,message.getAllRecipients());//发送邮件,其中第二个参数是所有
+//                    			//已设好的收件人地址
+//                    			transport.close();
+//
+//                    			
+//                    			
+//
+//                    			
+//                    			
+//             			
+//                    		}catch(MessagingException e){
+//                    			System.out.println("emailerror");
+//                    			System.out.println(e.toString());
+//                    		}
+//                      }else{
+//                    	  System.out.println("emailelse");
+//                    	  request.setAttribute("errorMsg", "fail!");  
+//                          request.getRequestDispatcher("SendEmailerror.jsp").forward(request,response);  
+//                          break;
+//                      } 
+//                      
+//                }else{
+//                	System.out.println("author else");
+//                	request.getRequestDispatcher("MainAuthorerror.jsp").forward(request,response);  
+//                	break;
+//                }
+//                
+////************************************                      
+////upload***************************************                      
+//
+//                      
+//                      File file = new File(filePath);  
+//                      item.write(file);    
+//                      
+////******************************************                      
                       
                       
                    }else {  
@@ -411,13 +614,11 @@ public class Upload extends HttpServlet {
 //                  System.out.println(value);             
               } 
               	
-              	if(i==18){
-                System.out.println( i);
-              	}
+          
               	
           } 
           
-                
+                          
       } catch (Exception e) {  
     	  System.out.println("catch");
           e.printStackTrace();    
@@ -425,10 +626,10 @@ public class Upload extends HttpServlet {
           request.getRequestDispatcher("uploaderror.jsp").forward(request,response);   
       }  
       
-	}else{
-		PrintWriter out= response.getWriter();
-        out.println("<font color=green>FFFFFF,do not.</font>");
-	}
+//	}else{
+//		PrintWriter out= response.getWriter();
+//        out.println("<font color=green>FFFFFF,do not.</font>");
+//	}
       
 	}
 //end do post
@@ -516,7 +717,56 @@ public class Upload extends HttpServlet {
         
 	}
 	
-	
+	private void insertAuthor(HttpServletResponse response,HttpServletRequest request,String userName,String password,String authorName, String email,Connection con) throws ServletException,IOException {
+		
+		PreparedStatement psForAuthor = null;
+		PreparedStatement psLookupID = null;
+		ResultSet rs =null;
+		int userID=0;
+		
+        try {
+			psLookupID = con.prepareStatement("select ID from User where username=? and role=? limit 1");
+			psLookupID.setString(1, userName);
+			psLookupID.setInt(2, 2);
+			
+	        
+	        rs =  psLookupID.executeQuery();
+	        if (rs.next()) {
+	        	userID = rs.getInt("ID");
+	 	        System.out.println(userID);
+	 	        rs.close();
+			}
+	       
+	        psForAuthor = con.prepareStatement("insert into Author(authorname, email, submitstate,ID) values (?,?,?,?)");
+	        psForAuthor.setString(1, authorName);
+	        psForAuthor.setString(2, email);
+	        psForAuthor.setInt(3,2);
+	        psForAuthor.setInt(4,userID);
+	        
+	        psForAuthor.execute();
+			System.out.println("Author created");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+            try {
+                
+            	if (psLookupID!=null) {
+					psLookupID.close();
+				}
+            	if (psForAuthor!=null) {
+            		psForAuthor.close();
+               }
+               
+            } catch (SQLException e) {
+            	System.out.println("sql exception");
+            }
+	        
+			
+		}
+        
+	}
 	
 	
 }
