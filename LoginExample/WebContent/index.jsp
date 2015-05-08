@@ -125,17 +125,17 @@ function showtime(){
 						<li><a href="Upload.jsp"><%="Upload" %></a></li>
 						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
 						
-						<%if(role==1){ %>
-							
+
+
 							<%if(state==1){ %>
-								
+								<li><a href="Checking.jsp"><%="Author Centre" %></a></li>
 							<%} %>
 							<%if(state==2){ %>
-								<li><a href="Checking.jsp"><%=showName %></a></li>
+								<li><a href="Checking.jsp"><%="Author Centre" %></a></li>
 							<%} %>
 							<%if(state==3){ %>
-								<li><a href="ReUpLoad.jsp"><%=showName %></a></li>
-							<%} %>
+								<li><a href="ReUpLoad.jsp"><%="Author Centre" %></a></li>
+
 
 						<%}else{%>
 						
