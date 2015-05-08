@@ -14,6 +14,7 @@ public class ReviewingArticle implements Serializable{
 	private String reviewStatus;
 	private String url;
 	
+	
 	public ReviewingArticle(String articleName, String reviewStatus, String url){
 		this.articleName=articleName;
 		this.reviewStatus=reviewStatus;

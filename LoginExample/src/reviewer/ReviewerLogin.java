@@ -3,8 +3,7 @@ package reviewer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,8 +21,9 @@ import dbconnectionlib.Dbconnection;
 public class ReviewerLogin extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private Set<String> chosenArticles = new HashSet<String>();
-	private Set<ReviewingArticle> reviewingArticles = new HashSet<ReviewingArticle>();
+	private ArrayList<String> chosenArticles = new ArrayList<String>();
+	private ArrayList<ReviewingArticle> reviewingArticles = new ArrayList<ReviewingArticle>();
+	//private ArticleBag articleBag = new ArticleBag();
 	
        
     /**
@@ -128,66 +128,12 @@ public class ReviewerLogin extends HttpServlet {
 			}// end of connecting db--------------------------------
 			
 			
-			
 			// recerive posting info. from PendingArticles.jsp*************************************************/
-			System.out.println("updating chosen articles----------------------------");
-			String formName = request.getParameter("pendingSelection");
-			System.out.println("status: "+formName);
-			if (formName.equalsIgnoreCase("valid")) {
-				// update selected articles
-				String[] selectedTitles=request.getParameterValues("pendingArticles");
-				if (selectedTitles!=null) {
-					if (selectedTitles.length<=3-reviewer.getSelectedNum()) {
-						for (String title : selectedTitles) {
-							try {
-								boolean a = updateChosenArticle(request, response, title, reviewer, con);
-								reviewer.addSelectedNum1();
-								boolean b = updateReviewer(request, response, reviewer, con);
-								if (a&&b) {
-									System.out.println("selected article: "+title);
-								}
-								else {
-									System.out.println("error");
-								}
-								// redirect to centre
-								RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
-						        PrintWriter out= response.getWriter();
-						        out.println("<font color=red>selection successful</font>");
-						        rd.include(request, response);
-								
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.toString();
-							}
-						}
-						session.setAttribute("Reviewer", reviewer);
-					}
-					else {
-						System.out.println("You have chosen enough articles");
-						// didnt choose any article, back to 
-						RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
-				        PrintWriter out= response.getWriter();
-				        out.println("<font color=red>You have chosen enough articles</font>");
-				        rd.include(request, response);
-					}
-					
-				}
-				else {
-					System.out.println("Didn't choose any article");
-					// didnt choose any article, back to 
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingArticles.jsp");
-			        PrintWriter out= response.getWriter();
-			        out.println("<font color=red>Didn't choose any article</font>");
-			        rd.include(request, response);
-				}
+			String formName = request.getParameter("forms");
+			if (formName!=null&&formName.equalsIgnoreCase("valid")) {
+				handlePendingForm(request, response, session, reviewer, con, formName);
 			}
-			// end of PendingArtilce.jsp******************************************************************/
-			else {
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
-		        PrintWriter out= response.getWriter();
-		        out.println("<font color=red>didnt operate</font>");
-		        rd.include(request, response);
-			}
+			
 			
 		}
 		
@@ -202,6 +148,61 @@ public class ReviewerLogin extends HttpServlet {
 		
 	}
 
+	private void handlePendingForm(HttpServletRequest request, HttpServletResponse response,HttpSession session,Reviewer reviewer,Connection con,String formName) throws ServletException, IOException {
+		
+		System.out.println("updating chosen articles----------------------------");
+		System.out.println("source: "+formName);
+		
+		// update selected articles
+		String[] selectedTitles=request.getParameterValues("pendingArticles");
+		if (selectedTitles!=null) {
+			if (selectedTitles.length<=3-reviewer.getSelectedNum()) {
+				for (String title : selectedTitles) {
+					try {
+						boolean a = updateChosenArticle(request, response, title, reviewer, con);
+						reviewer.addSelectedNum1();
+						boolean b = updateReviewer(request, response, reviewer, con);
+						if (a&&b) {
+							System.out.println("selected article: "+title);
+						}
+						else {
+							System.out.println("error");
+						}
+						// redirect to centre
+						RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
+				        PrintWriter out= response.getWriter();
+				        out.println("<font color=red>selection successful</font>");
+				        rd.include(request, response);
+						
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.toString();
+					}
+				}
+				session.setAttribute("Reviewer", reviewer);
+			}
+			else {
+				System.out.println("You have chosen enough articles");
+				// didnt choose any article, back to 
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
+		        PrintWriter out= response.getWriter();
+		        out.println("<font color=red>You have chosen enough articles</font>");
+		        rd.include(request, response);
+			}
+			
+		}
+		else {
+			System.out.println("Didn't choose any article");
+			// didnt choose any article, back to 
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingArticles.jsp");
+	        PrintWriter out= response.getWriter();
+	        out.println("<font color=red>Didn't choose any article</font>");
+	        rd.include(request, response);
+		}
+		
+		
+	}
+	
 	
 	private boolean updateChosenArticle(HttpServletRequest request, HttpServletResponse response,String title,Reviewer reviewer,Connection con) throws ServletException, SQLException, IOException {
 			

@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="java.util.TreeSet"%>
 <%@page import="reviewer.ReviewingArticle"%>
@@ -13,16 +15,16 @@
 <body>
 
 	<%
-		Set<String> chosenArticles = new HashSet<String>();
-		Set<ReviewingArticle> reviewingArticles = new HashSet<ReviewingArticle>();
-		chosenArticles = (HashSet)session.getAttribute("chosenArticles");
-		reviewingArticles = (HashSet<ReviewingArticle>)session.getAttribute("reviewingArticles");
+		List<String> chosenArticles = new ArrayList<String>();
+		List<ReviewingArticle> reviewingArticles = new ArrayList<ReviewingArticle>();
+		chosenArticles = (ArrayList)session.getAttribute("ChosenArticles");
+		reviewingArticles = (ArrayList<ReviewingArticle>)session.getAttribute("reviewingArticles");
 		
 	%>
 	<h1>Welcome to Reviewer Centre!</h1>
 	<p><a href="index.jsp">Home</a>
 	
-	<form action="ReviewerLogin">
+	<form action="ReviewerLogin" name="forms" method="post">
 		<p>Selected Articles: 
 		<ol>
 			<%
