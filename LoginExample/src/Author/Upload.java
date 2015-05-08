@@ -204,7 +204,7 @@ public class Upload extends HttpServlet {
               		        		
               		        		
               		        		
-                            	  System.out.println("Send email");
+                            	System.out.println("Send email");
 //**********************************************************************************************                   			                	  
                             	//email                    	  
                             	                    	  
@@ -296,13 +296,7 @@ public class Upload extends HttpServlet {
            			
              	
              	if(con!=null) {
-                	try{  
-             	ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
-                ps.setInt(1,2);
-           		ps.setString(2, currentAuthor.getAuthorName());
-           		ps.executeUpdate();
-           		currentAuthor.setSubmitState(2);
-           		
+                	try{            		
            		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations, currentreviewnum) values (?,?,?,?,?,?,?,?,?)");
  				pi.setString(1, title);
  	            pi.setString(2, keywords);
@@ -315,10 +309,18 @@ public class Upload extends HttpServlet {
  				pi.setInt(9,0);
  	            pi.execute();
            		
+
+ 	            
  	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
  	            paa.setString(1, currentAuthor.getAuthorName());
  	            paa.setString(2, title);
  	            paa.execute();
+ 	            
+             	ps = con.prepareStatement("update Author set submitstate=? where authorname=?");
+                ps.setInt(1,2);
+           		ps.setString(2, currentAuthor.getAuthorName());
+           		ps.executeUpdate();
+           		currentAuthor.setSubmitState(2);
            		
            	    ps.close();
            	    pi.close();
@@ -630,7 +632,6 @@ public class Upload extends HttpServlet {
           
                           
       } catch (Exception e) {  
-    	  System.out.println("catch");
           e.printStackTrace();    
           request.setAttribute("errorMsg", "fail!");  
           request.getRequestDispatcher("uploaderror.jsp").forward(request,response);   
