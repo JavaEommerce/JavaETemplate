@@ -340,18 +340,26 @@ ifm.height = subWeb.body.scrollHeight;
 					<!-- Search -->
 					<div class="well">
 						<h4 class="margin-t-0">Search</h4>
-						<form action="#">
+						<form action="Search" method="post">
 							<div class="input-group">
 								<label class="sr-only" for="search-form">Search the site</label>
 								<input type="text" class="form-control" id="search-form" name="search-form">
 								<span class="input-group-btn">
-									<button class="btn btn-default" type="button">
+									<button class="btn btn-default" type="submit">
                                     Submit
 										<span class="glyphicon glyphicon-search"></span>
 										<span class="sr-only">Search</span>
 									</button>
 								</span>
 							</div>
+							      <tr>
+									<select name="selectsearchtype">
+ 									 <option value="ArticleName">ArticleTitle</option>
+ 									 <option value="JournalName">AuthorName</option>
+ 									 <option value="AuthorName">Domain</option>
+ 									 <option value="Domain">Domain</option>
+									</select>
+  	  							  </tr>
 						</form>
 					</div>
 

@@ -113,4 +113,15 @@
     <servlet-name>editor.EditorAppointOne</servlet-name>
     <url-pattern>/EditorAppointOne</url-pattern>
   </servlet-mapping>
+  
+  
+    <servlet>
+    <servlet-name>reader.Search</servlet-name>
+    <servlet-class>reader.Search</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reader.Search</servlet-name>
+    <url-pattern>/Search</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
