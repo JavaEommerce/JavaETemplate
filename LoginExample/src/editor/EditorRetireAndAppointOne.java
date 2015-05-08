@@ -110,30 +110,7 @@ public class EditorRetireAndAppointOne extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		PrintWriter out= response.getWriter();
-//        out.println("<font color=black>"+"This is retire page"+"</font>");
-//        out.println("<h2>do you want to retire</h2>");
 		
-//		Map<String,Object> map = new HashMap<String,Object>();
-//		boolean isValid = false;
-//		String username = request.getParameter("username");
-//        if(username !=null&& username.trim().length()!=0)
-//        {
-//        	isValid = true;
-//        	map.put("username", username);
-//        }
-//        map.put("isValid", isValid);
-//        write(response,map);
-//        System.out.println("map....."+username);
-		int ids;
-        response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        String val = request.getParameter("id");
-        System.out.print(val);
-        if(val != null){
-            ids = Integer.parseInt(val);
-            out.print(ids); //
-        }
 	}
 	
 	private void write(HttpServletResponse response,Map<String,Object> map) throws IOException

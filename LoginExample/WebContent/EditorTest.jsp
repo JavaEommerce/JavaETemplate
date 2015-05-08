@@ -77,11 +77,13 @@ table.hovertable td {
 <input type="button" id="submit" value="Editor Retire"/>
 <br/>
 
+
+
 <div id="welcometext">
 </div>
 </form>
 <form id="form2">
-<input type = "button" id="submit_2" value="show articles"/>
+<input type = "button" id="submit_2" value="Edit Journal"/>
 <div id="article_name">
 </div></form>
 	<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
@@ -128,13 +130,20 @@ table.hovertable td {
 					else role = "editor";
 				%>
 				<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-					<td><%= username %></td><td><%= role%></td><td></td><td><a href="#">Detail</a></td>
-					</tr>
+					<%-- <td><%= username %></td><td><%= role%></td><td></td><td><a href="#">Set as Editor</a></td> --%>
+					<td><%= username %></td><td><%= role%></td><td></td>
+					<td> <form action="EditorAppointOne" method="post">
+					<input type="text" name="appointname" value = <%=username %>/> 
+					<input type="submit" value="appoint"/> </form> 
+					</td>
 				<%}%>
 				<p><input type="submit" name="submit" value="Show all users"></p>
 				
 			</table>				
 	</form>
+	
+	
+</form>
 
 <h3>show all journals</h3>
 
