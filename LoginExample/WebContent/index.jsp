@@ -346,6 +346,7 @@ ifm.height = subWeb.body.scrollHeight;
 								<input type="text" class="form-control" id="search-form" name="search-form">
 								<span class="input-group-btn">
 									<button class="btn btn-default" type="button">
+                                    Submit
 										<span class="glyphicon glyphicon-search"></span>
 										<span class="sr-only">Search</span>
 									</button>

@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Article show pages </title>
+<title>Search Result Page</title>
 </head>
 <body>
-		Article List 
+Search Result:
 </body>
 </html>

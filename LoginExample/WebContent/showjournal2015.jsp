@@ -41,7 +41,7 @@ Statement st2 = con.createStatement();
 								ResultSet versionresult = st2.executeQuery( sqljvsersion );
 								while(versionresult.next())
 								{%>	
-								 <p><a href="#">Version: <%=versionresult.getString("version")%> &nbsp;&nbsp;&nbsp;&nbsp; Publish time:<%=versionresult.getString("publishtime")%></a> </p>	
+								 <p><a href="#">Edition: <%=versionresult.getString("version")%> &nbsp;&nbsp;&nbsp;&nbsp; Publish time:<%=versionresult.getString("publishtime")%></a> </p>	
 											
 							<%} 
 								   versionresult.close();
