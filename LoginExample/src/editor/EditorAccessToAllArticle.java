@@ -69,7 +69,6 @@ public class EditorAccessToAllArticle extends HttpServlet {
 		else{
 			System.out.println("successful");
 		}
-		System.out.println("bcd");
 		PreparedStatement ps = null;
 		ResultSet rs =null;
 		try{
