@@ -38,8 +38,10 @@ table.hovertable td {
 </style>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Editor Center</title>
+<link rel="stylesheet" href="css/editorStyle.css" type="text/css" />
+<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
         <script src="http://code.jquery.com/jquery-latest.js">   
         </script>
         <script>
@@ -63,31 +65,42 @@ table.hovertable td {
         </script>
 </head>
 <body>
-<h1 style= center >Editor Page</h1>
 <%	
 	User currentUser = (User)session.getAttribute("User");  
 	String name = currentUser.getUserName();
-	//EditorCharacter e = (EditorCharacter)session.getAttribute("Editor");
-	//String name = e.getEditorName();
 %>
-<h1>Hello Editor <%=name %></h1>
-<li><a href="index.jsp">Back to Homepage</a></li><br>
-<!-- <form id="form1">
-<input type="button" id="submit" value="Editor Retire"/><br/>
-		<div id="welcometext">
-		</div>
-</form> -->
-<form action = "EditorRetire" method = "post" accept-charset="utf-8" class="simform">
-            <input class="sumbit" type="submit" value="Ready to retire"/>
-</form>
+		<section id="body" class="width">
+			<aside id="sidebar" class="column-left">
 
-<form id="form2" action = "EditorGetAllJournals" method = "post" >
-<input type = "submit" id="submit_2" value="Edit Journal Page"/>
-</form>
+			<header>
+				<h1><a href="EditorTest.jsp">Editor Center</a></h1>
 
-<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
+				<h2>Hello Editor <%=name %></h2>
+				
+			</header>
+
+			<nav id="mainnav">
+  				<ul>
+                            		<li class="selected-item"><a href="EditorTest.jsp">Articles</a></li>
+                           		 	<li><a href="EditUser.jsp">Users</a></li>
+                            		<li><form id="form2" action = "EditorGetAllJournals" method = "post" >
+									<input type = "hidden" id="submit_2" name="journal" value="Edit Journal Page"/>
+									<a href="EditJournal.jsp" onclick="this.parentNode.submit()">Journals</a>
+									</form></li>
+                            		<li><a href="#">Contact</a></li>
+                </ul>
+			</nav>
+
+			
+			
+			</aside>
+			<section id="content" class="column-right">
+			
+			<article>
+				<h2>Show all aritlces</h2>
+				<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
 			<table class="hovertable" align = "center">
-			<tr><th>Article name</th><th>Article Abstract</th><th>Reviewed Times</th><th>Detail link</th></tr>
+			<tr><th>Article name</th><th>Article Abstract</th><th>Reviewed Times</th><th>Is published</th><th>Detail link</th></tr>
 			<%
 				List<EditorAllArticlesInfo> articles=new ArrayList<EditorAllArticlesInfo>();
 				if(session.getAttribute("allArticles") instanceof List){
@@ -99,10 +112,73 @@ table.hovertable td {
 					String title = pa.getArticleName();
 					String abstracT = pa.getArticleAbstract();
 					String reviewedTime = pa.getArticleProfileUrl();
+					String articlePublished = pa.getArticleIsPublished();
 					System.out.println(title+abstracT+reviewedTime);
+					
 				%>
 				<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-					<td><%=title %></td><td><%=abstracT %></td><td><%=reviewedTime %></td>
+					<td><%=title %></td><td><%=abstracT %></td><td><%=reviewedTime %></td><td><%=articlePublished %></td>
+					<td><form action="EditorArticleDetail" method="post">
+					<input type="text" name="appointname" value = <%=title%>/> 
+					<input type="submit" value="viewDetail"/></form> </td>
+					</tr>
+				<%}%>
+				<p><input class="button" type="submit" name="submit" value="Show articles"></p>
+				<!-- <input type="hidden" name="pendingSelection" value="valid">  -->
+		</table>				
+		</form>
+			</article>
+			<footer class="clear">
+				 <%! private int count = 0; %>
+    			<P>Hello! Today's date is
+      			<%= new java.util.Date() %>
+    			</p><p>You have asked for the date<%= ++count %> times since the server was last restarted.</p>
+			</footer>
+
+		</section>
+
+		<div class="clear"></div>
+
+	</section>
+	
+
+</body>
+<%-- <body>
+<h1 style= center >Editor Page</h1>
+<%	
+	User currentUser = (User)session.getAttribute("User");  
+	String name = currentUser.getUserName();
+%>
+<h1>Hello Editor <%=name %></h1>
+<li><a href="index.jsp">Back to Homepage</a></li><br>
+<form action = "EditorRetire" method = "post" accept-charset="utf-8" class="simform">
+            <input class="sumbit" type="submit" value="Ready to retire"/>
+</form>
+
+<form id="form2" action = "EditorGetAllJournals" method = "post" >
+<input type = "submit" id="submit_2" value="Edit Journal Page"/>
+</form>
+
+<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
+			<table class="hovertable" align = "center">
+			<tr><th>Article name</th><th>Article Abstract</th><th>Reviewed Times</th><th>Is published</th><th>Detail link</th></tr>
+			<%
+				List<EditorAllArticlesInfo> articles=new ArrayList<EditorAllArticlesInfo>();
+				if(session.getAttribute("allArticles") instanceof List){
+					articles = (ArrayList<EditorAllArticlesInfo>)session.getAttribute("allArticles");
+				}
+				System.out.println(articles.toString());
+				for(EditorAllArticlesInfo pa : articles){
+				
+					String title = pa.getArticleName();
+					String abstracT = pa.getArticleAbstract();
+					String reviewedTime = pa.getArticleProfileUrl();
+					String articlePublished = pa.getArticleIsPublished();
+					System.out.println(title+abstracT+reviewedTime);
+					
+				%>
+				<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+					<td><%=title %></td><td><%=abstracT %></td><td><%=reviewedTime %></td><td><%=articlePublished %></td>
 					<td><form action="EditorArticleDetail" method="post">
 					<input type="text" name="appointname" value = <%=title%>/> 
 					<input type="submit" value="viewDetail"/></form> </td>
@@ -130,32 +206,22 @@ table.hovertable td {
 					else role = "editor";
 				%>
 				<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-					<%-- <td><%= username %></td><td><%= role%></td><td></td><td><a href="#">Set as Editor</a></td> --%>
+					<td><%= username %></td><td><%= role%></td><td></td><td><a href="#">Set as Editor</a></td>
 					<td><%= username %></td><td><%= role%></td><td></td>
 					<td> <form action="EditorAppointOne" method="post">
 					<input type="text" name="appointname" value = <%=username %>/> 
 					<input type="submit" value="appoint"/> </form> 
 					</td>
 				<%}%>
-				<p><input type="submit" name="submit" value="Show all users"></p>
-				
+				<p><input type="submit" name="submit" value="Show all users"></p>			
 			</table>				
-	</form>
-	
-	
+			</form>
 </form>
 
 <h3>show all journals</h3>
 
- <%! private int count = 0; %>
-    <P>Hello! Today's date is
-      <%= new java.util.Date() %>
-    </p><p>
-      You have asked for the date
-      <%= ++count %> times since the
-      server was last restarted.
-    </p>
 
 
-</body>
+
+</body> --%>
 </html>

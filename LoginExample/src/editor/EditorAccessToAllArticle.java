@@ -78,11 +78,11 @@ public class EditorAccessToAllArticle extends HttpServlet {
 			while (rs.next()) {
 	        	//al.add(rs.getString("articleName"));
 				
-	        	EditorAllArticlesInfo artiCle2= new EditorAllArticlesInfo(rs.getString("articleName"), rs.getString("abstract"), rs.getString("currentreviewnum"), null, null);
+	        	EditorAllArticlesInfo artiCle2= new EditorAllArticlesInfo(rs.getString("articleName"), rs.getString("abstract"), rs.getString("currentreviewnum"), null, rs.getString("ispublish"));
 				//artiCle2.setArticleName(rs.getString("articleName"));
 	        	//artiCle2.setArticleAbstract(rs.getString("abstract"));
 	        	al.add(artiCle2);
-	        	System.out.println(rs.getString("articleName") + " + "+rs.getString("abstract")+" + "+rs.getString("currentreviewnum"));
+	        	System.out.println(rs.getString("articleName") + " + "+rs.getString("abstract")+" + "+rs.getString("currentreviewnum")+" + "+rs.getString("ispublish"));
 	        	
 			}
 			HttpSession session = request.getSession();
@@ -102,7 +102,7 @@ public class EditorAccessToAllArticle extends HttpServlet {
             	System.out.println("sql exception");
             }
 	     }
-
+		response.sendRedirect("EditorTest.jsp");
 		  
 	}
 

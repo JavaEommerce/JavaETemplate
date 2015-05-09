@@ -21,6 +21,14 @@ public class EditorAllArticlesInfo implements Serializable{
 		this.articleuploadDate = articleuploadDate;
 	}
 	
+	public void setArticleIsPublished(String articleIsPublished){
+		this.articleIsPublished = articleIsPublished;
+	}
+	
+	public String getArticleIsPublished(){
+		return this.articleIsPublished;
+	}
+	
 	public void setArticleName(String newName) {
 		this.articleName=newName;
 	}
