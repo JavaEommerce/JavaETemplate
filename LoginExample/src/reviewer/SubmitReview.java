@@ -121,17 +121,19 @@ public class SubmitReview extends HttpServlet {
 
 			
 			// logic part**********************************************************************/
-			// submit first time from 
+			
 			try {
 				String auhorName = getAuthorName(con, articleName);
 				boolean revise = reviseReview(request, response, reviewer, con, auhorName);
 				if (auhorName!=null) {
+					// submit first time from 
 					if (!revise) {
 						// insert info into AuthorArticle table
 						insertIntoAuthorReviewer(auhorName, reviewer, con);
 						// update reviewer's review status
 						updateReviewStatus(articleName, reviewer, con);
 					} 
+					
 				}
 				else {
 					System.out.println("???");

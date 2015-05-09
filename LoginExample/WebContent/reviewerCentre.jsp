@@ -1,3 +1,4 @@
+<%@page import="reviewer.SubmittedReview"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.HashSet"%>
@@ -17,11 +18,16 @@
 	<%
 		List<String> chosenArticles = new ArrayList<String>();
 		List<ReviewingArticle> reviewingArticles = new ArrayList<ReviewingArticle>();
+		List<SubmittedReview> submittedReviews = new ArrayList<SubmittedReview>();
 		chosenArticles = (ArrayList)session.getAttribute("ChosenArticles");
 		reviewingArticles = (ArrayList<ReviewingArticle>)session.getAttribute("reviewingArticles");
+		submittedReviews = (ArrayList<SubmittedReview>)session.getAttribute("submittedReviews");
+		
 		String saDisplay = "";
 		String raDisplay= "";
-		if(chosenArticles!=null&&reviewingArticles!=null){
+		String srDisplay= "";
+
+		if(chosenArticles!=null&&reviewingArticles!=null&&submittedReviews!=null){
 			if(chosenArticles.isEmpty()){
 				saDisplay = "None";
 			}
@@ -29,10 +35,15 @@
 			if(reviewingArticles.isEmpty()){
 				raDisplay = "None";
 			}
+			if(submittedReviews.isEmpty()){
+				srDisplay = "None";
+			}
 		}
 		
 		System.out.println(saDisplay);
 		System.out.println(raDisplay);
+		System.out.println(srDisplay);
+
 	%>
 	<h1>Welcome to Reviewer Centre!</h1>
 	<div class="container">
@@ -90,23 +101,73 @@
 	</form>
 	
 	<form action="SubmitReview" name="submittedReviews" method="post">
-		<p>Submitted Reviews: <%=raDisplay%>
+		<p>Submitted Reviews: <%=srDisplay%>
 		<table>
 			<tr>
-				<td>Article Name</td>
-				<td>Review Status</td>
-				<td>DownLoad</td>
+				<th>Article Name</th>
+				<th>Overall judgement</th>
+				<th>Reviewer Level</th>
+				<th>Summary</th>
+				<th>Criticism</th>
+				<th>Small errors</th>
+				<th>Revise Information from author</th>
+				<th>Total revise time</th>
+				<th>Revise accepted</th>
 			</tr>
 			<tr>
 				<%
-				if(reviewingArticles!=null){
-					String ra="";
-					String status = "";
-					for (ReviewingArticle rArticle : reviewingArticles) {
-						ra = rArticle.getArticleName();
-						status = rArticle.getReviewStatus();
-						%><td><%=ra%></td> <td><%=status %></td> <td><input type="submit" name="<%=ra%>" value="Download">
-						<input type="hidden" name="downloaded" value="<%=ra%>">
+				if(submittedReviews!=null){
+					String artcileName="";
+					String overallJudgement = "";
+					String level = "";
+					String summary = "";
+					String criticism = "";
+					String smallerrors = "";
+					String reviseInfo = "";
+					int reviseTime = 0;
+					boolean reviseAccepted = false;
+					String raString = "";
+					
+					for (SubmittedReview sReview : submittedReviews) {
+						artcileName = sReview.getArticleName();
+						overallJudgement = sReview.getOverallJudgement();
+						level=sReview.getLevel();
+						summary = sReview.getSummary();
+						criticism = sReview.getCriticism();
+						smallerrors = sReview.getSmallerrors();
+						reviseInfo = sReview.getReviseInfo();
+						reviseTime = sReview.getReviseTime();
+						reviseAccepted = sReview.getReviseAccepted();
+						if(reviseAccepted){
+							raString = "Accepted";
+						}
+						else{
+							raString = "Not Accepted yet";
+						}
+						
+						%><td><%=artcileName%></td>  
+						<td><%=overallJudgement %></td>
+						<td><%=level %></td>
+						<td><%=summary %></td>
+						<td><%=criticism %></td>
+						<td><%=smallerrors %></td>
+						<td><%=reviseInfo %></td>
+						<td><%=reviseTime %></td>
+						<td><%=raString %></td>
+						
+						
+						<td>
+						<input type="submit" name="revision" value="Accept revision">
+						<input type="submit" name="revision" value="Reject revision">
+						<%
+						if(reviseAccepted){
+							artcileName=null;
+						}
+						else{
+							System.out.println("asdasdasdasdasdasdasdasd");
+						}
+						%>
+						<input type="hidden" name="submittedReviews" value="<%=artcileName%>">
 						</td>
 						
 				<% }}%>

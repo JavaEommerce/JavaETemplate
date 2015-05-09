@@ -81,7 +81,16 @@ public class ReviewerLogin extends HttpServlet {
 				boolean c = getChosenArticles(request, response, reviewer, con);
 				boolean r = getReviewingArticles(request, response, reviewer, con);
 				boolean s = getSubmittedReview(request, response, reviewer, con);
-				if (c&&r&&s) {
+				if (!c) {
+					System.out.println("no chosen article");
+				}
+				if (!r) {
+					System.out.println("no reviewing article");
+				}
+				if (!s) {
+					System.out.println("no submitted review");
+				}
+				if (chosenArticles!=null&&reviewingArticles!=null&&submittedReviews!=null) {
 					System.out.println("initialize successfully");
 					session.setAttribute("ChosenArticles", chosenArticles);
 					session.setAttribute("reviewingArticles", reviewingArticles);

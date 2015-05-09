@@ -3,6 +3,8 @@ package reviewer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
@@ -76,9 +78,17 @@ public class DownloadArticle extends HttpServlet {
 				if (request.getParameter("confirm")!=null) {
 					// download selected article and change article review status to downloaded with article name
 					System.out.println("confirm");
+					download(request, response, articleName, con);
+					System.out.println("downloaded");
 				} else {
 					System.out.println("cancel");
 					// remove record in ArticleReview and Reviewer.selectedNum
+					try {
+						cancelSelection(request, response, articleName, con, reviewer);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				
 			}
@@ -86,11 +96,9 @@ public class DownloadArticle extends HttpServlet {
 			if (articleName!=null) {
 				System.out.println(articleName);
 				// redirect to download
+				download(request, response, articleName, con);
+				response.sendRedirect("/reviewerCentre.jsp");
 			}
-			
-
-			
-			
 			
 		}
 		else {
@@ -100,6 +108,77 @@ public class DownloadArticle extends HttpServlet {
 	        out.println("<font color=red>please login</font>");
 	        rd.include(request, response);
 		}
+	}
+	
+	private void download(HttpServletRequest request, HttpServletResponse response, String articleName,Connection con) throws IOException {
+		//?
+		try {
+			String url = getURL(request, response, articleName, con);
+			System.out.println(url);
+			String filename = "memon.pdf";
+			String filepath = "/export/tomtemp/memon.pdf";
+			response.setContentType("APPLICATION/OCTET-STREAM");
+			response.setHeader("Content-Disposition","attachment; filename=\""+filename+"\"");
+			java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath);
+			java.io.OutputStream os=response.getOutputStream();
+			int i=0;
+			byte[] b = new byte[1024];
+			while((i=fileInputStream.read(b))>0){
+			    os.write(b, 0, i);
+			}
+			fileInputStream.close();
+			os.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	private String getURL(HttpServletRequest request, HttpServletResponse response, String articleName,Connection con) throws SQLException {
+		
+		String url=null;
+		ResultSet rs = null;
+		PreparedStatement ps = con.prepareStatement("select url from Article where articlename=? ");
+		ps.setString(1, articleName);
+		rs = ps.executeQuery();
+		if (rs!=null&&rs.next()) {
+			url = rs.getString("url");
+		}
+		return url;
+		
+	}
+	
+	private void cancelSelection(HttpServletRequest request, HttpServletResponse response, String articleName,Connection con,Reviewer reviewer) throws SQLException {
+		
+		PreparedStatement ps = con.prepareStatement("delete from ArticleReview where reviewername=? and articlename=? ");
+		ps.setString(1, reviewer.getReviewerName());
+		ps.setString(2, articleName);
+		ps.execute();
+	
+		ResultSet rs = null;
+		int selectedNum = 0;
+		PreparedStatement ps1 = con.prepareStatement("select selectednum from Reviewer where reviewername=? ");
+		ps1.setString(1, reviewer.getReviewerName());
+		rs = ps1.executeQuery();
+		if (rs!=null&&rs.next()) {
+			selectedNum = rs.getInt("selectednum");
+			if (selectedNum!=0) {
+				PreparedStatement ps2 = con.prepareStatement("update Reviewer set selectednum=? where reviewername=? ");
+				ps2.setInt(1, selectedNum-1);
+				ps2.setString(2, reviewer.getReviewerName());
+				ps2.execute();
+			}
+			else {
+				System.out.println("????");
+			}
+		}
+		else {
+			System.out.println("error");
+		}
+		
+		
 	}
 
 }
