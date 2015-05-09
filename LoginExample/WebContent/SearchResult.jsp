@@ -75,7 +75,6 @@ table.hovertable td {
 	if(session.getAttribute("articlenamelist") instanceof List){
 		names = (ArrayList<String>)session.getAttribute("articlenamelist");
 	}
-	
 	%>
 	<form action="">
 	<table class="hovertable" align = "left">
