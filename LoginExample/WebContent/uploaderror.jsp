@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-please upload a .pdf file
+an upload error,please try later
 </body>
 </html>

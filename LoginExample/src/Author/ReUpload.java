@@ -69,8 +69,8 @@ public class ReUpload extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		String serverPath = getServletContext().getRealPath("/").replace("\\", "/");    
-//		String serverPath = "/export/tomtemp/";
-		String serverPath = "E:\\Testtt\\";
+		String serverPath = "/export/tomtemp/";
+//		String serverPath = "E:\\Testtt\\";
 //      System.out.println(serverPath);  	
       //Servlet初始化时执行,如果上传文件目录不存在则自动创建    
 		
@@ -164,6 +164,9 @@ public class ReUpload extends HttpServlet {
                   		  }catch(SQLException e){  
                                 
                                 System.out.println("SQLException;"+e.getMessage());   
+                                PrintWriter out= response.getWriter();
+           			            out.println("<font color=green>Sorry, Something wrong with the database, please contact Administrator</font>"); 
+                    		       
                             }  
                   		  
                   	  }
@@ -183,16 +186,14 @@ public class ReUpload extends HttpServlet {
                       
                       
                    }else {  
-                      request.setAttribute("errorMsg", "fail!");  
-                      request.getRequestDispatcher("uploaderror.jsp").forward(request,response);   
+                	   PrintWriter out= response.getWriter();
+  			            out.println("<font color=green>Please upload a .pdf file</font>"); 
+           		       break;
                   }  
               }else {  
                 //非文件流     
             	  
-            	  
-            	  
-            	  
-            	  
+         	  
                   String value=item.getString();  
                 
                   value = new String(value.getBytes("ISO-8859-1"),"UTF-8");  
@@ -205,7 +206,7 @@ public class ReUpload extends HttpServlet {
                 	  if(item.getString("utf-8").equals("")){
                 		  
                 		  PrintWriter out= response.getWriter();
-    			          out.println("<font color=green>Please wirte all description!</font>"); 
+    			          out.println("<font color=green>Please wirte revision information to all reviewer</font>"); 
                           break;
                 		  
                 		  

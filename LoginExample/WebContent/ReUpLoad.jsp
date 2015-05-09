@@ -6,11 +6,11 @@
       </head>  
         
       <body>  
-      
+      Please write revision information to all reviewers even they accept your article<br /><br />
       <form id="form5" method="post" enctype="multipart/form-data" action="ReUpload" >  
 <%
 String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
-String sqlStr = "select reviewername,reviseinfo,overalljudgement,reviewerlevel,summary,criticism,smallerrors,submitdate from AuthorReviewer where authorname=";
+String sqlStr = "select reviseaccepted,revisetime,reviewername,reviseinfo,overalljudgement,reviewerlevel,summary,criticism,smallerrors,submitdate from AuthorReviewer where authorname=";
 String authorname="";
 String reviewername="";
 String reviseinfo="";
@@ -19,7 +19,12 @@ String reviewerlevel="";
 String summary="";
 String criticism="";
 String smallerrors="";
-Boolean canRe = true;
+String displayword="accepts your article";
+Boolean canRe1 = true;
+Boolean canRe2 = true;
+Boolean accepted = true;
+Boolean canpublish = true;
+Boolean display = true;
 int reviewerNum = 0;
 java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
 java.sql.Date submitDate = new java.sql.Date(System.currentTimeMillis());
@@ -44,27 +49,41 @@ while(rs.next()){
 	submitDate=rs.getDate("submitdate");
 	reviewerNum += 1;
 	if(!rs.getString("reviseinfo").equals("")){
-		canRe = false;
+		canRe1 = false;
+	}
+	if(rs.getInt("revisetime")>=2&&!rs.getBoolean("reviseaccepted")){
+		canRe2 = false;
+	}
+	if(!rs.getBoolean("reviseaccepted")){
+		canpublish = false;
+		displayword="rejects your article";
 	}
 	
 	long differ = currentDate.getTime()-submitDate.getTime();
 	long time = 7*24*60*60*1000;
 	long difference = differ/time;
-	if(difference<1){%>
-		
-		<%=reviewername %> is reviewing, please waiting for result
+	if(difference<1){		display=false;%>
+
+		<font color=red >reviewer <%=reviewername %> is reviewing, please waiting for result</font>
 		<br />
-	<%}else{
+<%}else{
 	
 	
 %>
-<input name="reviewername" type="hidden" id="reviewername" value=<%=reviewername %> readonly>
-<input name="overalljudgement" type="text" id="overalljudgement" value="overalljudgement" readonly><br />   
-<input name="reviewerlevel" type="text" id="reviewerlevel" value="reviewerlevel" readonly><br />   
-<input name="summary" type="text" id="summary" value="summary" readonly><br />   
-<input name="criticism" type="text" id="criticism" value="criticism" readonly><br />   
-<input name="smallerrors" type="text" id="smallerrors" value="smallerrors" readonly><br />   
-information:::<input name="reviseinfo" type="text" id="reviseinfo" value=<%=reviseinfo %> ><br />   
+reviewer name:<br />
+<input name="reviewername" type="text" id="reviewername" value=<%=reviewername %> readonly>&nbsp&nbsp<%=displayword %><br />
+overalljudgement:<br />
+<%=overalljudgement %><br /><br />   
+reviewerlevel:<br />
+<%=reviewerlevel %><br /><br />   
+summary:<br />
+<%=summary %><br /><br />   
+criticism:<br />
+<%=criticism%><br /><br />   
+smallerrors:<br />
+<%=smallerrors %><br />   
+revision information<br />
+<textarea name="reviseinfo" cols="250" rows="5" id="reviseinfo" ><%=reviseinfo %></textarea><br />
 <br />   	
 
 
@@ -76,12 +95,22 @@ st.close();
 con.close();
 %>
 
-         
+<%if(display){ %>
+
+<%if(!canRe1){ %>
+<font color=red >please waiting for reviewing.......</font>
+<%} %>         
+<%if(!canRe2){ %>
+<font color=red >Sorry, your article cannot be published...you can upload another article later...</font>
+<%} %>     
+<%if(canpublish) {%>
+<font color=red >your article will be published,please wait......</font>
+<%} %>
             
-<%if(canRe){ %>                   
+<%if(canRe1&&canRe2&&!canpublish){System.out.println(canRe1);System.out.println(canRe2);System.out.println(!canpublish); %>                   
         <input type="file" value="upload"  name="input_value5">
         <input type="submit"" value="submit" id="save5">  
-
+<%} %>
  <%} %>    
      </form>  
       </body>  

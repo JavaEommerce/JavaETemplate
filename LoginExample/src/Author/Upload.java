@@ -76,8 +76,8 @@ public class Upload extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		String serverPath = getServletContext().getRealPath("/").replace("\\", "/");    
-//		String serverPath = "/export/tomtemp/";
-		String serverPath = "E:\\Testtt\\";
+		String serverPath = "/export/tomtemp/";
+//		String serverPath = "E:\\Testtt\\";
 		
 		String mainAuthorname="";
         String mainEmail="";
@@ -146,6 +146,9 @@ public class Upload extends HttpServlet {
                           	  db = new Dbconnection();
                           	  Connection con = db.getConnection();
                     		  
+                          	  PreparedStatement psa = null;		//check whether author exist
+                          	  ResultSet rsa =null;
+                          	  
                           	  PreparedStatement pch = null;		//check whether reviewer exist
                           	  ResultSet rs =null;
                           	  
@@ -162,6 +165,21 @@ public class Upload extends HttpServlet {
                         	
                         		  System.out.println("enter database");
 
+                        		  
+                        		  psa = con.prepareStatement("select authorname from Author where authorname=?");
+                        		  psa.setString(1, mainAuthorname);
+                		          rsa = psa.executeQuery();
+      		        	
+                		        	if (rsa!=null&&rsa.next()) {
+                		        		PrintWriter out= response.getWriter();
+                   			            out.println("<font color=green>Something wrong......maybe you can try another main author name</font>"); 
+                   			            
+                   			            psa.close();
+                   			            rsa.close();
+                   			            con.close();
+                   			            break;
+                		        	}else{
+                        		  
                         		  par = con.prepareStatement("select articlename from Article where articlename=?");
                         		  par.setString(1, title);
                 		          rar = par.executeQuery();
@@ -172,6 +190,8 @@ public class Upload extends HttpServlet {
                 		        		PrintWriter out= response.getWriter();
                    			            out.println("<font color=green>Same title,Please change</font>"); 
                    			            
+                   			            psa.close();
+                			            rsa.close();
                    			            par.close();
                    			            rar.close();
                    			            con.close();
@@ -194,8 +214,10 @@ public class Upload extends HttpServlet {
               		        		System.out.println(mainEmail);
 
               			            PrintWriter out= response.getWriter();
-              			            out.println("<font color=green>You have account,please login first.</font>"); 
+              			            out.println("<font color=green>You have an account,please login first.</font>"); 
               			            
+              			          psa.close();
+             			            rsa.close();
               			            par.close();
              			            rar.close();
               			            rs.close();   //????
@@ -227,6 +249,8 @@ public class Upload extends HttpServlet {
                 	            paa.execute();
                           		
                           	  
+                	            psa.close();
+           			            rsa.close();
                           	    pi.close();
                           	    paa.close();
                           	    con.close();
@@ -234,7 +258,6 @@ public class Upload extends HttpServlet {
          			            rar.close();	
               		        		
               		        		
-                            	System.out.println("Send email");
 //**********************************************************************************************                   			                	  
                             	//email                    	  
                             	                    	  
@@ -288,24 +311,39 @@ public class Upload extends HttpServlet {
                             	                    		}catch(MessagingException e){
                             	                    			System.out.println("emailerror");
                             	                    			System.out.println(e.toString());
+                            	                    			PrintWriter out= response.getWriter();
+                                           			            out.println("<font color=green>Sorry, Something wrong with the email system, please contact Administrator</font>"); 
                             	                    		}                            	  
               		        		
                             	  File file = new File(filePath);  
                                   item.write(file);    
                                   PrintWriter out= response.getWriter();
-            			          out.println("<font color=green>Up load successful! Please check your email to find your accoutn!</font>"); 
+            			          out.println("<font color=green>Up load successful! Please check your email to find your username and password!</font>"); 
                                   break;
-              		        		
+              		        	}
               		        	}
                         	}
             		        }catch(SQLException e){                                      
-                                    System.out.println("SQLException;"+e.getMessage());   
+                                    System.out.println("SQLException;"+e.getMessage());  
+                                    PrintWriter out= response.getWriter();
+               			            out.println("<font color=green>Sorry, Something wrong with the database, please contact Administrator</font>"); 
+	                    		            
                                 }  
               			            
                     		  
                           }                         
-           			}else{System.out.println("没输入邮箱");	break;}       			
-           		}else{System.out.println("没输入作者");break;	}    
+           			}else{
+           				System.out.println("没输入邮箱");	
+           				PrintWriter out= response.getWriter();
+   			            out.println("<font color=green>Please check your email address</font>");             		       
+           				break;
+           				}       			
+           		}else{
+           			System.out.println("没输入作者");
+           			PrintWriter out= response.getWriter();
+			        out.println("<font color=green>Please check your main author name</font>");        
+           			break;	
+           			}    
            	}
 //************************************************************************not author end
            		//author
@@ -390,6 +428,8 @@ public class Upload extends HttpServlet {
                 	}catch(SQLException e){                                      
                         System.out.println("SQLException;"+e.getMessage());   
     		            System.out.println("作者上传失败");
+    		            PrintWriter out= response.getWriter();
+   			            out.println("<font color=green>Sorry, Something wrong with the database, please contact Administrator</font>");   		  
                     }  
              	}
 		            
@@ -594,7 +634,10 @@ public class Upload extends HttpServlet {
                       
                    }else {  
                 	   request.setAttribute("errorMsg", "fail!");  
-                       request.getRequestDispatcher("uploaderror.jsp").forward(request,response);   
+                       request.getRequestDispatcher("uploaderror.jsp").forward(request,response); 
+                       PrintWriter out= response.getWriter();
+  			           out.println("<font color=green>please upload the .pdf file</font>"); 
+           		       
                   }  
               }else {  
                 //非文件流     
