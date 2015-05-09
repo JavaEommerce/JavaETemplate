@@ -6,6 +6,7 @@
       </head>  
         
       <body>  
+      
       <form id="form5" method="post" enctype="multipart/form-data" action="ReUpload" >  
 <%
 String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
@@ -49,9 +50,11 @@ while(rs.next()){
 	long differ = currentDate.getTime()-submitDate.getTime();
 	long time = 7*24*60*60*1000;
 	long difference = differ/time;
-	if(difference<1){
-		System.out.println("<1");
-	}else{
+	if(difference<1){%>
+		
+		<%=reviewername %> is reviewing, please waiting for result
+		<br />
+	<%}else{
 	
 	
 %>
