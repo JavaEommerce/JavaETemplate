@@ -184,15 +184,17 @@ public class Upload extends HttpServlet {
                 				insertReviewer(response, request, mainEmail, password, con);
                 				insertAuthor(response,request,mainEmail,password,mainAuthorname,mainEmail,con);
                           		
-                          		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations) values (?,?,?,?,?,?,?,?)");
+                          		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations, currentreviewnum, otherauthor, otheremail) values (?,?,?,?,?,?,?,?,?,?,?)");
                 				pi.setString(1, title);
                 	            pi.setString(2, keywords);
                 	            pi.setString(3, abst);
                 	            pi.setString(4, filePath);
-                				pi.setString(5, "computer");
+                				pi.setString(5, "");
                 				pi.setDate(6, currentDate);
                 				pi.setBoolean(7, false);
                 				pi.setString(8, otherAffiliation);
+                 				pi.setString(10, otherAuthorname);
+                 				pi.setString(11, otherEmail);
                 	            pi.execute();
                           		
                 	            paa = con.prepareStatement("insert into AuthorArticle(authorname, articlename) values (?,?)");
@@ -300,16 +302,18 @@ public class Upload extends HttpServlet {
              	
              	if(con!=null) {
                 	try{            		
-           		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations, currentreviewnum) values (?,?,?,?,?,?,?,?,?)");
+           		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations, currentreviewnum, otherauthor, otheremail) values (?,?,?,?,?,?,?,?,?,?,?)");
  				pi.setString(1, title);
  	            pi.setString(2, keywords);
  	            pi.setString(3, abst);
  	            pi.setString(4, filePath);
- 				pi.setString(5, "computer");
+ 				pi.setString(5, "");
  				pi.setDate(6, currentDate);
  				pi.setBoolean(7, false);
  				pi.setString(8, otherAffiliation);
  				pi.setInt(9,0);
+ 				pi.setString(10, otherAuthorname);
+ 				pi.setString(11, otherEmail);
  	            pi.execute();
            		
 
