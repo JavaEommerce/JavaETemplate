@@ -103,24 +103,6 @@ public class EditorAccessToAllArticle extends HttpServlet {
             }
 	     }
 
-		  try {
-			  Thread.sleep(5);
-			  HttpSession session = request.getSession();
-			  session.setAttribute("allArticles", al);
-			  response.setContentType("application/json");
-			  String LOGIN_PAGE = "EditorTest.jsp";
-			// other code here ...
-			  response.sendRedirect(LOGIN_PAGE);
-//			  String json = new Gson().toJson(al);
-//			  System.out.println(json);
-//			  //response.setContentType("text/plain");  
-//			  response.setCharacterEncoding("UTF-8");
-//			  response.getWriter().write(json);
-			  
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		  
 	}
 

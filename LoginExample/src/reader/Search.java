@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,9 +48,8 @@ public class Search extends HttpServlet {
 		// TODO Auto-generated method stub
 		String searchform = request.getParameter("search-form");
 		String selectsearchtype = request.getParameter("selectsearchtype");
-	
 		String errorMessage=null;
-		
+		ArrayList<String> articlenames = new ArrayList<String>();
 		System.out.println("Grt research Type:"+selectsearchtype);
 		
 		if(selectsearchtype.equals("")||selectsearchtype==null){
@@ -81,15 +81,12 @@ public class Search extends HttpServlet {
 			ResultSet rs =null;
 			
 			try {
-				
-				
-				
+
 				if(selectsearchtype.equals("ArticleName")){
-					ps=con.prepareStatement("select ArticleName from Article where articlename=?");
-					ps.setString(1, searchform);
+					//ps=con.prepareStatement("select * from Article where articlename like '%'"+searchform+"'%' ");
+					ps=con.prepareStatement("select * from Article where articlename = "+searchform);
+					//ps.setString(1, searchform);
 					rs = ps.executeQuery();
-					
-					
 				}
 				
 //				if(selectsearchtype.equals("JournalName")){
@@ -116,14 +113,16 @@ public class Search extends HttpServlet {
 //					
 //				}
 				
-				
-				
+
 				if (rs!=null) {
 					System.out.println("Prepare jump");
+					while(rs.next()){
+					articlenames.add(rs.getString("articlename"));
+					//System.out.println(rs.getString("articlename"));
+					}
 					HttpSession session = request.getSession();
-					session.setAttribute("resulttext",rs);
+					session.setAttribute("articlenamelist",articlenames);
 					response.sendRedirect("SearchResult.jsp");
-					System.out.println("After jump");
 					
 				} else {
 					response.sendRedirect("index.jsp");
