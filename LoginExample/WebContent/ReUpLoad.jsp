@@ -19,6 +19,7 @@ String summary="";
 String criticism="";
 String smallerrors="";
 Boolean canRe = true;
+int reviewerNum = 0;
 
 Author currentAuthor = (Author)session.getAttribute("Author");
 authorname = currentAuthor.getAuthorName();
@@ -37,26 +38,27 @@ while(rs.next()){
 	summary=rs.getString("summary");
 	criticism=rs.getString("criticism");
 	smallerrors=rs.getString("smallerrors");
+	reviewerNum += 1;
 	if(!rs.getString("reviseinfo").equals("")){
 		canRe = false;
 	}
-	%>
-<input name="overalljudgement" type="text" id="overalljudgement" value=<%=overalljudgement %> readonly><br />   
-<input name="reviewerlevel" type="text" id="reviewerlevel" value=<%=reviewerlevel %> readonly><br />   
-<input name="summary" type="text" id="summary" value=<%=summary %> readonly><br />   
-<input name="criticism" type="text" id="criticism" value=<%=criticism %> readonly><br />   
-<input name="smallerrors" type="text" id="smallerrors" value=<%=smallerrors %> readonly><br />   
+%>
+<input name="reviewername" type="hidden" id="reviewername" value=<%=reviewername %> readonly>
+<input name="overalljudgement" type="text" id="overalljudgement" value="overalljudgement" readonly><br />   
+<input name="reviewerlevel" type="text" id="reviewerlevel" value="reviewerlevel" readonly><br />   
+<input name="summary" type="text" id="summary" value="summary" readonly><br />   
+<input name="criticism" type="text" id="criticism" value="criticism" readonly><br />   
+<input name="smallerrors" type="text" id="smallerrors" value="smallerrors" readonly><br />   
 information:::<input name="reviseinfo" type="text" id="reviseinfo" value=<%=reviseinfo %> ><br />   
 <br />   	
+
+
 <%
 }
 rs.close();
 st.close();
 con.close();
 %>
-      
-      
-      
 
          
             

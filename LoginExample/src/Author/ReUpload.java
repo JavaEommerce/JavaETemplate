@@ -40,7 +40,11 @@ public class ReUpload extends HttpServlet {
 	private String tempPath = ""; // 临时文件目录    
     private String serverPath = null;   
     private String[] fileType = new String[]{".pdf"};  
-    private int sizeMax = 5;//图片最大上限    
+    private int sizeMax = 5;//图片最大上限 
+    
+    private int reviewerNum = 0;
+    private String[] reviseInfos = new String[4];
+    private String[] reviewerNames = new String[4];
 	
 	private static final long serialVersionUID = 1L;
        
@@ -69,6 +73,9 @@ public class ReUpload extends HttpServlet {
 		String serverPath = "E:\\Testtt\\";
 //      System.out.println(serverPath);  	
       //Servlet初始化时执行,如果上传文件目录不存在则自动创建    
+		
+		
+		
       if(!new File(uploadPath).isDirectory()){   
           new File(uploadPath).mkdirs();    
       }    
@@ -86,7 +93,9 @@ public class ReUpload extends HttpServlet {
           
       String filePath = null;  
       
-      
+      	HttpSession session = request.getSession();
+		Author currentAuthor = (Author)session.getAttribute("Author");
+		String aname = currentAuthor.getAuthorName();
       
       try {    
           List<FileItem> items = upload.parseRequest(request);//获取所有文件列表   
@@ -96,10 +105,13 @@ public class ReUpload extends HttpServlet {
               FileItem item = items.get(i);  
               	if(!item.isFormField()){//文件名    
                   String fileName = item.getName().toLowerCase();  
+                  
                   if(fileName.endsWith(fileType[0])){    
 //                      String uuid = UUID.randomUUID().toString();    
                       filePath = serverPath+uploadPath+fileName;  
 //                      System.out.println(filePath);  
+                      
+                      
                       
                       
 //data******************************************************************************************                      
@@ -110,19 +122,19 @@ public class ReUpload extends HttpServlet {
                   	  db = new Dbconnection();
                   	  Connection con = db.getConnection();
             		
+                  	
                   	PreparedStatement ps = null;		
-                  	PreparedStatement pi = null;		
+                  	PreparedStatement pi = null;
+                  	PreparedStatement par = null;
+
             		ResultSet rs =null;
                   	  
                   	  if(con!=null) {
                   		  try{  
                   	
-                  		  System.out.println("enter database");
-        					HttpSession session = request.getSession();
-        					Author currentAuthor = (Author)session.getAttribute("Author");
-        					String aname = currentAuthor.getAuthorName();
-
-
+                  		  System.out.println("enter database");								
+        					
+        					
         					
                   		ps = con.prepareStatement("select articlename from AuthorArticle where authorname=?");
                   		ps.setString(1, aname);
@@ -138,6 +150,12 @@ public class ReUpload extends HttpServlet {
                   		pi.setString(2, articleTitle);
                   		pi.executeUpdate();
                   		
+                  		for(int now=0;now<reviewerNum;now++){
+                  		par = con.prepareStatement("update AuthorReviewer set reviseinfo=? where reviewername=?");
+                  		par.setString(1, reviseInfos[now]);
+                  		par.setString(2, reviewerNames[now]);
+                  		par.executeUpdate();
+                  		}
                   		
                   	    ps.close();
                   	    pi.close();
@@ -158,6 +176,7 @@ public class ReUpload extends HttpServlet {
                       File file = new File(filePath);  
                       item.write(file);   
                       System.out.println(filePath); 
+
                       
                       PrintWriter out= response.getWriter();
 			          out.println("<font color=green>ReUploaded!.</font>");
@@ -169,11 +188,39 @@ public class ReUpload extends HttpServlet {
                   }  
               }else {  
                 //非文件流     
+            	  
+            	  
+            	  
+            	  
+            	  
                   String value=item.getString();  
                 
                   value = new String(value.getBytes("ISO-8859-1"),"UTF-8");  
 //                  System.out.println(value);  
-               
+                  
+                  
+                  String name =item.getFieldName();
+                  
+                  if("reviseinfo".equals(name))  {           	  
+                	  if(item.getString("utf-8").equals("")){
+                		  
+                		  PrintWriter out= response.getWriter();
+    			          out.println("<font color=green>Please wirte all description!</font>"); 
+                          break;
+                		  
+                		  
+                	  }else{
+                		  reviseInfos[reviewerNum]=item.getString("utf-8");
+                		  reviewerNum += 1;
+                	  }
+                  }
+
+                  if("reviewername".equals(name))  {    
+                	  
+                	  reviewerNames[reviewerNum]=item.getString("utf-8");
+                  }
+                  
+                  
               }  
                 
           } 
@@ -190,7 +237,7 @@ public class ReUpload extends HttpServlet {
       
 	}
 		
-		
+
 	
 
 }
