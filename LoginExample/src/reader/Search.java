@@ -16,8 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import loginSystem.User;
+import reader.Article;
 import dbconnectionlib.Dbconnection;
+import editor.Journal;
 
 /**
  * Servlet implementation class Search
@@ -49,7 +50,7 @@ public class Search extends HttpServlet {
 		String searchform = request.getParameter("search-form");
 		String selectsearchtype = request.getParameter("selectsearchtype");
 		String errorMessage=null;
-		ArrayList<String> articlenames = new ArrayList<String>();
+		ArrayList<Article> articls = new ArrayList<Article>();
 		System.out.println("Grt research Type:"+selectsearchtype);
 		
 		if(selectsearchtype.equals("")||selectsearchtype==null){
@@ -84,19 +85,17 @@ public class Search extends HttpServlet {
 
 				if(selectsearchtype.equals("ArticleName")){
 					ps=con.prepareStatement("select * from Article where articlename like '%"+searchform+"%' ");
-					//ps=con.prepareStatement("select * from Article where articlename = "+searchform);
-					//ps.setString(1, searchform);
 					rs = ps.executeQuery();
 				}
 				
-//				if(selectsearchtype.equals("JournalName")){
-//					ps=con.prepareStatement("select ArticleName from Journal where articlename=?");
-//					ps.setString(1, searchform);
-//					rs = ps.executeQuery();
-//					
-//					
-//				}
-//				
+				if(selectsearchtype.equals("JournalName")){
+					ps=con.prepareStatement("select * from Article,Journal,JournalArticle where Article.articlename = JournalArticle.articlename and Journal.journalID= JournalArticle.journalID and Journal.journalname =?");
+					ps.setString(1, searchform);
+					rs = ps.executeQuery();
+					
+	
+				}
+				
 //				if(selectsearchtype.equals("AuthorName")){
 //					ps=con.prepareStatement("select * from Author where articlename=?");
 //					ps.setString(1, searchform);
@@ -117,11 +116,16 @@ public class Search extends HttpServlet {
 				if (rs!=null) {
 					System.out.println("Prepare jump");
 					while(rs.next()){
-					articlenames.add(rs.getString("articlename"));
+						Article temp= new Article(rs.getString("articlename"),rs.getString("keywords"), rs.getString("abstract"), 
+								rs.getString("url"), rs.getString("domain"), rs.getString("uploaddate"), rs.getString("ispublish"),
+								rs.getString("affiliations"), rs.getString("currentreviewnum"));
+						articls.add(temp);
+						
+					
 					//System.out.println(rs.getString("articlename"));
 					}
 					HttpSession session = request.getSession();
-					session.setAttribute("articlenamelist",articlenames);
+					session.setAttribute("articlenamelist",articls);
 					response.sendRedirect("SearchResult.jsp");
 					
 				} else {

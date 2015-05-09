@@ -6,7 +6,7 @@
 <%@ page import="java.util.List"%>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Map"%>
-
+<%@ page import="reader.Article" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 		<!-- Bootstrap Core CSS file -->
@@ -71,22 +71,33 @@ table.hovertable td {
 <div>Search Result:</div>
 <%
   System.out.println("New page");
- ArrayList<String> names = new ArrayList<String>();
+ ArrayList<Article> names = new ArrayList<Article>();
 	if(session.getAttribute("articlenamelist") instanceof List){
-		names = (ArrayList<String>)session.getAttribute("articlenamelist");
+		names = (ArrayList<Article>)session.getAttribute("articlenamelist");
 	}
+	
+
+	
 	%>
 	<form action="">
 	<table class="hovertable" align = "left">
-	<tr><th>Article name</th></tr>
+	<tr><th>Article name</th><th>Article domain</th><th>Publish date</th></tr>
 	<%
-	for(String na : names){
-		System.out.println(na);
+	for(Article ar : names){
+		 String articlename = ar.getArticlename();
+		 String keywords  = ar.getKeywords();
+		 String abstractinfo = ar.getAbstractinfo();
+		 String url = ar.getUrl();
+		 String domain = ar.getDomain();
+		 String uploadString = ar.getUploadString();
+		 String ispublish  = ar.getIspublish();
+		 String affiliations = ar.getAffiliations();
+		 String currentreviewnum = ar.getCurrentreviewnum();
 	
 	%>
 	
 		<tr onmouseover="this.style.backgroundColor='#d4e3e5';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-	    <td herf = "#"><%= na%></td>
+	    <td ><%=articlename %></td> <td ><%=domain %></td> <td ><%=uploadString %></td>
 		</tr>
 	
 	<%} %>

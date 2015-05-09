@@ -340,7 +340,7 @@ ifm.height = subWeb.body.scrollHeight;
 					<!-- Search -->
 					<div class="well">
 						<h4 class="margin-t-0">Search</h4>
-						<form action="Search" method="post">
+						<form action="${pageContext.request.contextPath}/Search" method="post">
 							<div class="input-group">
 								<label class="sr-only" for="search-form">Search the site</label>
 								<input type="text" class="form-control" id="search-form" name="search-form">
@@ -355,8 +355,8 @@ ifm.height = subWeb.body.scrollHeight;
 							      <tr>
 									<select name="selectsearchtype">
  									 <option value="ArticleName">ArticleTitle</option>
- 									 <option value="JournalName">AuthorName</option>
- 									 <option value="AuthorName">Domain</option>
+ 									 <option value="JournalName">JournalName</option>
+ 									 <option value="AuthorName">AuthorName</option>
  									 <option value="Domain">Domain</option>
 									</select>
   	  							  </tr>
@@ -365,10 +365,10 @@ ifm.height = subWeb.body.scrollHeight;
 
 					<!-- list group -->
 					<div class="list-group margin-b-3">
-					    <a href="showjournal2015.jsp" class="list-group-item" id="2015" name="a1.html" target="i">2015</a>
-					    <a href="showjournal2014.jsp" class="list-group-item" id="2014" name="a2.html" target="i">2014</a>
-					    <a href="showjournal2013.jsp" class="list-group-item" id="2013" name="a3.html" target="i">2013</a>
-                        <a href="showjournalearlier.jsp" class="list-group-item" id="earlier" name="a4.html" target="i">earlier</a>
+					    <a href="${pageContext.request.contextPath}/showjournal2015.jsp" class="list-group-item" id="2015" name="a1.html" target="i">2015</a>
+					    <a href="${pageContext.request.contextPath}/showjournal2014.jsp" class="list-group-item" id="2014" name="a2.html" target="i">2014</a>
+					    <a href="${pageContext.request.contextPath}/showjournal2013.jsp" class="list-group-item" id="2013" name="a3.html" target="i">2013</a>
+                        <a href="${pageContext.request.contextPath}/showjournalearlier.jsp" class="list-group-item" id="earlier" name="a4.html" target="i">earlier</a>
 					</div>
 
 					<!-- Panel -->
