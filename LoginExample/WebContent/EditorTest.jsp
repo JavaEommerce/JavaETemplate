@@ -95,7 +95,7 @@ table.hovertable td {
 									<a href="EditJournal.jsp" onclick="this.parentNode.submit()">Journals</a>
 									</form></li>
 									
-                            		<li><a href="#">Contact</a></li>
+                            		<li><a href="EditorWaitingArticle.jsp">Waiting Article List</a></li>
                 </ul>
 			</nav>
 
@@ -142,7 +142,10 @@ table.hovertable td {
       			<%= new java.util.Date() %>
     			</p><p>You have asked for the date<%= ++count %> times since the server was last restarted.</p>
 			</footer>
-
+		<article>
+		<h1> </h1><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><h1> </h1>
+		<article>
+		
 		</section>
 
 		<div class="clear"></div>

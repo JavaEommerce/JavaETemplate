@@ -38,7 +38,7 @@
 									<input type = "hidden" id="submit_2" name="journal" value="Edit Journal Page"/>
 									<a href="EditJournal.jsp" onclick="this.parentNode.submit()">Journals</a>
 									</form></li>
-                            		<li><a href="#">Contact</a></li>
+                            		<li><a href="EditorWaitingArticle.jsp">Waiting Article List</a></li>
                  </ul>
 			</nav>
 
@@ -82,7 +82,7 @@
 		</form>
 			</article>
                 		
-	    
+	    <article><h1> </h1><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><h1> </h1></article>
 
 		</section>
 
