@@ -126,9 +126,10 @@ public class ReUpload extends HttpServlet {
                   	PreparedStatement ps = null;		
                   	PreparedStatement pi = null;
                   	PreparedStatement par = null;
+                  	PreparedStatement psa = null;
 
             		ResultSet rs =null;
-                  	  
+            		ResultSet ra =null;
                   	  if(con!=null) {
                   		  try{  
                   	
@@ -140,8 +141,16 @@ public class ReUpload extends HttpServlet {
                   		ps.setString(1, aname);
                   		rs = ps.executeQuery();
 
-                  		if(rs.next()){                			
-                  			articleTitle = rs.getString("articlename");	
+                  		while(rs.next()){                			
+
+                  			
+                  			psa = con.prepareStatement("select articlename from Article where ispublish=0 and articlename=?");
+                      		psa.setString(1, rs.getString("articlename"));
+                  			ra=psa.executeQuery();
+                  			if(ra.next()){
+                      			articleTitle = ra.getString("articlename");	
+                  			}
+                  			
                   		}
                   		
 
@@ -157,8 +166,12 @@ public class ReUpload extends HttpServlet {
                   		par.executeUpdate();
                   		}
                   		
+                  		rs.close();
                   	    ps.close();
                   	    pi.close();
+                  	    ra.close();
+                  	    par.close();
+                  	    psa.close();
                   	    con.close();
 
                   		  }catch(SQLException e){  
