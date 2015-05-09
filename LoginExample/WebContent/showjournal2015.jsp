@@ -41,11 +41,12 @@ Statement st2 = con.createStatement();
 								ResultSet versionresult = st2.executeQuery( sqljvsersion );
 								while(versionresult.next())
 								{%>	
-								 <p><a href="#">Edition: <%=versionresult.getString("version")%> &nbsp;&nbsp;&nbsp;&nbsp; Publish time:<%=versionresult.getString("publishtime")%></a> </p>	
-											
-							<%} 
+								<form action = "ShowArticles.jsp"> 
+								 <p><a href="#" onClick="open('/ShowArticles','_blank','height=100, width=400, toolbar= no, menubar=no, scrollbars=no, resizable=no, location=no, status=no,top=100,left=300');">Edition: <%=versionresult.getString("version")%> &nbsp;&nbsp;&nbsp;&nbsp; Publish time:<%=versionresult.getString("publishtime")%></a> </p>	
+								</form>		
+								<%} 
 								   versionresult.close();
-							%>
+								%>
 							
 							</div>
 						</div>

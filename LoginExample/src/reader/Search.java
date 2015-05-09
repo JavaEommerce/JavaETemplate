@@ -96,21 +96,21 @@ public class Search extends HttpServlet {
 	
 				}
 				
-//				if(selectsearchtype.equals("AuthorName")){
-//					ps=con.prepareStatement("select * from Author where articlename=?");
-//					ps.setString(1, searchform);
-//					rs = ps.executeQuery();
-//			
-//					
-//				}
-//				
-//				if(selectsearchtype.equals("Domain")){
-//					ps=con.prepareStatement("select * from Article where articlename=?");
-//					ps.setString(1, searchform);
-//					rs = ps.executeQuery();
-//			
-//					
-//				}
+				if(selectsearchtype.equals("AuthorName")){
+					ps=con.prepareStatement("select * from Article,Author,AuthorArticle where Article.articlename = AuthorArticle.articlename and  Author.authorname =?");
+					ps.setString(1, searchform);
+					rs = ps.executeQuery();
+			
+					
+				}
+				
+				if(selectsearchtype.equals("Domain")){
+					ps=con.prepareStatement("select * from Article where domain=?");
+					ps.setString(1, searchform);
+					rs = ps.executeQuery();
+			
+					
+				}
 				
 
 				if (rs!=null) {
@@ -140,6 +140,7 @@ public class Search extends HttpServlet {
 				try {
 					rs.close();
 					ps.close();
+					con.close();
 					System.out.println("db closed");
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
