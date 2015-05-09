@@ -124,12 +124,12 @@
   <servlet>
     <servlet-name>editor.EditorGetAllJournals</servlet-name>
     <servlet-class>editor.EditorGetAllJournals</servlet-class>
-   </servlet>
+  </servlet>
   <servlet-mapping>
     <servlet-name>editor.EditorGetAllJournals</servlet-name>
     <url-pattern>/EditorGetAllJournals</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>reader.Search</servlet-name>
     <servlet-class>reader.Search</servlet-class>
   </servlet>
@@ -145,8 +145,15 @@
     <servlet-name>reviewer.DownloadArticle</servlet-name>
     <url-pattern>/DownloadArticle</url-pattern>
   </servlet-mapping>
-
-    <servlet>
+  <servlet>
+    <servlet-name>reviewer.SubmitReview</servlet-name>
+    <servlet-class>reviewer.SubmitReview</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reviewer.SubmitReview</servlet-name>
+    <url-pattern>/SubmitReview</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>editor.EditorEditJournal</servlet-name>
     <servlet-class>editor.EditorEditJournal</servlet-class>
   </servlet>
@@ -154,5 +161,4 @@
     <servlet-name>editor.EditorEditJournal</servlet-name>
     <url-pattern>/EditorEditJournal</url-pattern>
   </servlet-mapping>
-
 </web-app>

@@ -35,8 +35,14 @@
 		System.out.println(raDisplay);
 	%>
 	<h1>Welcome to Reviewer Centre!</h1>
-	<p><a href="index.jsp">Home</a> <a href="AccessUnpublishedArticles">Choose unpublished articles</a>
-	<a href="reviewSubmission.jsp">Submit Review</a>
+	<div class="container">
+		<div id="menubar"> 
+			<li><a href="index.jsp">Home</a></li>
+			<li> <a href="AccessUnpublishedArticles">Choose unpublished articles</a></li>
+			<li> <a href="SubmitReview.jsp" >Submit Review</a></li>
+		</div>
+	
+	
 	
 	<form action="DownloadArticle" name="selected" method="post">
 		<p>Selected Articles: <%=saDisplay %>
@@ -60,22 +66,27 @@
 	
 	<form action="DownloadArticle" name="downloaded" method="post">
 		<p>Reviewing Articles: <%=raDisplay%>
-		<ol>
-			<%
-			
-			if(reviewingArticles!=null){
-				String ra="";
-				for (ReviewingArticle rArticle : reviewingArticles) {
-					ra = rArticle.getArticleName();
-					%><li><%=ra%><input type="submit" name="<%=ra%>" value="Download">
-					<input type="hidden" name="downloaded" value="<%=ra%>">
-					</li>
-					
-			<% }}
-			
-			%>
-		</ol> 
-		
+		<table>
+			<tr>
+				<td>Article Name</td>
+				<td>Review Status</td>
+				<td>DownLoad</td>
+			</tr>
+			<tr>
+				<%
+				if(reviewingArticles!=null){
+					String ra="";
+					String status = "";
+					for (ReviewingArticle rArticle : reviewingArticles) {
+						ra = rArticle.getArticleName();
+						status = rArticle.getReviewStatus();
+						%><td><%=ra%></td> <td><%=status %></td> <td><input type="submit" name="<%=ra%>" value="Download">
+						<input type="hidden" name="downloaded" value="<%=ra%>">
+						</td>
+						
+				<% }}%>
+			</tr>
+		</table>
 	</form>
 	
 	
