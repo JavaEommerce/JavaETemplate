@@ -76,8 +76,8 @@ public class Upload extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		String serverPath = getServletContext().getRealPath("/").replace("\\", "/");    
-		String serverPath = "/export/tomtemp/";
-
+//		String serverPath = "/export/tomtemp/";
+		String serverPath = "E:\\Testtt\\";
 		
 		String mainAuthorname="";
         String mainEmail="";
@@ -125,8 +125,6 @@ public class Upload extends HttpServlet {
 //                    String uuid = UUID.randomUUID().toString();    
                    filePath = serverPath + uploadPath + fileName;  
                    
-                   PrintWriter out1= response.getWriter();
-			       out1.println("<font color=green>"+filePath+"</font>"); 
                    
 //************************************************************************
            		//not author
@@ -151,6 +149,9 @@ public class Upload extends HttpServlet {
                           	  PreparedStatement pch = null;		//check whether reviewer exist
                           	  ResultSet rs =null;
                           	  
+                          	 PreparedStatement par = null;		//serach articles
+                         	  ResultSet rar =null;
+                          	  
                           	PreparedStatement pi = null;		//new article
                           	PreparedStatement paa = null;		//new AuthorArticle
                           	
@@ -161,7 +162,28 @@ public class Upload extends HttpServlet {
                         	
                         		  System.out.println("enter database");
 
-              					
+                        		  par = con.prepareStatement("select articlename from Article where articlename=?");
+                        		  par.setString(1, title);
+                		          rar = par.executeQuery();
+                		        	
+                		        	
+                		        	if (rar!=null&&rar.next()) {
+                		        		
+                		        		PrintWriter out= response.getWriter();
+                   			            out.println("<font color=green>Same title,Please change</font>"); 
+                   			            
+                   			            par.close();
+                   			            rar.close();
+                   			            con.close();
+                   			            break;
+                		        		
+                		        	}
+                		        	else{
+                		        	
+                        		  
+                        		  
+                        		  
+                        		  
               					pch = con.prepareStatement("select username from User where username=?");
               					pch.setString(1, mainEmail);
               		        	rs = pch.executeQuery();
@@ -174,6 +196,8 @@ public class Upload extends HttpServlet {
               			            PrintWriter out= response.getWriter();
               			            out.println("<font color=green>You have account,please login first.</font>"); 
               			            
+              			            par.close();
+             			            rar.close();
               			            rs.close();   //????
               			            pch.close();
               			            con.close();
@@ -206,7 +230,8 @@ public class Upload extends HttpServlet {
                           	    pi.close();
                           	    paa.close();
                           	    con.close();
-              		        		
+                          	    par.close();
+         			            rar.close();	
               		        		
               		        		
                             	System.out.println("Send email");
@@ -272,6 +297,7 @@ public class Upload extends HttpServlet {
                                   break;
               		        		
               		        	}
+                        	}
             		        }catch(SQLException e){                                      
                                     System.out.println("SQLException;"+e.getMessage());   
                                 }  
@@ -290,9 +316,9 @@ public class Upload extends HttpServlet {
              	  db = new Dbconnection();
              	  Connection con = db.getConnection();
              	  
-             	PreparedStatement pch = null;		//check whether reviewer exist
-             	ResultSet rs =null;
-       		
+             	 PreparedStatement par = null;		//serach articles
+            	  ResultSet rar =null;
+            	  
              	PreparedStatement ps = null;		//update author state
              	PreparedStatement pi = null;		//new article
              	PreparedStatement paa = null;		//new AuthorArticle
@@ -301,7 +327,25 @@ public class Upload extends HttpServlet {
            			
              	
              	if(con!=null) {
-                	try{            		
+                	try{            	
+                		
+                		par = con.prepareStatement("select articlename from Article where articlename=?");
+              		  par.setString(1, title);
+      		          rar = par.executeQuery();
+      		        	
+      		        	
+      		        	if (rar!=null&&rar.next()) {
+      		        		
+      		        		PrintWriter out= response.getWriter();
+         			            out.println("<font color=green>Same title,Please change</font>"); 
+         			            
+         			            par.close();
+         			            rar.close();
+         			            con.close();
+         			            break;
+      		        		
+      		        	}else{
+                		
            		pi = con.prepareStatement("insert into Article(articlename, keywords, abstract, url, domain, uploaddate, ispublish, affiliations, currentreviewnum, otherauthor, otheremail) values (?,?,?,?,?,?,?,?,?,?,?)");
  				pi.setString(1, title);
  	            pi.setString(2, keywords);
@@ -329,6 +373,8 @@ public class Upload extends HttpServlet {
            		ps.executeUpdate();
            		currentAuthor.setSubmitState(2);
            		
+		            par.close();
+		            rar.close();
            	    ps.close();
            	    pi.close();
            	    paa.close();
@@ -340,6 +386,7 @@ public class Upload extends HttpServlet {
 	            
 		            System.out.println("作者上传成功");
 		            break;		
+      		        	}
                 	}catch(SQLException e){                                      
                         System.out.println("SQLException;"+e.getMessage());   
     		            System.out.println("作者上传失败");
