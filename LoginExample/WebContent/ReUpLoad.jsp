@@ -9,7 +9,7 @@
       <form id="form5" method="post" enctype="multipart/form-data" action="ReUpload" >  
 <%
 String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
-String sqlStr = "select reviewername,reviseinfo,overalljudgement,reviewerlevel,summary,criticism,smallerrors from AuthorReviewer where authorname=";
+String sqlStr = "select reviewername,reviseinfo,overalljudgement,reviewerlevel,summary,criticism,smallerrors,submitdate from AuthorReviewer where authorname=";
 String authorname="";
 String reviewername="";
 String reviseinfo="";
@@ -20,6 +20,8 @@ String criticism="";
 String smallerrors="";
 Boolean canRe = true;
 int reviewerNum = 0;
+java.sql.Date currentDate = new java.sql.Date(System.currentTimeMillis());
+java.sql.Date submitDate = new java.sql.Date(System.currentTimeMillis());
 
 Author currentAuthor = (Author)session.getAttribute("Author");
 authorname = currentAuthor.getAuthorName();
@@ -38,10 +40,20 @@ while(rs.next()){
 	summary=rs.getString("summary");
 	criticism=rs.getString("criticism");
 	smallerrors=rs.getString("smallerrors");
+	submitDate=rs.getDate("submitdate");
 	reviewerNum += 1;
 	if(!rs.getString("reviseinfo").equals("")){
 		canRe = false;
 	}
+	
+	long differ = currentDate.getTime()-submitDate.getTime();
+	long time = 7*24*60*60*1000;
+	long difference = differ/time;
+	if(difference<1){
+		System.out.println("<1");
+	}else{
+	
+	
 %>
 <input name="reviewername" type="hidden" id="reviewername" value=<%=reviewername %> readonly>
 <input name="overalljudgement" type="text" id="overalljudgement" value="overalljudgement" readonly><br />   
@@ -54,6 +66,7 @@ information:::<input name="reviseinfo" type="text" id="reviseinfo" value=<%=revi
 
 
 <%
+	}
 }
 rs.close();
 st.close();
