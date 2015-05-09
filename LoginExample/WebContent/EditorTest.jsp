@@ -76,17 +76,25 @@ table.hovertable td {
 				<h1><a href="EditorTest.jsp">Editor Center</a></h1>
 
 				<h2>Hello Editor <%=name %></h2>
+				<h2><a href="index.jsp">Home page</a></h2>
 				
 			</header>
 
 			<nav id="mainnav">
   				<ul>
-                            		<li class="selected-item"><a href="EditorTest.jsp">Articles</a></li>
+  									
+                            		<li class="selected-item"><form id="formArticles" atcion = "EditorAccessToAllArticle" method="get">
+                            		<input type="hidden" id="submit_article" name="article" value="Articles"/>
+                            		<a href="EditorTest.jsp" onclick="this.parentNode.submit()">Articles</a></li>
+                            		</form>
+                            		
                            		 	<li><a href="EditUser.jsp">Users</a></li>
+                           		 	
                             		<li><form id="form2" action = "EditorGetAllJournals" method = "post" >
 									<input type = "hidden" id="submit_2" name="journal" value="Edit Journal Page"/>
 									<a href="EditJournal.jsp" onclick="this.parentNode.submit()">Journals</a>
 									</form></li>
+									
                             		<li><a href="#">Contact</a></li>
                 </ul>
 			</nav>
@@ -99,7 +107,7 @@ table.hovertable td {
 			<article>
 				<h2>Show all aritlces</h2>
 				<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
-			<table class="hovertable" align = "center">
+			<table >
 			<tr><th>Article name</th><th>Article Abstract</th><th>Reviewed Times</th><th>Is published</th><th>Detail link</th></tr>
 			<%
 				List<EditorAllArticlesInfo> articles=new ArrayList<EditorAllArticlesInfo>();
@@ -116,7 +124,7 @@ table.hovertable td {
 					System.out.println(title+abstracT+reviewedTime);
 					
 				%>
-				<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+				<tr>
 					<td><%=title %></td><td><%=abstracT %></td><td><%=reviewedTime %></td><td><%=articlePublished %></td>
 					<td><form action="EditorArticleDetail" method="post">
 					<input type="text" name="appointname" value = <%=title%>/> 

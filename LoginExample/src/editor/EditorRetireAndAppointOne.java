@@ -98,7 +98,7 @@ public class EditorRetireAndAppointOne extends HttpServlet {
 		}
 		  HttpSession session = request.getSession();
 		  session.setAttribute("userInfo", ui);
-		  String LOGIN_PAGE = "EditorTest.jsp";
+		  String LOGIN_PAGE = "EditUser.jsp";
 		  response.sendRedirect(LOGIN_PAGE);
 		
 	}
