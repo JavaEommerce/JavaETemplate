@@ -161,4 +161,12 @@
     <servlet-name>editor.EditorEditJournal</servlet-name>
     <url-pattern>/EditorEditJournal</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>reader.DealArticleInfo</servlet-name>
+    <servlet-class>reader.DealArticleInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reader.DealArticleInfo</servlet-name>
+    <url-pattern>/DealArticleInfo</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -1,5 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+<%@ page language="java" import="java.sql.*" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
+<%@ page import="java.sql.*" %> 
+<%@ page import="java.io.*" %> 
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Map"%>
+<%@ page import="reader.Article" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -17,25 +24,39 @@ li {list-style:none;}
 </head>
 
 <body>
-
+<%
+Article article;
+article = (Article)session.getAttribute("selectedarticle");
+%>
 <div id="container">
 
 <div id="header">
-<h1>Main Title of Web Page</h1>
+<h1>Article Detail</h1>
 </div>
 
-<div id="menu">
-<h2>Menu</h2>
+<div id="Name">
+<h2>Article Name</h2>
 <ul>
-<li>HTML</li>
-<li>CSS</li>
-<li>JavaScript</li>
+<p><%= article.getArticlename()%></p>
 </ul>
 </div>
 
-<div id="content">Content goes here</div>
 
-<div id="footer">Copyright W3School.com.cn</div>
+<div id="Keywords">
+<h2>Key Words</h2>
+<ul>
+<p><%= article.getKeywords()%></p>
+</ul>
+</div>
+
+<div id="Keywords">
+<h2>Abstract</h2>
+<ul>
+<p><%= article.getAbstractinfo()%></p>
+</ul>
+</div>
+
+<div id="footer">Copyright Team153</div>
 
 </div>
 

@@ -97,7 +97,7 @@ table.hovertable td {
 	%>
 	
 		<tr onmouseover="this.style.backgroundColor='#d4e3e5';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-	    <td ><%=articlename %></td> <td ><%=domain %></td> <td ><%=uploadString %></td>
+	    <td ><a href = "DealArticleInfo?articlename=<%=articlename %>"><%=articlename %></a></td> <td ><%=domain %></td> <td ><%=uploadString %></td>
 		</tr>
 	
 	<%} %>
