@@ -83,8 +83,8 @@ public class Search extends HttpServlet {
 			try {
 
 				if(selectsearchtype.equals("ArticleName")){
-					//ps=con.prepareStatement("select * from Article where articlename like '%'"+searchform+"'%' ");
-					ps=con.prepareStatement("select * from Article where articlename = "+searchform);
+					ps=con.prepareStatement("select * from Article where articlename like '%"+searchform+"%' ");
+					//ps=con.prepareStatement("select * from Article where articlename = "+searchform);
 					//ps.setString(1, searchform);
 					rs = ps.executeQuery();
 				}

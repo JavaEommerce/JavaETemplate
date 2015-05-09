@@ -365,10 +365,6 @@ ifm.height = subWeb.body.scrollHeight;
 
 					<!-- list group -->
 					<div class="list-group margin-b-3">
-					
-					
-					
-					
 					    <a href="showjournal2015.jsp" class="list-group-item" id="2015" name="a1.html" target="i">2015</a>
 					    <a href="showjournal2014.jsp" class="list-group-item" id="2014" name="a2.html" target="i">2014</a>
 					    <a href="showjournal2013.jsp" class="list-group-item" id="2013" name="a3.html" target="i">2013</a>

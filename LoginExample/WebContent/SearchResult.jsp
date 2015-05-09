@@ -14,35 +14,89 @@
 
 		<!-- Override CSS file - add your own CSS rules -->
 		<link rel="stylesheet" href="css/styles.css">
+<style type="text/css">
+table.hovertable {
+	font-family: verdana,arial,sans-serif;
+	font-size:11px;
+	color:#333333;
+	border-width: 1px;
+	border-color: #999999;
+	border-collapse: collapse;
+}
+table.hovertable th {
+	background-color:#c3dde0;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+table.hovertable tr {
+	background-color:#d4e3e5;
+}
+table.hovertable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #a9c6c9;
+}
+</style>		
+		
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Search Result Page</title>
+
+        <script src="http://code.jquery.com/jquery-latest.js">   
+        </script>
+        <script>
+            $(document).ready(function() {                        
+                $('#submit').click(function(event) {  
+                    var username=$('#user').val();
+                 $.get('EditorRetireAndAppointOne',{user:username},function(responseText) { 
+                        $('#welcometext').text(responseText);         
+                    });
+                });
+            });
+            
+            $(document).ready(function() {                        
+                $('#submit_2').click(function(event) {  
+                 $.get('EditorAccessToAllArticle',function(responseText) { 
+                        $('#article_name').text(jQuery.parseJson(responseText));         
+                    });
+                });
+            }); 
+            
+        </script>
 </head>
 <body>
-Search Result:
-
+<div>Search Result:</div>
 <%
   System.out.println("New page");
  ArrayList<String> names = new ArrayList<String>();
 	if(session.getAttribute("articlenamelist") instanceof List){
-		names = (ArrayList<String>)session.getAttribute("namelist");
+		names = (ArrayList<String>)session.getAttribute("articlenamelist");
 	}
+	
+	%>
+	<form action="">
+	<table class="hovertable" align = "left">
+	<tr><th>Article name</th></tr>
+	<%
 	for(String na : names){
 		System.out.println(na);
+	
 	%>
- 	<tr onmouseover="this.style.backgroundColor='#ffff66';" onmouseout="this.style.backgroundColor='#d4e3e5';">
-	   <td><%=na %></td>
-		<td><form action="EditorArticleDetail" method="post">
-		<input type="text" name="appointname" value = /> 
-		<input type="submit" value="viewDetail"/></form> </td>
+	
+		<tr onmouseover="this.style.backgroundColor='#d4e3e5';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+	    <td herf = "#"><%= na%></td>
 		</tr>
+	
+	<%} %>
+	</table>
+	
+	
+	</form>
 
-	<%}%>
-
-
-
-
+	
 
 </body>
 </html>
