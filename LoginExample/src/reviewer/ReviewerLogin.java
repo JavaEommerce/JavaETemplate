@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +24,8 @@ public class ReviewerLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<String> chosenArticles = new ArrayList<String>();
 	private ArrayList<ReviewingArticle> reviewingArticles = new ArrayList<ReviewingArticle>();
+	private ArrayList<SubmittedReview> submittedReviews = new ArrayList<SubmittedReview>();
+
 	//private ArticleBag articleBag = new ArticleBag();
 	
        
@@ -77,10 +80,12 @@ public class ReviewerLogin extends HttpServlet {
 			try {
 				boolean c = getChosenArticles(request, response, reviewer, con);
 				boolean r = getReviewingArticles(request, response, reviewer, con);
-				if (c&&r) {
+				boolean s = getSubmittedReview(request, response, reviewer, con);
+				if (c&&r&&s) {
 					System.out.println("initialize successfully");
 					session.setAttribute("ChosenArticles", chosenArticles);
 					session.setAttribute("reviewingArticles", reviewingArticles);
+					session.setAttribute("submittedReviews", submittedReviews);
 					
 				}
 				else {
@@ -313,5 +318,63 @@ public class ReviewerLogin extends HttpServlet {
 			result=true;
 		}
 		return result;
+	}
+	
+	private String getArticleName(Connection con, String authorname) throws SQLException {
+		
+		String articleName=null;
+		ResultSet rs = null;
+		PreparedStatement ps = con.prepareStatement("select articlename from AuthorArticle where authorname=? ");
+		ps.setString(1, authorname);
+		rs = ps.executeQuery();
+		if (rs!=null&&rs.next()) {
+			articleName = rs.getString("articlename");
+		}
+		return articleName;
+	}
+	
+	private boolean getSubmittedReview(HttpServletRequest request, HttpServletResponse response,Reviewer reviewer,Connection con) throws ServletException, SQLException, IOException {
+			
+		boolean result = false;
+		ResultSet rs = null;
+		PreparedStatement ps = con.prepareStatement("select * from AuthorReviewer where reviewername=? ");
+		ps.setString(1, reviewer.getReviewerName());
+		rs = ps.executeQuery();
+		
+		
+		if (rs!=null) {
+			String authorname=null;
+			String articleName = null;
+			String overallJudgement = null;
+			String level = null;
+			String summary = null;
+			String criticism = null;
+			String smallerrors = null;
+			String reviseInfo = null;
+			int reviseTime = 0;
+			int reviseAccepted = 0;
+			while (rs.next()) {
+				
+				authorname = rs.getString("authorname");
+				articleName = getArticleName(con, authorname);
+				overallJudgement = rs.getString("overalljudgement");
+				level = rs.getString("reviewerlevel");
+				summary = rs.getString("summary");
+				criticism = rs.getString("criticism");
+				smallerrors = rs.getString("smallerrors");
+				reviseInfo = rs.getString("reviseinfo");
+				reviseTime = rs.getInt("revisetime");
+				reviseAccepted = rs.getInt("reviseaccepted");
+				
+				SubmittedReview sr = new SubmittedReview(reviewer.getReviewerName(), articleName,
+						overallJudgement, level, summary, criticism, smallerrors, reviseInfo, reviseTime, reviseAccepted);
+				
+				this.submittedReviews.add(sr);
+				result=true;
+				System.out.println(sr.toString()+"--");
+			}
+		}
+		return result;
+		
 	}
 }

@@ -89,6 +89,31 @@
 		</table>
 	</form>
 	
+	<form action="SubmitReview" name="submittedReviews" method="post">
+		<p>Submitted Reviews: <%=raDisplay%>
+		<table>
+			<tr>
+				<td>Article Name</td>
+				<td>Review Status</td>
+				<td>DownLoad</td>
+			</tr>
+			<tr>
+				<%
+				if(reviewingArticles!=null){
+					String ra="";
+					String status = "";
+					for (ReviewingArticle rArticle : reviewingArticles) {
+						ra = rArticle.getArticleName();
+						status = rArticle.getReviewStatus();
+						%><td><%=ra%></td> <td><%=status %></td> <td><input type="submit" name="<%=ra%>" value="Download">
+						<input type="hidden" name="downloaded" value="<%=ra%>">
+						</td>
+						
+				<% }}%>
+			</tr>
+		</table>
+	</form>
+	
 	
 </body>
 </html>

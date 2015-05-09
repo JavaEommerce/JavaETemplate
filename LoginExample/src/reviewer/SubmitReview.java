@@ -3,9 +3,11 @@ package reviewer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -119,13 +121,17 @@ public class SubmitReview extends HttpServlet {
 
 			
 			// logic part**********************************************************************/
+			// submit first time from 
 			try {
-				String aurhorName = getAuthorName(con, articleName);
-				if (aurhorName!=null) {
-					// insert info into AuthorArticle table
-					insertIntoAuthorReviewer(aurhorName, reviewer, con);
-					// update reviewer's review status
-					updateReviewStatus(articleName, reviewer, con);
+				String auhorName = getAuthorName(con, articleName);
+				boolean revise = reviseReview(request, response, reviewer, con, auhorName);
+				if (auhorName!=null) {
+					if (!revise) {
+						// insert info into AuthorArticle table
+						insertIntoAuthorReviewer(auhorName, reviewer, con);
+						// update reviewer's review status
+						updateReviewStatus(articleName, reviewer, con);
+					} 
 				}
 				else {
 					System.out.println("???");
@@ -163,15 +169,15 @@ public class SubmitReview extends HttpServlet {
 	private void insertIntoAuthorReviewer(String authorName, Reviewer reviewer,Connection con) throws ServletException, SQLException, IOException {
 		
 		PreparedStatement ps = null;
-		
+		 
         try {
         	
         	ps = con.prepareStatement("insert into AuthorReviewer(reviewername,authorname,"
         			+ "reviseinfo,reviseaccepted,revisetime,overalljudgement,reviewerlevel,"
-        			+ "summary,criticism,smallerrors) values (?,?,?,?,?,?,?,?,?,?) ");
+        			+ "summary,criticism,smallerrors,submitdate) values (?,?,?,?,?,?,?,?,?,?,date(now())) ");
         	ps.setString(1, reviewer.getReviewerName());
         	ps.setString(2, authorName);
-        	ps.setString(3, null);
+        	ps.setString(3, "");
         	ps.setInt(4, 0);
         	ps.setInt(5, 0);
         	ps.setString(6, overallJudgement);
@@ -189,18 +195,72 @@ public class SubmitReview extends HttpServlet {
 	
 	private void updateReviewStatus(String articleName, Reviewer reviewer,Connection con) throws  ServletException,SQLException {
 			
-			PreparedStatement ps = null;
-	        try {
-	        	
-	        	ps = con.prepareStatement("update ArticleReview set reviewstatus='review submitted' where articlename=? and reviewername=? ");
-	        	ps.setString(1, articleName);
-	        	ps.setString(2, reviewer.getReviewerName());
-	        	ps.execute();
-			
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            throw new ServletException("DB Connection problem.");
-	        }
-		}
-	
+		PreparedStatement ps = null;
+        try {
+        	
+        	ps = con.prepareStatement("update ArticleReview set reviewstatus='review submitted' where articlename=? and reviewername=? ");
+        	ps.setString(1, articleName);
+        	ps.setString(2, reviewer.getReviewerName());
+        	ps.execute();
+		
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("DB Connection problem.");
+        }
 	}
+	
+	private boolean reviseReview(HttpServletRequest request, HttpServletResponse response,Reviewer reviewer,Connection con,String authorName) throws ServletException, SQLException, IOException {
+		
+		boolean result = false;
+		ResultSet rs = null;
+		PreparedStatement psLookup = null;
+		PreparedStatement ps = null;
+		psLookup = con.prepareStatement("select submitdate from AuthorReviewer where authorname=? and reviewername=? ");
+		psLookup.setString(1, authorName);
+		psLookup.setString(2, reviewer.getReviewerName());
+		rs = psLookup.executeQuery();
+		
+		if (rs!=null&&rs.next()) {
+			System.out.println("revising review========");
+			result=true;
+			Date submitDate = rs.getDate("submitdate");
+			Calendar subDate = Calendar.getInstance();
+			 subDate.setTime(submitDate);
+			Calendar today = Calendar.getInstance();
+			 today.setTime(new java.util.Date());
+			             
+			long sD=subDate.getTimeInMillis();
+			long t=today.getTimeInMillis();
+			long d=t-sD;   
+			int days = (int)(d/(1000*60*60*24));
+			
+			if (days<=7) {
+				ps = con.prepareStatement("update AuthorReviewer set reviewerlevel=?,summary=?,"
+						+ " overalljudgement=?, criticism=? , smallerrors=?"
+						+ " where authorname=? and reviewername=? ");
+				ps.setString(7, reviewer.getReviewerName());
+	        	ps.setString(6, authorName);
+	        	ps.setString(3, overallJudgement);
+	        	ps.setString(1, level);
+	        	ps.setString(2, summary);
+	        	ps.setString(4, criticism);
+	        	ps.setString(5, smallerrors);
+		    	ps.execute();
+			}
+			else {
+				// redirect to reviewer centre
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
+		        PrintWriter out= response.getWriter();
+		        out.println("<font color=red>Your review is submitted to author, please wait for correction. </font>");
+		        rd.include(request, response);
+			}
+			
+		}
+		return result;
+       
+	}
+	
+}
+
+
+
