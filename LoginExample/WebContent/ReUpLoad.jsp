@@ -18,6 +18,7 @@ String reviewerlevel="";
 String summary="";
 String criticism="";
 String smallerrors="";
+Boolean canRe = true;
 
 Author currentAuthor = (Author)session.getAttribute("Author");
 authorname = currentAuthor.getAuthorName();
@@ -36,13 +37,16 @@ while(rs.next()){
 	summary=rs.getString("summary");
 	criticism=rs.getString("criticism");
 	smallerrors=rs.getString("smallerrors");
+	if(!rs.getString("reviseinfo").equals("")){
+		canRe = false;
+	}
 	%>
 <input name="overalljudgement" type="text" id="overalljudgement" value=<%=overalljudgement %> readonly><br />   
 <input name="reviewerlevel" type="text" id="reviewerlevel" value=<%=reviewerlevel %> readonly><br />   
 <input name="summary" type="text" id="summary" value=<%=summary %> readonly><br />   
 <input name="criticism" type="text" id="criticism" value=<%=criticism %> readonly><br />   
 <input name="smallerrors" type="text" id="smallerrors" value=<%=smallerrors %> readonly><br />   
-<input name="reviseinfo" type="text" id="reviseinfo" value=<%=reviseinfo %> readonly><br />   
+information:::<input name="reviseinfo" type="text" id="reviseinfo" value=<%=reviseinfo %> ><br />   
 <br />   	
 <%
 }
@@ -56,11 +60,11 @@ con.close();
 
          
             
-                   
+<%if(canRe){ %>                   
         <input type="file" value="upload"  name="input_value5">
         <input type="submit"" value="submit" id="save5">  
 
-     
+ <%} %>    
      </form>  
       </body>  
     </html>  

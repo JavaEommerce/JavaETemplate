@@ -65,7 +65,8 @@ public class ReUpload extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		String serverPath = getServletContext().getRealPath("/").replace("\\", "/");    
-		String serverPath = "/export/tomtemp/";
+//		String serverPath = "/export/tomtemp/";
+		String serverPath = "E:\\Testtt\\";
 //      System.out.println(serverPath);  	
       //Servlet初始化时执行,如果上传文件目录不存在则自动创建    
       if(!new File(uploadPath).isDirectory()){   
