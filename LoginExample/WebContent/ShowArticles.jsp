@@ -59,7 +59,7 @@ while(Authorresult.next())
 		<h2>Author Email
 		<p><%=email%></p></h2>
 	
-		<a href = "DownLoadArticle?downloadAname=<%= article.getArticlename()%>"> DownLoad PDF</a>
+		<h2><a href = "DownLoadArticle?downloadAname=<%= article.getArticlename()%>"> DownLoad PDF</a></h2>
 		<h2>Copyright Team153</h2>
 		</form>
 

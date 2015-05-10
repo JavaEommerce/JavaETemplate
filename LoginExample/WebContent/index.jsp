@@ -269,7 +269,8 @@ ifm.height = subWeb.body.scrollHeight;
   	  							  </tr>
   	  							</div>  
   	  						
-  	  						<tr><p>Date From<input  type="date"  value="2015-01-01" name="fromdate"></p></tr>
+  	  						<tr><p>Date From:</p></p></tr>
+  	  						<input  type="date"  value="2015-01-01" name="fromdate">
 						</form>
 					</div>
 
@@ -291,14 +292,14 @@ ifm.height = subWeb.body.scrollHeight;
 							<h4 class="panel-title">Share us to your friends</h4>
 						</div>
 						<div class="panel-body">
-							<img src="http://static.viewbook.com/images/social_icons/facebook_32.png" alt="" >
-							<img src="http://static.viewbook.com/images/social_icons/twitter_32.png" alt="">
-							<img src="http://static.viewbook.com/images/social_icons/linkedin_32.png" alt="" >
-							<img src="http://static.viewbook.com/images/social_icons/vimeo_32.png" alt="">
-							<img src="http://static.viewbook.com/images/social_icons/tumblr_32.png" alt="" >
-							<img src="http://static.viewbook.com/images/social_icons/flickr_32.png" alt="">
-							<img src="http://static.viewbook.com/images/social_icons/wordpress_32.png" alt="" >
-							<img src="http://static.viewbook.com/images/social_icons/google_32.png" alt="">
+							<a href = "http://www.facebook.com"><img src="http://static.viewbook.com/images/social_icons/facebook_32.png" alt="" ></a>
+							<a href = "http://www.twitter.com"><img src="http://static.viewbook.com/images/social_icons/twitter_32.png" alt=""></a>
+							<a href = "http://www.linkedin.com"><img src="http://static.viewbook.com/images/social_icons/linkedin_32.png" alt="" ></a>
+							<a href = "http://www.vimeo.com"><img src="http://static.viewbook.com/images/social_icons/vimeo_32.png" alt=""></a>
+							<a href = "http://www.tumblr.com"><img src="http://static.viewbook.com/images/social_icons/tumblr_32.png" alt="" ></a>
+							<a href = "http://www.flickr.com"><img src="http://static.viewbook.com/images/social_icons/flickr_32.png" alt=""></a>
+							<a href = "https://wordpress.com"><img src="http://static.viewbook.com/images/social_icons/wordpress_32.png" alt="" ></a>
+							<a href = "https://plus.google.com/"><img src="http://static.viewbook.com/images/social_icons/google_32.png" alt=""></a>
 						</div>
 					</div>
 
