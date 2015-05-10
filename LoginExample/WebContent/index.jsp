@@ -297,20 +297,27 @@ ifm.height = subWeb.body.scrollHeight;
 					<!-- Panel -->
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h4 class="panel-title">Sidebar panel widget</h4>
+							<h4 class="panel-title">Share us to your friends</h4>
 						</div>
 						<div class="panel-body">
-							<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+							<img src="http://static.viewbook.com/images/social_icons/facebook_32.png" alt="" >
+							<img src="http://static.viewbook.com/images/social_icons/twitter_32.png" alt="">
+							<img src="http://static.viewbook.com/images/social_icons/linkedin_32.png" alt="" >
+							<img src="http://static.viewbook.com/images/social_icons/vimeo_32.png" alt="">
+							<img src="http://static.viewbook.com/images/social_icons/tumblr_32.png" alt="" >
+							<img src="http://static.viewbook.com/images/social_icons/flickr_32.png" alt="">
+							<img src="http://static.viewbook.com/images/social_icons/wordpress_32.png" alt="" >
+							<img src="http://static.viewbook.com/images/social_icons/google_32.png" alt="">
 						</div>
 					</div>
 
 					<!-- Panel -->
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h4 class="panel-title">Sidebar panel widget</h4>
+							<h4 class="panel-title"> </h4>
 						</div>
 						<div class="panel-body">
-							<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
+							<p></p>
 						</div>
 					</div>
 
