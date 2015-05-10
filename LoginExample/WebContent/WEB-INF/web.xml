@@ -154,6 +154,14 @@
     <url-pattern>/SubmitReview</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>reviewer.Revision</servlet-name>
+    <servlet-class>reviewer.Revision</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reviewer.Revision</servlet-name>
+    <url-pattern>/Revision</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>editor.EditorEditJournal</servlet-name>
     <servlet-class>editor.EditorEditJournal</servlet-class>
   </servlet>

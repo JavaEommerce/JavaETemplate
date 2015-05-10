@@ -251,7 +251,7 @@ public class SubmitReview extends HttpServlet {
 			}
 			else {
 				// redirect to reviewer centre
-				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
 		        PrintWriter out= response.getWriter();
 		        out.println("<font color=red>Your review is submitted to author, please wait for correction. </font>");
 		        rd.include(request, response);

@@ -100,7 +100,7 @@
 		</table>
 	</form>
 	
-	<form action="SubmitReview" name="submittedReviews" method="post">
+	<form action="Revision" name="submittedReviews" method="post">
 		<p>Submitted Reviews: <%=srDisplay%>
 		<table>
 			<tr>
@@ -127,6 +127,9 @@
 					int reviseTime = 0;
 					boolean reviseAccepted = false;
 					String raString = "";
+					String acc = "";
+					String rej = "";
+
 					
 					for (SubmittedReview sReview : submittedReviews) {
 						artcileName = sReview.getArticleName();
@@ -140,9 +143,14 @@
 						reviseAccepted = sReview.getReviseAccepted();
 						if(reviseAccepted){
 							raString = "Accepted";
+							
 						}
 						else{
 							raString = "Not Accepted yet";
+							if(!reviseInfo.equalsIgnoreCase("")){
+								acc="Accept";
+								rej="Reject";	
+							}
 						}
 						
 						%><td><%=artcileName%></td>  
@@ -157,8 +165,12 @@
 						
 						
 						<td>
-						<input type="submit" name="revision" value="Accept revision">
-						<input type="submit" name="revision" value="Reject revision">
+						<%if(!acc.equalsIgnoreCase("")){%>
+						<input type="submit" name="revision" value=<%=acc %>>
+						<%} %>
+						<%if(!rej.equalsIgnoreCase("")){%>
+						<input type="submit" name="revision" value=<%=rej %>>
+						<%} %>
 						<%
 						if(reviseAccepted){
 							artcileName=null;

@@ -91,10 +91,30 @@ public class ReviewerLogin extends HttpServlet {
 					System.out.println("no submitted review");
 				}
 				if (chosenArticles!=null&&reviewingArticles!=null&&submittedReviews!=null) {
-					System.out.println("initialize successfully");
-					session.setAttribute("ChosenArticles", chosenArticles);
-					session.setAttribute("reviewingArticles", reviewingArticles);
-					session.setAttribute("submittedReviews", submittedReviews);
+					System.out.println("initialize successfully==========");
+					if (session.getAttribute("ChosenArticles")!=null) {
+						session.removeAttribute("ChosenArticles");
+						session.setAttribute("ChosenArticles", chosenArticles);
+					} else {
+						session.setAttribute("ChosenArticles", chosenArticles);
+					}
+					
+					if (session.getAttribute("reviewingArticles")!=null) {
+						session.removeAttribute("reviewingArticles");
+						session.setAttribute("reviewingArticles", reviewingArticles);
+					} else {
+						session.setAttribute("reviewingArticles", reviewingArticles);
+					}
+					
+					if (session.getAttribute("submittedReviews")!=null) {
+						session.removeAttribute("submittedReviews");
+						session.setAttribute("submittedReviews", submittedReviews);
+					} else {
+						session.setAttribute("submittedReviews", submittedReviews);
+					}
+					
+					
+					
 					
 				}
 				else {
@@ -183,7 +203,7 @@ public class ReviewerLogin extends HttpServlet {
 							System.out.println("error");
 						}
 						// redirect to centre
-						RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerCentre.jsp");
+						RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
 				        PrintWriter out= response.getWriter();
 				        out.println("<font color=red>selection successful</font>");
 				        rd.include(request, response);

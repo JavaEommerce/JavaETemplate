@@ -1,3 +1,4 @@
+<%@page import="reviewer.Reviewer"%>
 <%@page import="Author.Author" %>
 <%@page import="loginSystem.User"%>
 <%@ page language="java" import="java.sql.*" contentType="text/html; charset=UTF-8"
@@ -95,6 +96,7 @@ function showtime(){
 				<%
 							User currentUser = (User)session.getAttribute("User"); 
 							Author currentAuthor = (Author)session.getAttribute("Author");
+							Reviewer currentReviewer = (Reviewer)session.getAttribute("Reviewer");
 							//Editor currentEditor = (Editor)session.getAttribute("Editor");
 							String name = "please login";
 							int role = 0;
@@ -124,6 +126,10 @@ function showtime(){
 								}
 								welcomeInfo="Welcome!";
 							}
+							
+							if(currentReviewer!=null){
+								welcomeInfo = "Reviewer Centre";
+							}
 						
 						%>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -148,7 +154,7 @@ function showtime(){
 						<li><a href="Waitingpublish.jsp"><%="Upload" %></a></li>
 							<li><a href="ReUpLoad.jsp"><%="Author Centre" %></a></li>
 						<%}%>
-						<li><a href="reviewerIndex.jsp">I'm a reviewer</a></li>
+						<li><a href="reviewerIndex.jsp"><%=welcomeInfo %></a></li>
 						
 						<%if(role==3){ %>
 						<li><a href="EditorTest.jsp"><%=showName %></a></li>

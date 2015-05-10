@@ -100,6 +100,11 @@ public class DownloadArticle extends HttpServlet {
 				response.sendRedirect("/reviewerCentre.jsp");
 			}
 			
+			// redirect to reviewerIndex page
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
+	        PrintWriter out= response.getWriter();
+	        out.println("<font color=red>Operation successful</font>");
+	        rd.forward(request, response);
 		}
 		else {
 			// redirect to login page
@@ -115,11 +120,11 @@ public class DownloadArticle extends HttpServlet {
 		try {
 			String url = getURL(request, response, articleName, con);
 			System.out.println(url);
-			String filename = "memon.pdf";
-			String filepath = "/export/tomtemp/memon.pdf";
+			//String filename = "memon.pdf";
+			//String filepath = "/export/tomtemp/memon.pdf";
 			response.setContentType("APPLICATION/OCTET-STREAM");
-			response.setHeader("Content-Disposition","attachment; filename=\""+filename+"\"");
-			java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath);
+			response.setHeader("Content-Disposition","attachment; filename=\""+url+"\"");
+			java.io.FileInputStream fileInputStream=new java.io.FileInputStream(url);
 			java.io.OutputStream os=response.getOutputStream();
 			int i=0;
 			byte[] b = new byte[1024];
