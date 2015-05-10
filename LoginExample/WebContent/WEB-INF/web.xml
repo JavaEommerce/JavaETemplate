@@ -201,8 +201,7 @@
     <servlet-name>reader.DealArticleInfo</servlet-name>
     <url-pattern>/DealArticleInfo</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <servlet-name>reader.DealJournalInfo</servlet-name>
     <servlet-class>reader.DealJournalInfo</servlet-class>
   </servlet>
