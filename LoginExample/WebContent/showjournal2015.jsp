@@ -19,12 +19,11 @@ Class.forName("com.mysql.jdbc.Driver");
 Connection con = DriverManager.getConnection( url );
 
 Statement st1 = con.createStatement();
-ResultSet nameresult = st1.executeQuery( sqljname );
+ResultSet Jnameresult = st1.executeQuery( sqljname );
 Statement st2 = con.createStatement();
 
-
     
-	while(nameresult.next())
+	while(Jnameresult.next())
             {%>   
             <div class="well">
 						<div class="media">
@@ -33,16 +32,16 @@ Statement st2 = con.createStatement();
 							</div>
 							<div class="media-body">
 							
-								<h4 class="margin-t-0"><a href="#"><%=nameresult.getString("journalname")%></a></h4>
-								<p><%=nameresult.getString("Info")%></p>
+								<h4 class="margin-t-0"><a href="#"><%=Jnameresult.getString("journalname")%></a></h4>
+								<p><%=Jnameresult.getString("Info")%></p>
 								<%
-								String sqljvsersion =  "select distinct version , publishtime from Journal where publishtime >'2014-12-30'and journalname ="+"\""+nameresult.getString("journalname")+"\"";
+								String sqljvsersion =  "select distinct version , publishtime, journalID from Journal where publishtime >'2014-12-30'and journalname ="+"\""+Jnameresult.getString("journalname")+"\"";
 								//System.out.println(nameresult.getString("journalname"));
 								ResultSet versionresult = st2.executeQuery( sqljvsersion );
 								while(versionresult.next())
 								{%>	
-								<form action = "ShowArticles.jsp"> 
-								 <p><a href="#" onClick="open('/ShowArticles','_blank','height=100, width=400, toolbar= no, menubar=no, scrollbars=no, resizable=no, location=no, status=no,top=100,left=300');">Edition: <%=versionresult.getString("version")%> &nbsp;&nbsp;&nbsp;&nbsp; Publish time:<%=versionresult.getString("publishtime")%></a> </p>	
+								<form>
+								 <p><a href="Search?JID=<%=versionresult.getString("journalID") %>" target=_blank>Edition: <%=versionresult.getString("version")%> &nbsp;&nbsp;&nbsp;&nbsp; Publish time:<%=versionresult.getString("publishtime")%></a> </p>	
 								</form>		
 								<%} 
 								   versionresult.close();
@@ -55,7 +54,7 @@ Statement st2 = con.createStatement();
            <% }%>
            <%
         
-           nameresult.close();
+           Jnameresult.close();
            st1.close();
            st2.close();
            con.close();

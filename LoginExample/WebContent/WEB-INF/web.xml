@@ -201,4 +201,13 @@
     <servlet-name>reader.DealArticleInfo</servlet-name>
     <url-pattern>/DealArticleInfo</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>reader.DealJournalInfo</servlet-name>
+    <servlet-class>reader.DealJournalInfo</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reader.DealJournalInfo</servlet-name>
+    <url-pattern>/DealJournalInfo</url-pattern>
+  </servlet-mapping>
 </web-app>

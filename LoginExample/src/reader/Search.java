@@ -40,6 +40,81 @@ public class Search extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String journalID = request.getParameter("JID");
+		//System.out.println(journalID);
+		String errorMessage=null;
+		ArrayList<Article> articls = new ArrayList<Article>();
+		
+		if(journalID.equals("")||journalID==null){
+			errorMessage="Can not find this Journal.";
+		}
+		
+		else{
+
+			Dbconnection db=null;
+			try {
+				db = new Dbconnection();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			Connection con = db.getConnection();		
+			if (con==null) {
+				System.out.println("it's closed!");
+			}
+			else{
+				System.out.println("successfullllllll");
+			}
+			
+			PreparedStatement ps = null;
+			ResultSet rs =null;
+			try {
+				ps=con.prepareStatement("select * from Article,Journal,JournalArticle where Article.articlename = JournalArticle.articlename and Journal.journalID= JournalArticle.journalID and Journal.journalID =?");
+				ps.setString(1, journalID);
+				rs = ps.executeQuery();
+				
+				if (rs!=null) {
+					System.out.println("Prepare jump");
+					while(rs.next()){
+						Article temp= new Article(rs.getString("articlename"),rs.getString("keywords"), rs.getString("abstract"), 
+								rs.getString("url"), rs.getString("domain"), rs.getString("uploaddate"), rs.getString("ispublish"),
+								rs.getString("affiliations"), rs.getString("currentreviewnum"));
+						articls.add(temp);
+						
+					
+					//System.out.println(rs.getString("articlename"));
+					}
+					HttpSession session = request.getSession();
+					session.setAttribute("articlenamelist",articls);
+					response.sendRedirect("SearchResult.jsp");
+					
+				} else {
+					response.sendRedirect("index.jsp");
+				}
+				
+				
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}finally{
+				try {
+					rs.close();
+					ps.close();
+					con.close();
+					System.out.println("db closed");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			
+		}
+		
 	}
 
 	/**
@@ -49,6 +124,7 @@ public class Search extends HttpServlet {
 		// TODO Auto-generated method stub
 		String searchform = request.getParameter("search-form");
 		String selectsearchtype = request.getParameter("selectsearchtype");
+		
 		String errorMessage=null;
 		ArrayList<Article> articls = new ArrayList<Article>();
 		System.out.println("Grt research Type:"+selectsearchtype);

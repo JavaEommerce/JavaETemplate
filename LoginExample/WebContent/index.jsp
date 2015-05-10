@@ -188,7 +188,8 @@ function showtime(){
 	<!--插入显示Jounal List -->			
 
 			<div>
-		 	<iframe src="" frameborder="0" width="100%" height="80%" id="iframe" name="i"></iframe>    
+			<h3>Journal List</h3>
+		 	<iframe src="showjournal2015.jsp" frameborder="0" width="100%" height="80%" id="iframe" name="i"></iframe>    
 			
 <!--			<iframe src="" id="iframe" name="i" frameBorder=0 align="left" scrolling=no width="100%" onLoad="iFrameHeight()" ></iframe> 
 <script type="text/javascript" language="javascript"> 
@@ -364,13 +365,16 @@ ifm.height = subWeb.body.scrollHeight;
 					</div>
 
 					<!-- list group -->
+					<form action="${pageContext.request.contextPath}/DealJournalInfo" method="post">
 					<div class="list-group margin-b-3">
-					    <a href="${pageContext.request.contextPath}/showjournal2015.jsp" class="list-group-item" id="2015" name="a1.html" target="i">2015</a>
-					    <a href="${pageContext.request.contextPath}/showjournal2014.jsp" class="list-group-item" id="2014" name="a2.html" target="i">2014</a>
-					    <a href="${pageContext.request.contextPath}/showjournal2013.jsp" class="list-group-item" id="2013" name="a3.html" target="i">2013</a>
-                        <a href="${pageContext.request.contextPath}/showjournalearlier.jsp" class="list-group-item" id="earlier" name="a4.html" target="i">earlier</a>
+					    <a href="${pageContext.request.contextPath}/showjournal2015.jsp"  class="list-group-item" id="2015" name="year2015" target="i">2015</a>
+					    <a href="${pageContext.request.contextPath}/showjournal2014.jsp" class="list-group-item" id="2014" name="year2014" target="i">2014</a>
+					    <a href="${pageContext.request.contextPath}/showjournal2013.jsp" class="list-group-item" id="2013" name="year2013" target="i">2013</a>
+                        <a href="${pageContext.request.contextPath}/showjournalearlier.jsp" class="list-group-item" id="earlier" name="yearearlier" target="i">earlier</a>
 					</div>
-
+					</form
+					
+					>
 					<!-- Panel -->
 					<div class="panel panel-default">
 						<div class="panel-heading">
