@@ -77,9 +77,40 @@ public class DownloadArticle extends HttpServlet {
 			if (articleName!=null) {
 				if (request.getParameter("confirm")!=null) {
 					// download selected article and change article review status to downloaded with article name
+					System.out.println("TTTTTTTTTTTTTTTTTTTTTTTTT");
 					System.out.println("confirm");
-					download(request, response, articleName, con);
-					System.out.println("downloaded");
+					boolean confirmed;
+					try {
+						confirmed = confirmSelection(request, response, articleName, con, reviewer);
+						if (confirmed) {
+							download(request, response, articleName, con);
+							System.out.println("downloaded");
+							// redirect to reviewerIndex page
+							RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
+					        PrintWriter out= response.getWriter();
+					        out.println("<font color=red>Operation successful</font>");
+					        rd.include(request, response);
+						}
+						else {
+							// redirect to reviewerIndex page
+							RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
+					        PrintWriter out= response.getWriter();
+					        out.println("<font color=red>Confirm Article error, please refresh page</font>");
+					        rd.include(request, response);
+						}
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}catch (Exception e) {
+						
+						// redirect to reviewerIndex page
+						RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
+				        PrintWriter out= response.getWriter();
+				        out.println("<font color=red>Download Article error, please refresh page</font>");
+				        rd.include(request, response);
+					}
+					
+					
 				} else {
 					System.out.println("cancel");
 					// remove record in ArticleReview and Reviewer.selectedNum
@@ -96,15 +127,23 @@ public class DownloadArticle extends HttpServlet {
 			if (articleName!=null) {
 				System.out.println(articleName);
 				// redirect to download
-				download(request, response, articleName, con);
-				response.sendRedirect("/reviewerCentre.jsp");
+				try {
+					download(request, response, articleName, con);
+				} catch (Exception e) {
+					// redirect to reviewerIndex page
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
+			        PrintWriter out= response.getWriter();
+			        out.println("<font color=red>Download Article error, please refresh page</font>");
+			        rd.include(request, response);
+				}
+				
 			}
 			
 			// redirect to reviewerIndex page
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
 	        PrintWriter out= response.getWriter();
 	        out.println("<font color=red>Operation successful</font>");
-	        rd.forward(request, response);
+	        rd.include(request, response);
 		}
 		else {
 			// redirect to login page
@@ -153,6 +192,19 @@ public class DownloadArticle extends HttpServlet {
 		}
 		return url;
 		
+	}
+	
+	private boolean confirmSelection(HttpServletRequest request, HttpServletResponse response, String articleName,Connection con,Reviewer reviewer) throws SQLException {
+			
+		boolean result = false;
+		PreparedStatement ps = con.prepareStatement("update ArticleReview set reviewstatus='downloaded' where reviewername=? and articlename=? ");
+		ps.setString(1, reviewer.getReviewerName());
+		ps.setString(2, articleName);
+		ps.execute();
+		result = true;
+		return result;
+		
+			
 	}
 	
 	private void cancelSelection(HttpServletRequest request, HttpServletResponse response, String articleName,Connection con,Reviewer reviewer) throws SQLException {
