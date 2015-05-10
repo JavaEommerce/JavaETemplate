@@ -9,6 +9,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" href="css/editorStyle.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	  	<link rel="stylesheet" href="css/upload.css" type="text/css" />	
+	  	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+	  	<link rel="stylesheet" href="css/loginform.css" type="text/css"/>
+	  	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />  
 <title>Pending Articles</title>
 <script type="text/javascript">
 function home(){
@@ -17,8 +24,7 @@ function home(){
 </script>
 </head>
 <body>
-<a href="reviewerCentre.jsp">Back to reviewer centre</a>
-	<% 
+<% 
 		
 		
 		PendingArticle oldArticle = (PendingArticle)session.getAttribute("ForceToChoose");
@@ -52,17 +58,25 @@ function home(){
 		String abstra = "";
 		String title = "";
 	%>
-	<h1>Here are some unpublished articles, you may choose <%=availableSelection %> of them, <%=forceToChooseNum %> forced to choose</h1>
+	<div class = "logmod">
+		<div class="logmod__wrapper">
+			<div class="smart-green">
+		
+	
+	
+		<form id="form5" name="selectArticle" action="ReviewerLogin" method="post">
+			<h1>Here are some unpublished articles, you may choose <%=availableSelection %> of them, <%=forceToChooseNum %> forced to choose</h1>
 	<div>
+	<a href="reviewerCentre.jsp">Back to reviewer centre</a>
 		<p>Available Pending Articles:
-		<form name="selectArticle" action="ReviewerLogin" method="post">
-			
 					
 				<p>Your review task:<%=taskTitle %></p>
 				<p><%=taskAb %></p>
 				<table>
 				<tr>
 					<th>Article name</th>
+					<th>Abstract</th>
+					<th>Select</th>
 				</tr>
 					<%
 					if(pendingArticles!=null){
