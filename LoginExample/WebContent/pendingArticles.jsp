@@ -49,35 +49,43 @@ function home(){
 		
 		
 		int availableSelection=3-forceToChooseNum-r.getSelectedNum();
-		
+		String abstra = "";
+		String title = "";
 	%>
 	<h1>Here are some unpublished articles, you may choose <%=availableSelection %> of them, <%=forceToChooseNum %> forced to choose</h1>
 	<div>
-		<p><span><br />Available Pending Articles:
-		<p><form name="selectArticle" action="ReviewerLogin" method="post">
+		<p>Available Pending Articles:
+		<form name="selectArticle" action="ReviewerLogin" method="post">
 			
 					
 				<p>Your review task:<%=taskTitle %></p>
 				<p><%=taskAb %></p>
-				
-			
-			<%
-				
-				
-				for(PendingArticle pa:pendingArticles){%>
+				<table>
+				<tr>
+					<th>Article name</th>
+				</tr>
 					<%
-						String result = pa.toString();
-						String title = pa.getArticleName();
-					%>
-					<p><%=result %><input type="checkbox" name="pendingArticles" value=<%=title%>></p>
-				<% } %>
-				<p>
-				<input type="submit" name="submit" value="Select Articles">
-				<input type="hidden" name="pendingSelection" value="valid"> 
+					if(pendingArticles!=null){
+						for(PendingArticle pa:pendingArticles){
+							
+							
+							abstra = pa.getAbstractContent();
+							title = pa.getArticleName();
+					}
 				
+				%>
+					
+					<tr><td><%=title %></td><td><%=abstra %></td><td><input type="checkbox" name="pendingArticles" value=<%=title%>></td></tr>
+				<%} %>
+				
+				<tr><td><input type="submit" name="submit" value="Select Articles">
+				<input type="hidden" name="pendingSelection" value="valid"></td> </tr>
+				
+				</table>
+			
 				
 		</form>
-		</span>
+		
 		
 	</div>
 	

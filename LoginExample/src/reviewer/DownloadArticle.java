@@ -124,6 +124,11 @@ public class DownloadArticle extends HttpServlet {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					// redirect to reviewerIndex page
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
+			        PrintWriter out= response.getWriter();
+			        out.println("<font color=red>Cancel successful</font>");
+			        rd.include(request, response);
 				}
 				
 			}
