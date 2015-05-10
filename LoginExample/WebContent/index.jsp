@@ -169,7 +169,7 @@ function showtime(){
 		<!-- Page Content -->
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-sm-8 col-sm-push-4">
+				<div class="col-sm-8 col-sm-push-0">
 					<div class="page-header">
 						<h1>New Journal Information</h1>
 						<p><%=welcomeInfo %> <span class="glyphicon glyphicon-user"></span><%=name %><span class="glyphicon glyphicon-time"></span><div id="time"></div></p>

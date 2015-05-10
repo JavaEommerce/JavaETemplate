@@ -49,12 +49,12 @@
 				<h2>this is Edit User</h2>
 				<h3>see the details of the User<h3>
 				<form id="form2" action = "EditorRetireAndAppointOne" method = "get" >
-				<input type = "submit" id="submit_2" value="Search all users"/>
+				<input class="btnExample" id="submit_2" value="Search all users"/>
 				</form>
 				<br>
 				
 				<form action = "EditorRetire" method = "post" accept-charset="utf-8" class="simform">
-            <input class="sumbit" type="submit" value="Ready to retire"/>
+            <input class="btnExample"  type="submit" value="Ready to retire"/>
 				</form>
 				
 				<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
@@ -79,11 +79,11 @@
 					<td> 
 					<form action="EditorAppointOne" method="post">
 					<input type="text" name="appointname" value = <%=username %>/> 
-					<input type="submit" value="appoint"/> </form> 
+					<input class="btnExample"  value="appoint"/> </form> 
 					</td>
 					</tr>
 				<%}%>
-				<p><input type="submit" name="submit" value="Back to editor center"></p>
+				<p><input class="btnExample"  name="submit" value="Back to editor center"></p>
 				<!-- <input type="hidden" name="pendingSelection" value="valid">  -->
 				</table>				
 		</form>

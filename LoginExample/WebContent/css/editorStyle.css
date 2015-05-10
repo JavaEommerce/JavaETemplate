@@ -317,6 +317,17 @@ footer p a:hover { color:#333; border-bottom-color: #333; }
 	display: block;
 }
 
+.btnExample {
+  color: #080b0f;
+  background: #C4DDB6;
+  font-weight: bold;
+  border: 1px solid #C4DDB6;
+}
+ 
+.btnExample:hover {
+  color: #f0f0f0;
+  background: #666;
+}
 
 
 

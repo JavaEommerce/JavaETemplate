@@ -49,7 +49,7 @@
 				<h2>this is Journals panel</h2>
 				<h3>see the details of the panel<h3>
 				<form id="form2" action = "EditorGetAllJournals" method = "post" >
-				<input type = "submit" id="submit_2" value="Edit Journal Page"/>
+				<input class="btnExample"  type = "submit" id="submit_2" value="Edit Journal Page"/>
 				</form>
 				<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
 				<table>
@@ -81,7 +81,7 @@
 					</form> </td>
 					</tr>
 				<%}%>
-				<p><input type="submit" name="submit" value="Back to editor center"></p>
+				<p><input class="btnExample"  type="submit" name="submit" value="Back to editor center"></p>
 				<!-- <input type="hidden" name="pendingSelection" value="valid">  -->
 				</table>				
 		</form>

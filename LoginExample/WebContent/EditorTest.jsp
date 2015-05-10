@@ -124,7 +124,7 @@ table.hovertable td {
 					<input type="submit" value="viewDetail"/></form> </td>
 					</tr>
 				<%}%>
-				<p><input class="button" type="submit" name="submit" value="Show articles"></p>
+				<p><input class="btnExample" type="submit" name="submit" value="Show articles"></p>
 				<!-- <input type="hidden" name="pendingSelection" value="valid">  -->
 		</table>				
 		</form>

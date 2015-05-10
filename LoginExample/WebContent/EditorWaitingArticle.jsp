@@ -49,7 +49,7 @@
 			<article>
 				<h2>All Article Waiting List</h2>
 				<form action = "EditorGetArticleWaitList" method = "post" accept-charset="utf-8" class="simform">
-            	<input class="sumbit" type="submit" value="Get Article Waiting List"/>
+            	<input class="btnExample"  type="submit" value="Get Article Waiting List"/>
 				</form>
 				<% 
 				 ArrayList<Article> names = new ArrayList<Article>();
