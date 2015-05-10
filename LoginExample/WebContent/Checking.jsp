@@ -17,7 +17,7 @@ String articleTitle="";
 String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
 String sqlStr = "select articlename from AuthorArticle where authorname=";
 String authorname="";
-int num = -1;
+int num = 0;
 
 Author currentAuthor = (Author)session.getAttribute("Author");
 authorname = currentAuthor.getAuthorName();

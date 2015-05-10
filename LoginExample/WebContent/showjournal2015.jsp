@@ -28,7 +28,10 @@ Statement st2 = con.createStatement();
             <div class="well">
 						<div class="media">
 							<div class="media-left">
-								<img src="http://placehold.it/70x70" alt="">
+								<img src="F:\\workspace_web\\JavaEE\\LoginExample\\Resource\\JournalImage" alt="">
+								<% //System.out.println(request.getContextPath()) ;
+								System.out.println(System.getProperty("user.dir"));
+								%>
 							</div>
 							<div class="media-body">
 							

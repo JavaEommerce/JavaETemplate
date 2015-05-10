@@ -72,6 +72,9 @@ public class EditorSetArticlePublished extends HttpServlet {
 				e.printStackTrace();
 			}finally{
 				try {
+					
+					
+					
 					pss.close();
 					con.close();
 					response.sendRedirect("EditorWaitingArticle.jsp");

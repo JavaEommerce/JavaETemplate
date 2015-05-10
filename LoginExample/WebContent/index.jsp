@@ -159,7 +159,7 @@ function showtime(){
 						<%if(role==3){ %>
 						<li><a href="EditorTest.jsp"><%=showName %></a></li>
 						<li><a href="Logout">log out</a><li>
-						<%}else if(role==1){ %>
+						<%}else if(role==1 || role==2 || role==3){ %>
 						<li><a href="#"><%=showName %></a></li>
 						<li><a href="Logout">logout</a><li>
 						<%}else{ %>
@@ -212,106 +212,10 @@ ifm.height = subWeb.body.scrollHeight;
 </script> 
 	 -->		
 			</div>
-					<hr>
 
-<<<<<<< Updated upstream
+
 					<!-- Register for email notification -->
-=======
-<<<<<<< Updated upstream
-=======
-<<<<<<< HEAD
-					<!-- Comments -->
-					<h3>Latest Articles</h3>
-=======
->>>>>>> Stashed changes
-					<!-- Journal List -->
-					<h3>Journal List</h3>
-                    
-                    
-<<<<<<< Updated upstream
-=======
->>>>>>> origin/master
->>>>>>> Stashed changes
-					<div class="well">
-						<div class="media">
-							<div class="media-left">
-								<img src="http://placehold.it/70x70" alt="">
-							</div>
-							<div class="media-body">
-								<h4 class="margin-t-0"><a href="#">Mayahuel Rodriguez</a></h4>
-								<p><a href="#">12 January 2015 11:13 pm</a></p>
-								<p>Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut</p>
-								<p>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-up"></span> Upvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-down"></span> Downvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-comment"></span> Reply
-									</button>
-								</p>
-							</div>
-						</div>
-					</div>
-                    
-                    
-                    
-                    
-                    
 
-					<div class="well">
-						<div class="media">
-							<div class="media-left">
-								<img src="http://placehold.it/70x70" alt="">
-							</div>
-							<div class="media-body">
-								<h4 class="margin-t-0"><a href="#">Mayahuel Rodriguez</a></h4>
-								<p><a href="#">12 January 2015 11:13 pm</a></p>
-								<p>Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut</p>
-								<p>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-up"></span> Upvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-down"></span> Downvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-comment"></span> Reply
-									</button>
-								</p>
-							</div>
-						</div>
-					</div>
-
-					<div class="well">
-						<div class="media">
-							<div class="media-left">
-								<img src="http://placehold.it/70x70" alt="">
-							</div>
-							<div class="media-body">
-								<h4 class="margin-t-0"><a href="#">Mayahuel Rodriguez</a></h4>
-								<p><a href="#">12 January 2015 11:13 pm</a></p>
-								<p>Lorem ipsum dolor sit amet consect etuer adipi scing elit sed diam nonummy nibh euismod tinunt ut laoreet dolore magna aliquam erat volut</p>
-								<p>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-up"></span> Upvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-thumbs-down"></span> Downvote
-									</button>
-									<button class="btn btn-sm btn-default">
-										<span class="glyphicon glyphicon-comment"></span> Reply
-									</button>
-								</p>
-							</div>
-						</div>
-					</div>
-					<hr>
-
-					<!-- Comment form -->
->>>>>>> Stashed changes
 					<h3>Register for email notification</h3>
 					<p>please fill in your email address and choose a subject you like
                     or a particular journal you like, if new journal or article are 				                     publish, we will notify you by email
@@ -382,6 +286,7 @@ ifm.height = subWeb.body.scrollHeight;
 					<form action="${pageContext.request.contextPath}/DealJournalInfo" method="post">
 					<div class="list-group margin-b-3">
 					    <a href="${pageContext.request.contextPath}/showjournal2015.jsp"  class="list-group-item" id="2015" name="year2015" target="i">2015</a>
+			
 					    <a href="${pageContext.request.contextPath}/showjournal2014.jsp" class="list-group-item" id="2014" name="year2014" target="i">2014</a>
 					    <a href="${pageContext.request.contextPath}/showjournal2013.jsp" class="list-group-item" id="2013" name="year2013" target="i">2013</a>
                         <a href="${pageContext.request.contextPath}/showjournalearlier.jsp" class="list-group-item" id="earlier" name="yearearlier" target="i">earlier</a>
