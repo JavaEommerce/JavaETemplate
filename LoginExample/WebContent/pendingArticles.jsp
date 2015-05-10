@@ -73,7 +73,7 @@ function home(){
 							title = pa.getArticleName();
 					}
 				
-<<<<<<< HEAD
+
 				%>
 					
 					<tr><td><%=title %></td><td><%=abstra %></td><td><input type="checkbox" name="pendingArticles" value=<%=title%>></td></tr>
@@ -81,20 +81,8 @@ function home(){
 				
 				<tr><td><input type="submit" name="submit" value="Select Articles">
 				<input type="hidden" name="pendingSelection" value="valid"></td> </tr>
-=======
-			<%
-				
-				for(PendingArticle pa:pendingArticles){%>
-					<%
-						String result = pa.toString();
-						String title = pa.getArticleName();
-					%>
-					<p><%=result %><input type="checkbox" name="pendingArticles" value=<%=title%>></p>
-				<% } %>
-				<p>
-				<input type="submit" name="submit" value="Select Articles">
-				<input type="hidden" name="pendingSelection" value="valid"> 
->>>>>>> origin/master
+
+
 				
 				</table>
 			
