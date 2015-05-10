@@ -1,13 +1,22 @@
  <%@ page language="java" import="java.util.*,Author.Author,java.sql.*" pageEncoding="UTF-8"%>       
     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">  
     <html>  
-      <head>          
+      <head> 
+      	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	  	<link rel="stylesheet" href="css/upload.css" type="text/css" />	
+	  	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+	  	<link rel="stylesheet" href="css/loginform.css" type="text/css"/>
+	  	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />         
         <title>My JSP 'index.jsp' starting page</title>  
       </head>  
         
       <body>  
-      Please write revision information to all reviewers even they accept your article<br /><br />
+      <div class = "logmod">
+		<div class="logmod__wrapper">
+		<div class="smart-green">
+      
       <form id="form5" method="post" enctype="multipart/form-data" action="ReUpload" >  
+      <h1>Please write revision information to all reviewers even they accept your article</h1>
 <%
 String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
 String sqlStr = "select reviseaccepted,revisetime,reviewername,reviseinfo,overalljudgement,reviewerlevel,summary,criticism,smallerrors,submitdate from AuthorReviewer where authorname=";
@@ -70,6 +79,7 @@ while(rs.next()){
 	
 	
 %>
+<fieldset>
 reviewer name:<br />
 <input name="reviewername" type="text" id="reviewername" value=<%=reviewername %> readonly>&nbsp&nbsp<%=displayword %><br />
 overalljudgement:<br />
@@ -85,7 +95,7 @@ smallerrors:<br />
 revision information<br />
 <textarea name="reviseinfo" cols="250" rows="5" id="reviseinfo" ><%=reviseinfo %></textarea><br />
 <br />   	
-
+</fieldset>
 
 <%
 	}
@@ -112,6 +122,6 @@ con.close();
         <input type="submit"" value="submit" id="save5">  
 <%} %>
  <%} %>    
-     </form>  
+     </form> </div></div></div> 
       </body>  
     </html>  
