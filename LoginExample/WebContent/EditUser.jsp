@@ -49,7 +49,7 @@
 				<h2>this is Edit User</h2>
 				<h3>see the details of the User<h3>
 				<form id="form2" action = "EditorRetireAndAppointOne" method = "get" >
-				<input class="btnExample" id="submit_2" value="Search all users"/>
+				<input class="btnExample" type="submit" id="submit_2" value="Search all users"/>
 				</form>
 				<br>
 				
@@ -79,11 +79,11 @@
 					<td> 
 					<form action="EditorAppointOne" method="post">
 					<input type="text" name="appointname" value = <%=username %>/> 
-					<input class="btnExample"  value="appoint"/> </form> 
+					<input class="btnExample" type="submit"  value="appoint"/> </form> 
 					</td>
 					</tr>
 				<%}%>
-				<p><input class="btnExample"  name="submit" value="Back to editor center"></p>
+				<p><input class="btnExample"  type="submit"  name="submit" value="Back to editor center"></p>
 				<!-- <input type="hidden" name="pendingSelection" value="valid">  -->
 				</table>				
 		</form>
