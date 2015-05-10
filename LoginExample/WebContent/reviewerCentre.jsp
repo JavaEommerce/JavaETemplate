@@ -77,7 +77,15 @@
 			<article>
 				<h2>this is reviewer center</h2>
 				<h3>see the details of the User<h3>
-				<form action="DownloadArticle" name="selected" method="post">
+				<li><a href="index.jsp">Home</a></li>
+				<li> <a href="AccessUnpublishedArticles">Choose unpublished articles</a></li>
+				<li> <a href="SubmitReview.jsp" >Submit Review</a></li>
+				
+				<br>
+				
+		</article>
+		<article>
+		<form action="DownloadArticle" name="selected" method="post">
 		<p>Selected Articles: <%=saDisplay %>
 		<ol>
 			<%
@@ -96,8 +104,6 @@
 		</ol>
 		<input type="hidden" name="selected" value="valid"> 
 		</form>
-				<br>
-				
 		</article>
 		
 		<article>
