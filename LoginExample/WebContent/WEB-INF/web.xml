@@ -209,4 +209,12 @@
     <servlet-name>reader.DealJournalInfo</servlet-name>
     <url-pattern>/DealJournalInfo</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>reader.DownLoadArticle</servlet-name>
+    <servlet-class>reader.DownLoadArticle</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reader.DownLoadArticle</servlet-name>
+    <url-pattern>/DownLoadArticle</url-pattern>
+  </servlet-mapping>
 </web-app>

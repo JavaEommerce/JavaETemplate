@@ -15,16 +15,16 @@ import javax.servlet.http.HttpServletResponse;
 import dbconnectionlib.Dbconnection;
 
 /**
- * Servlet implementation class SubmissionGuide
+ * Servlet implementation class DownLoadArticle
  */
-@WebServlet("/DownloadPDF")
-public class DownLoadPDF extends HttpServlet {
-	private static final long serialVersionUID = 2L;
+@WebServlet("/DownLoadArticle")
+public class DownLoadArticle extends HttpServlet {
+	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DownLoadPDF() {
+    public DownLoadArticle() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,15 +34,6 @@ public class DownLoadPDF extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
 		System.out.println("ฝ๘ศ๋มห");
 		Dbconnection db=null;
 		try {
@@ -119,5 +110,15 @@ public class DownLoadPDF extends HttpServlet {
 
 		
 	}
+	
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		
+	
+	}
 }
+

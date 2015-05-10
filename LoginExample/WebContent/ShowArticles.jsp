@@ -79,7 +79,7 @@ while(Authorresult.next())
 <p><%=email%></p>
 </ul>
 </div>
-<div id="url"><a href = "/Resource/Published/ArtificialVision.pdf"> DownLoad PDF</a></div>
+<div id="url"><a href = "DownLoadArticle?downloadAname=<%= article.getArticlename()%>"> DownLoad PDF</a></div>
 <div id="footer">Copyright Team153</div>
 
 </div>
