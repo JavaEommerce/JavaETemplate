@@ -9,14 +9,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+	  	<link rel="stylesheet" href="css/upload.css" type="text/css" />	
+	  	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+	  	<link rel="stylesheet" href="css/loginform.css" type="text/css"/>
+	  	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" /> 
 <title>Review Submission</title>
 </head>
 <body>
-
-
 	<%
-		
 		List<ReviewingArticle> reviewingArticles = new ArrayList<ReviewingArticle>();
 		reviewingArticles = (ArrayList<ReviewingArticle>)session.getAttribute("reviewingArticles");
 		String raDisplay= "";
@@ -30,11 +31,12 @@
 		
 		System.out.println(raDisplay);
 	%>
-	<p>Submit your review here
-	
-	<div>
-		<form name="SubmitReview" action="SubmitReview" method="post">
-			
+	<div class = "logmod">
+	<div class="logmod__wrapper">
+		<div class="smart-green">
+		<form class="smart-green" name="SubmitReview" action="SubmitReview" method="post">
+			<h1>Submit your review here
+			<span><a href="index.jsp">Back to home page</a></span></h1>
 			<table>
 				<tr><td><select name="articleName">
 				<%
@@ -68,7 +70,7 @@
 			</table>
 			<input type="submit" name="sumit" value="submit">
 		</form>
-	</div>
+	</div></div></div></div>
 	
 </body>
 </html>

@@ -60,9 +60,7 @@ function home(){
 				<p>Your review task:<%=taskTitle %></p>
 				<p><%=taskAb %></p>
 				
-			
 			<%
-				
 				
 				for(PendingArticle pa:pendingArticles){%>
 					<%
