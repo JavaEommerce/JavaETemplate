@@ -14,36 +14,14 @@
 
 		<!-- Override CSS file - add your own CSS rules -->
 		<link rel="stylesheet" href="css/styles.css">
-<style type="text/css">
-table.hovertable {
-	font-family: verdana,arial,sans-serif;
-	font-size:11px;
-	color:#333333;
-	border-width: 1px;
-	border-color: #999999;
-	border-collapse: collapse;
-}
-table.hovertable th {
-	background-color:#c3dde0;
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #a9c6c9;
-}
-table.hovertable tr {
-	background-color:#d4e3e5;
-}
-table.hovertable td {
-	border-width: 1px;
-	padding: 8px;
-	border-style: solid;
-	border-color: #a9c6c9;
-}
-</style>		
+		
 		
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<link rel="stylesheet" href="css/upload.css" type="text/css" />	
+	  	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css"/>
+	  	<link rel="stylesheet" href="css/loginform.css" type="text/css"/>
+	  	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
 
         <script src="http://code.jquery.com/jquery-latest.js">   
         </script>
@@ -68,19 +46,20 @@ table.hovertable td {
         </script>
 </head>
 <body>
-<h3>Search Result:</h3>
 <%
   System.out.println("New page");
  ArrayList<Article> names = new ArrayList<Article>();
 	if(session.getAttribute("articlenamelist") instanceof List){
 		names = (ArrayList<Article>)session.getAttribute("articlenamelist");
 	}
-	
+%>
+<div class = "logmod">
+	<div class="logmod__wrapper">
+		<div class="smart-green">
 
-	
-	%>
-	<form action="">
-	<table class="hovertable" align = "left">
+	<form class="smart-green" action="">
+	<h1>Search Result:</h1>
+	<table >
 	<tr><th>Article name</th><th>Key words</th><th>Article domain</th><th>Publish date</th></tr>
 	<%
 	for(Article ar : names){
@@ -93,10 +72,8 @@ table.hovertable td {
 		 String ispublish  = ar.getIspublish();
 		 String affiliations = ar.getAffiliations();
 		 String currentreviewnum = ar.getCurrentreviewnum();
-	
 	%>
-	
-		<tr onmouseover="this.style.backgroundColor='#d4e3e5';" onmouseout="this.style.backgroundColor='#FFFFFF';">
+		<tr >
 	    <td ><a href = "DealArticleInfo?articlename=<%=articlename %>"><%=articlename %></a></td><td ><%=keywords %></td> <td ><%=domain %></td> <td ><%=uploadString %></td>
 		</tr>
 	
@@ -104,7 +81,7 @@ table.hovertable td {
 	</table>
 	</form>
 
-	
+	</div></div></div>
 
 </body>
 </html>

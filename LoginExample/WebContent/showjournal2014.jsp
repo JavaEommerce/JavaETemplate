@@ -29,7 +29,7 @@ Statement st2 = con.createStatement();
             <div class="well">
 						<div class="media">
 							<div class="media-left">
-								<img src="http://placehold.it/70x70" alt="">
+								<img src="http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/128/Book-icon.png" alt="">
 							</div>
 							<div class="media-body">
 							

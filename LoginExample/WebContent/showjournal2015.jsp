@@ -28,7 +28,8 @@ Statement st2 = con.createStatement();
             <div class="well">
 						<div class="media">
 							<div class="media-left">
-								<img src="F:\\workspace_web\\JavaEE\\LoginExample\\Resource\\JournalImage" alt="">
+								
+								<img src="http://icons.iconarchive.com/icons/graphicloads/colorful-long-shadow/128/Book-icon.png" alt="">
 								<% //System.out.println(request.getContextPath()) ;
 								System.out.println(System.getProperty("user.dir"));
 								%>
