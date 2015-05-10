@@ -169,13 +169,29 @@
     <servlet-name>editor.EditorGetArticleWaitList</servlet-name>
     <url-pattern>/EditorGetArticleWaitList</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>editor.EditorSetArticlePublished</servlet-name>
     <servlet-class>editor.EditorSetArticlePublished</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>editor.EditorSetArticlePublished</servlet-name>
     <url-pattern>/EditorSetArticlePublished</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>editor.EditorGetAllReview</servlet-name>
+    <servlet-class>editor.EditorGetAllReview</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.EditorGetAllReview</servlet-name>
+    <url-pattern>/EditorGetAllReview</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>editor.EditorRejectReview</servlet-name>
+    <servlet-class>editor.EditorRejectReview</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.EditorRejectReview</servlet-name>
+    <url-pattern>/EditorRejectReview</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>reader.DealArticleInfo</servlet-name>

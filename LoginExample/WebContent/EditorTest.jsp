@@ -91,6 +91,7 @@ table.hovertable td {
 									</form></li>
 									
                             		<li><a href="EditorWaitingArticle.jsp">Waiting Article List</a></li>
+                            		<li><a href="EditorAllReviewList.jsp">Reviews</a></li>
                 </ul>
 			</nav>
 			</aside>

@@ -39,8 +39,8 @@
 									<input type = "hidden" id="submit_2" name="journal" value="Edit Journal Page"/>
 									<a href="EditJournal.jsp" onclick="this.parentNode.submit()">Journals</a>
 									</form></li>
-                            		<li class="selected-item"><a href="EditorWaitingArticle">Waiting Article List</a></li>
-                            		<li><a href="EditorAllReviewList.jsp">Reviews</a></li>
+                            		<li><a href="EditorWaitingArticle.jsp">Waiting Article List</a></li>
+                            		<li class="selected-item"><a href="EditorAllReviewList.jsp">Reviews</a></li>
                  </ul>
 			</nav>
 
@@ -48,8 +48,8 @@
 			<section id="content" class="column-right">
 			<article>
 				<h2>All Article Waiting List</h2>
-				<form action = "EditorGetArticleWaitList" method = "post" accept-charset="utf-8" class="simform">
-            	<input class="sumbit" type="submit" value="Get Article Waiting List"/>
+				<form action = "EditorGetAllReview" method = "post" accept-charset="utf-8" class="simform">
+            	<input class="sumbit" type="submit" value="Get all views information"/>
 				</form>
 				<% 
 				 ArrayList<Article> names = new ArrayList<Article>();
@@ -59,7 +59,7 @@
 				%>
 	<form action="">
 	<table>
-	<tr><th>Article name</th><th>Article domain</th><th>Publish date</th><th>set publish</th></tr>
+	<tr><th>Article name</th><th>Review Author</th><th>Review content</th><th> </th></tr>
 	<%
 	for(Article ar : names){
 		 String articlename = ar.getArticlename();
@@ -75,8 +75,8 @@
 	%>
 	
 		<tr>
-	    <td ><a href = "DealArticleInfo?articlename=<%=articlename %>"><%=articlename %></a></td> <td ><%=domain %></td> <td ><%=uploadString %></td>
-		<td><a href="EditorSetArticlePublished?articlename=<%=articlename %>">publish this article</a></td>
+	    <td ><a href = "DealArticleInfo?articlename=<%=articlename %>"><%=articlename %></a></td> <td ></td> <td ></td>
+		<td><a href="EditorRejectReview?articlename=<%=articlename %>">reject this review</a></td>
 		</tr>
 	
 	<%} %>
