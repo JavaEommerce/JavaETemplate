@@ -132,7 +132,7 @@ function showtime(){
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
 						<%if((currentUser==null)&&(currentAuthor==null)) {%>
-						<li><a href="login.jsp">Login and Signup</a></li>
+						<li><a href="login.jsp">Login</a></li>
 						<%} %>
 						<li><a href="UploadNavigator.jsp"><%="Guide" %></a></li>
 						
