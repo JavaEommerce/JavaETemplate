@@ -5,7 +5,9 @@
    
     
 <link href="css.loginform.css" rel="stylesheet" type="text/css" /> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">    -->
+<!DOCTYPE HTML>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -43,6 +45,7 @@ function showtime(){
 	window.onload=function(){
 	  showtime();
 	}
+
 </script>
 <html lang="en">
 	<head>
@@ -353,14 +356,19 @@ ifm.height = subWeb.body.scrollHeight;
 									</button>
 								</span>
 							</div>
+							<div>
 							      <tr>
 									<select name="selectsearchtype">
  									 <option value="ArticleName">ArticleTitle</option>
+ 									 <option value="KeyWords">KeyWords</option>
  									 <option value="JournalName">JournalName</option>
  									 <option value="AuthorName">AuthorName</option>
  									 <option value="Domain">Domain</option>
 									</select>
   	  							  </tr>
+  	  							</div>  
+  	  						
+  	  						<tr><p>Date From<input  type="date"  value="2015-01-01" name="fromdate"></p></tr>
 						</form>
 					</div>
 

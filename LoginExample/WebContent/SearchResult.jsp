@@ -68,7 +68,7 @@ table.hovertable td {
         </script>
 </head>
 <body>
-<div>Search Result:</div>
+<h3>Search Result:</h3>
 <%
   System.out.println("New page");
  ArrayList<Article> names = new ArrayList<Article>();
@@ -81,7 +81,7 @@ table.hovertable td {
 	%>
 	<form action="">
 	<table class="hovertable" align = "left">
-	<tr><th>Article name</th><th>Article domain</th><th>Publish date</th></tr>
+	<tr><th>Article name</th><th>Key words</th><th>Article domain</th><th>Publish date</th></tr>
 	<%
 	for(Article ar : names){
 		 String articlename = ar.getArticlename();
@@ -97,7 +97,7 @@ table.hovertable td {
 	%>
 	
 		<tr onmouseover="this.style.backgroundColor='#d4e3e5';" onmouseout="this.style.backgroundColor='#FFFFFF';">
-	    <td ><a href = "DealArticleInfo?articlename=<%=articlename %>"><%=articlename %></a></td> <td ><%=domain %></td> <td ><%=uploadString %></td>
+	    <td ><a href = "DealArticleInfo?articlename=<%=articlename %>"><%=articlename %></a></td><td ><%=keywords %></td> <td ><%=domain %></td> <td ><%=uploadString %></td>
 		</tr>
 	
 	<%} %>

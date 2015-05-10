@@ -124,7 +124,8 @@ public class Search extends HttpServlet {
 		// TODO Auto-generated method stub
 		String searchform = request.getParameter("search-form");
 		String selectsearchtype = request.getParameter("selectsearchtype");
-		
+		String selectfromdate = request.getParameter("fromdate");
+		System.out.println(selectfromdate);
 		String errorMessage=null;
 		ArrayList<Article> articls = new ArrayList<Article>();
 		System.out.println("Grt research Type:"+selectsearchtype);
@@ -160,12 +161,12 @@ public class Search extends HttpServlet {
 			try {
 
 				if(selectsearchtype.equals("ArticleName")){
-					ps=con.prepareStatement("select * from Article where articlename like '%"+searchform+"%' ");
+					ps=con.prepareStatement("select * from Article where articlename like '%"+searchform+"%' and ispublish = 1 "+" and uploaddate > '"+selectfromdate+"'");
 					rs = ps.executeQuery();
 				}
 				
 				if(selectsearchtype.equals("JournalName")){
-					ps=con.prepareStatement("select * from Article,Journal,JournalArticle where Article.articlename = JournalArticle.articlename and Journal.journalID= JournalArticle.journalID and Journal.journalname =?");
+					ps=con.prepareStatement("select * from Article,Journal,JournalArticle where Article.articlename = JournalArticle.articlename and Journal.journalID= JournalArticle.journalID and Journal.journalname =? and ispublish = 1"+" and uploaddate > '"+selectfromdate+"'");
 					ps.setString(1, searchform);
 					rs = ps.executeQuery();
 					
@@ -173,7 +174,7 @@ public class Search extends HttpServlet {
 				}
 				
 				if(selectsearchtype.equals("AuthorName")){
-					ps=con.prepareStatement("select * from Article,Author,AuthorArticle where Article.articlename = AuthorArticle.articlename and  Author.authorname =?");
+					ps=con.prepareStatement("select * from Article,Author,AuthorArticle where Article.articlename = AuthorArticle.articlename and  Author.authorname =? and ispublish = 1"+" and uploaddate > '"+selectfromdate+"'");
 					ps.setString(1, searchform);
 					rs = ps.executeQuery();
 			
@@ -181,11 +182,17 @@ public class Search extends HttpServlet {
 				}
 				
 				if(selectsearchtype.equals("Domain")){
-					ps=con.prepareStatement("select * from Article where domain=?");
+					ps=con.prepareStatement("select * from Article where domain=? and ispublish = 1"+" and uploaddate > '"+selectfromdate+"'");
 					ps.setString(1, searchform);
 					rs = ps.executeQuery();
 			
 					
+				}
+				
+				if(selectsearchtype.equals("KeyWords")){
+					ps=con.prepareStatement("select * from Article where keywords like '%"+searchform+"%'and ispublish = 1"+" and uploaddate > '"+selectfromdate+"'");
+					rs = ps.executeQuery();
+	
 				}
 				
 
