@@ -98,30 +98,3 @@
 	</section>
 </body>
 </html>
-<%--   --%>
-
-				<%-- <table>
-				<tr><th>User name</th><th>User role</th><th>Detail link</th></tr>
-			<%
-				List<userInfo> uI=new ArrayList<userInfo>();
-				if(session.getAttribute("userInfo") instanceof List){
-					uI = (ArrayList<userInfo>)session.getAttribute("userInfo");
-				}
-				for (userInfo u : uI) {
-					String username = u.getUserName();
-					String userRole = u.getUserRole();
-					String role = null;
-					if(userRole.equals("1")){role = "user";}
-					else if(userRole.equals("2")){role = "author";}
-					else role = "editor";
-				%>
-				<tr>
-					<td><%= username %></td><td><%= role%></td><td></td><td><a href="#">Set as Editor</a></td>
-					<td><%= username %></td><td><%= role%></td><td></td>
-					<td> <form action="EditorAppointOne" method="post">
-					<input type="text" name="appointname" value = <%=username %>/> 
-					<input type="submit" value="appoint"/> </form> 
-					</td>
-				<%}%>						
-				 
-				</table> --%>
