@@ -314,10 +314,16 @@ ifm.height = subWeb.body.scrollHeight;
 					<!-- Panel -->
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<h4 class="panel-title"> </h4>
+							<h4 class="panel-title"> The Self-Resourcing Electronic Journal</h4>
 						</div>
 						<div class="panel-body">
-							<p></p>
+							<p>
+							Science and engineering journals are moving increasingly from a paper-based format to an electronic format.
+							Covering the costs of publishing an electronic journal is problematic: either, the publishers charge high subscription fees
+							 to academic institutions and restrict access to the journal (bad for the dissemination of scientific results); 
+							 or they grant open access to all readers, 
+							 but charge the authors a hefty fee for having their articles published (promoting “vanity publishing” by those who can afford it).
+							 </p>
 						</div>
 					</div>
 
