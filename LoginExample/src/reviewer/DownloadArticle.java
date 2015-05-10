@@ -116,6 +116,10 @@ public class DownloadArticle extends HttpServlet {
 					// remove record in ArticleReview and Reviewer.selectedNum
 					try {
 						cancelSelection(request, response, articleName, con, reviewer);
+						session.removeAttribute("ChosenArticles");
+						session.removeAttribute("reviewingArticles");
+						session.removeAttribute("submittedReviews");
+
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

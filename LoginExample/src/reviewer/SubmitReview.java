@@ -142,7 +142,11 @@ public class SubmitReview extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			// redirect to login page
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
+	        PrintWriter out= response.getWriter();
+	        out.println("<font color=green>Submission Sent</font>");
+	        rd.include(request, response);
 			
 		}
 		else {
