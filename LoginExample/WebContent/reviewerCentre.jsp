@@ -163,9 +163,7 @@
 						if(reviseAccepted){
 							artcileName=null;
 						}
-						else{
-							System.out.println("asdasdasdasdasdasdasdasd");
-						}
+						
 						%>
 						<input type="hidden" name="submittedReviews" value="<%=artcileName%>">
 						</td>
