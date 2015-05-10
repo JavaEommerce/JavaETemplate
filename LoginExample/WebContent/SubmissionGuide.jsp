@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<div id="background">
+	<div id="background" background = "#80B763">
 		<div id="page">
 			<div id="contents">
 				<div id="main">

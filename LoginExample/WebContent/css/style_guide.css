@@ -3,7 +3,7 @@ html {
 	font-family: 'Trebuchet MS', sans-serif, Arial, Helvitica;
 }
 body {
-	background-color: #fff996;
+	background-color: #80B763;
 	margin: 0;
 	padding-top: 19px;
 }
@@ -129,7 +129,7 @@ img {
 	padding: 0 0 30px;
 }
 #main p {
-	color: #755a0b;
+	color: white;
 	font-size: 14px;
 	line-height: 20px;
 	margin: 0;
