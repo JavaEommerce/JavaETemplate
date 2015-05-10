@@ -17,6 +17,7 @@ String articleTitle="";
 String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
 String sqlStr = "select articlename from AuthorArticle where authorname=";
 String authorname="";
+String UnpublishedName="";
 int num = 0;
 
 Author currentAuthor = (Author)session.getAttribute("Author");
@@ -41,8 +42,6 @@ ResultSet rs = st.executeQuery( sqlStr );
             
             String sqlStr2 = "select currentreviewnum,ispublish from Article where articlename=";
             sqlStr2 = sqlStr2 + "\""+articleTitle+"\"";
-            System.out.println(sqlStr);
-            System.out.println(sqlStr2);
             
             Statement st2 = con.createStatement();
             ResultSet rs2 = st2.executeQuery( sqlStr2 );
@@ -52,7 +51,7 @@ ResultSet rs = st.executeQuery( sqlStr );
         	while(rs2.next()) {   
         		
         		if(!rs2.getBoolean("ispublish")){
-      			num = rs2.getInt("currentreviewnum");
+        		UnpublishedName = articleTitle;
         		}
               }
                        
@@ -63,6 +62,22 @@ ResultSet rs = st.executeQuery( sqlStr );
                 rs.close();
                 st.close();
 
+                
+                
+                String sqlStr3 = "select reviewername from ArticleReview where articlename=";
+                sqlStr3 = sqlStr3 + "\""+UnpublishedName+"\"";
+                
+                Statement st3 = con.createStatement();
+                ResultSet rs3 = st3.executeQuery( sqlStr3 );
+                
+                while(rs3.next()){
+                	
+                	num=num+1;
+                }
+                rs3.close();
+                st3.close();
+                
+                System.out.println(num);
        
             con.close();
             
