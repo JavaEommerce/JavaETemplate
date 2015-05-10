@@ -54,27 +54,7 @@
             </div> 
           </form>
         </div> 
-<!--         <div class="logmod__alter">
-          <div class="logmod__alter-container">
-            <a href="#" class="connect facebook">
-              <div class="connect__icon">
-                <i class="fa fa-facebook"></i>
-              </div>
-              <div class="connect__context">
-                <span>Create an account with <strong>Facebook</strong></span>
-              </div>
-            </a>
 
-            <a href="#" class="connect googleplus">
-              <div class="connect__icon">
-                <i class="fa fa-google-plus"></i>
-              </div>
-              <div class="connect__context">
-                <span>Create an account with <strong>Google+</strong></span>
-              </div>
-            </a>
-          </div>
-        </div> -->
       </div>
       <div class="logmod__tab lgm-2">
         <div class="logmod__heading">
@@ -102,42 +82,12 @@
           </form>
         </div> 
         <div class="logmod__alter">
-         <!--  <div class="logmod__alter-container">
-            <a href="#" class="connect facebook">
-              <div class="connect__icon">
-                <i class="fa fa-facebook"></i>
-              </div>
-              <div class="connect__context">
-                <span>Sign in with <strong>Facebook</strong></span>
-              </div>
-            </a>
-            <a href="#" class="connect googleplus">
-              <div class="connect__icon">
-                <i class="fa fa-google-plus"></i>
-              </div>
-              <div class="connect__context">
-                <span>Sign in with <strong>Google+</strong></span>
-              </div>
-            </a>
-          </div>
-        </div> -->
           </div>
       </div>
     </div>
   </div>
 </div>
 
-  
-<!-- <h1><a href="index.jsp">Home</a></h1>
-<div>
-	<h1>Login Form</h1>
-	<form name = "loginform" action = "LoginServlet" method = "post">
-	<p>Enter User name :<input type = "text" name = "username"><br>
-	   Enter password:<input type = "password" name = "password"><br>
-	<input type = "submit" value="Login">
-<input type = "button" value = "signup" name = "signup" onclick = 'signup.jsp'>
-<input type="button" value="signup" name="signup" onclick = "location.href='signup.jsp'" /></p></form>
-</div> -->
 
 </body>
 </html>
