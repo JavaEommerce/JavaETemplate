@@ -239,6 +239,7 @@ public class Upload extends HttpServlet {
                 				pi.setDate(6, currentDate);
                 				pi.setBoolean(7, false);
                 				pi.setString(8, otherAffiliation);
+                				pi.setInt(9,0);
                  				pi.setString(10, otherAuthorname);
                  				pi.setString(11, otherEmail);
                 	            pi.execute();
