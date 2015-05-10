@@ -72,24 +72,14 @@ function home(){
 							abstra = pa.getAbstractContent();
 							title = pa.getArticleName();
 					}
-				
-
 				%>
-					
 					<tr><td><%=title %></td><td><%=abstra %></td><td><input type="checkbox" name="pendingArticles" value=<%=title%>></td></tr>
 				<%} %>
 				
 				<tr><td><input type="submit" name="submit" value="Select Articles">
 				<input type="hidden" name="pendingSelection" value="valid"></td> </tr>
-
-
-				
 				</table>
-			
-				
-		</form>
-		
-		
+		</form>	
 	</div>
 	
 	

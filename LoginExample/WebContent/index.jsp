@@ -120,10 +120,7 @@ function showtime(){
 								{
 									showName = "Editor";
 								}
-								else if(role==2)
-								{
-									showName = "Other";
-								}
+								
 								welcomeInfo="Welcome!";
 							}
 							
