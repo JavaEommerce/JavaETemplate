@@ -185,14 +185,8 @@ function showtime(){
 			<!-- /.row -->
 
 			<div class="row">
-			
 				<div class="col-sm-8 col-sm-push-4">
-
-			
-					
-<!-- Journal List -->
-	<!--插入显示Jounal List -->			
-
+		
 			<div>
 			<h3>Journal List</h3>
 		 	<iframe src="showjournal2015.jsp" frameborder="0" width="100%" height="80%" id="iframe" name="i"></iframe>    
