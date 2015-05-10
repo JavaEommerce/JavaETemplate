@@ -132,7 +132,9 @@ public class SubmitReview extends HttpServlet {
 						insertIntoAuthorReviewer(auhorName, reviewer, con);
 						// update reviewer's review status
 						updateReviewStatus(articleName, reviewer, con);
-					} 
+						// change Author.submitstate = 3
+						updateAuthorSubmitstate(articleName, reviewer, con);
+					} 	
 					
 				}
 				else {
@@ -172,6 +174,19 @@ public class SubmitReview extends HttpServlet {
 		return authorName;
 	}
 	
+	private int getSubmitState(Connection con, String authorName) throws SQLException {
+		
+		int submitstate=0;
+		ResultSet rs = null;
+		PreparedStatement ps = con.prepareStatement("select submitstate from Author where authorname=? ");
+		ps.setString(1, authorName);
+		rs = ps.executeQuery();
+		if (rs!=null&&rs.next()) {
+			submitstate = rs.getInt("submitstate");
+		}
+		return submitstate;
+	}
+	
 	private void insertIntoAuthorReviewer(String authorName, Reviewer reviewer,Connection con) throws ServletException, SQLException, IOException {
 		
 		PreparedStatement ps = null;
@@ -199,8 +214,28 @@ public class SubmitReview extends HttpServlet {
         }
 	}
 	
-	private void updateReviewStatus(String articleName, Reviewer reviewer,Connection con) throws  ServletException,SQLException {
+	private void updateAuthorSubmitstate(String articleName, Reviewer reviewer,Connection con) throws  ServletException,SQLException {
 			
+		String authorName = null;
+		authorName = getAuthorName(con, articleName);
+		int submitstate = 0;
+		submitstate = getSubmitState(con, authorName);
+		PreparedStatement ps = null;
+        try {
+        	
+        	ps = con.prepareStatement("update Author set submitstate=? where authorname=? and reviewername=? ");
+        	ps.setInt(1, submitstate+1);
+        	ps.setString(2, reviewer.getReviewerName());
+        	ps.execute();
+		
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new ServletException("DB Connection problem.");
+        }
+	}
+	
+	private void updateReviewStatus(String articleName, Reviewer reviewer,Connection con) throws  ServletException,SQLException {
+		
 		PreparedStatement ps = null;
         try {
         	
