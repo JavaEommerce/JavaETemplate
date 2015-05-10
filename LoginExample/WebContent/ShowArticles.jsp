@@ -27,35 +27,59 @@ li {list-style:none;}
 <%
 Article article;
 article = (Article)session.getAttribute("selectedarticle");
+String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
+String sqlauthor ="select Author.authorname,Author.email  from Author, AuthorArticle where AuthorArticle.articlename='"+article.getArticlename()+"' and Author.authorname= AuthorArticle.authorname";
+System.out.println(article.getArticlename());
+Class.forName("com.mysql.jdbc.Driver");
+Connection con = DriverManager.getConnection( url );
+
+Statement st1 = con.createStatement();
+ResultSet Authorresult = st1.executeQuery(sqlauthor);
+String authorname=null;
+String email=null;
+while(Authorresult.next())
+{  
+   authorname = Authorresult.getString("authorname");
+   email = Authorresult.getString("email");
+}
+
 %>
 <div id="container">
 
 <div id="header">
 <h1>Article Detail</h1>
 </div>
-
 <div id="Name">
 <h2>Article Name</h2>
 <ul>
 <p><%= article.getArticlename()%></p>
 </ul>
 </div>
-
-
+<div id="Author Name">
+<h2>Main author Name</h2>
+<ul>
+<p><%=authorname%></p>
+</ul>
+</div>
 <div id="Keywords">
 <h2>Key Words</h2>
 <ul>
 <p><%= article.getKeywords()%></p>
 </ul>
 </div>
-
-<div id="Keywords">
+<div id="Abstract">
 <h2>Abstract</h2>
 <ul>
 <p><%= article.getAbstractinfo()%></p>
 </ul>
 </div>
-
+<div id="Author email">
+<h2>Author Email</h2>
+<ul>
+<p><%=email%></p>
+</ul>
+</div>
+<div id="url"><a href = "/Resource/Published/ArtificialVision.pdf"> DownLoad PDF</a></div>
 <div id="footer">Copyright Team153</div>
 
 </div>
