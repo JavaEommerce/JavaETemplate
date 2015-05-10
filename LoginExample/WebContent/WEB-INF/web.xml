@@ -162,6 +162,22 @@
     <url-pattern>/EditorEditJournal</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>editor.EditorGetArticleWaitList</servlet-name>
+    <servlet-class>editor.EditorGetArticleWaitList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.EditorGetArticleWaitList</servlet-name>
+    <url-pattern>/EditorGetArticleWaitList</url-pattern>
+  </servlet-mapping>
+    <servlet>
+    <servlet-name>editor.EditorSetArticlePublished</servlet-name>
+    <servlet-class>editor.EditorSetArticlePublished</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>editor.EditorSetArticlePublished</servlet-name>
+    <url-pattern>/EditorSetArticlePublished</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>reader.DealArticleInfo</servlet-name>
     <servlet-class>reader.DealArticleInfo</servlet-class>
   </servlet>

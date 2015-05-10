@@ -50,6 +50,12 @@
 				<form id="form2" action = "EditorRetireAndAppointOne" method = "get" >
 				<input type = "submit" id="submit_2" value="Search all users"/>
 				</form>
+				<br>
+				
+				<form action = "EditorRetire" method = "post" accept-charset="utf-8" class="simform">
+            <input class="sumbit" type="submit" value="Ready to retire"/>
+				</form>
+				
 				<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
 				<table>
 				<tr><th>User name</th><th>User role</th><th>Detail link</th><th>appoint</th></tr>

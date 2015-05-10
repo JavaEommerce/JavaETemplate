@@ -7,6 +7,7 @@
 <%@ page import="loginSystem.User"%>
 <%@ page import="editor.userInfo" %>
 <%@ page import="editor.Journal" %>
+<%@ page import="reader.Article" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -45,8 +46,41 @@
 			</aside>
 			<section id="content" class="column-right">
 			<article>
-				<h2>this is Journals panel</h2>
-				
+				<h2>All Article Waiting List</h2>
+				<form action = "EditorGetArticleWaitList" method = "post" accept-charset="utf-8" class="simform">
+            	<input class="sumbit" type="submit" value="Get Article Waiting List"/>
+				</form>
+				<% 
+				 ArrayList<Article> names = new ArrayList<Article>();
+					if(session.getAttribute("waitArticle") instanceof List){
+						names = (ArrayList<Article>)session.getAttribute("waitArticle");
+					}
+				%>
+	<form action="">
+	<table>
+	<tr><th>Article name</th><th>Article domain</th><th>Publish date</th><th>set publish</th></tr>
+	<%
+	for(Article ar : names){
+		 String articlename = ar.getArticlename();
+		 String keywords  = ar.getKeywords();
+		 String abstractinfo = ar.getAbstractinfo();
+		 String url = ar.getUrl();
+		 String domain = ar.getDomain();
+		 String uploadString = ar.getUploadString();
+		 String ispublish  = ar.getIspublish();
+		 String affiliations = ar.getAffiliations();
+		 String currentreviewnum = ar.getCurrentreviewnum();
+	
+	%>
+	
+		<tr>
+	    <td ><a href = "DealArticleInfo?articlename=<%=articlename %>"><%=articlename %></a></td> <td ><%=domain %></td> <td ><%=uploadString %></td>
+		<td><a href="EditorSetArticlePublished?articlename=<%=articlename %>">publish this article</a></td>
+		</tr>
+	
+	<%} %>
+	</table>
+	</form>
 			</article>
                 		
 	    <article><h1> </h1><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><h1> </h1></article>
@@ -58,4 +92,4 @@
 	</section>
 </body>
 </html>
-<%--   --%>
+

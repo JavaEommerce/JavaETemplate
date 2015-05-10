@@ -71,19 +71,14 @@ table.hovertable td {
 %>
 		<section id="body" class="width">
 			<aside id="sidebar" class="column-left">
-
 			<header>
 				<h1><a href="EditorTest.jsp">Editor Center</a></h1>
-
 				<h2>Hello Editor <%=name %></h2>
 				<h2><a href="index.jsp">Home page</a></h2>
-				
 			</header>
-
 			<nav id="mainnav">
   				<ul>
-  									
-                            		<li class="selected-item"><form id="formArticles" atcion = "EditorAccessToAllArticle" method="get">
+  						       		<li class="selected-item"><form id="formArticles" atcion = "EditorAccessToAllArticle" method="get">
                             		<input type="hidden" id="submit_article" name="article" value="Articles"/>
                             		<a href="EditorTest.jsp" onclick="this.parentNode.submit()">Articles</a></li>
                             		</form>
@@ -98,13 +93,10 @@ table.hovertable td {
                             		<li><a href="EditorWaitingArticle.jsp">Waiting Article List</a></li>
                 </ul>
 			</nav>
-
-			
-			
 			</aside>
 			<section id="content" class="column-right">
 			
-			<article>
+		<article>
 				<h2>Show all aritlces</h2>
 				<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
 			<table >

@@ -102,8 +102,6 @@ table.hovertable td {
 	
 	<%} %>
 	</table>
-	
-	
 	</form>
 
 	
