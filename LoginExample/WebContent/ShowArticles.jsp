@@ -45,6 +45,7 @@ while(Authorresult.next())
 		<h1>Article Detail
 		<%= article.getArticlename()%>
 		</h1>
+		<span><a href="index.jsp">Back to home page</a></span>
 		<h2>Article Name
 		<p><%= article.getArticlename()%></p>
 		</h2>

@@ -58,7 +58,8 @@
 		<div class="smart-green">
 
 	<form class="smart-green" action="">
-	<h1>Search Result:</h1>
+	<h1>Search Result:
+	<span><a href="index.jsp">Back to home page</a></span></h1>
 	<table >
 	<tr><th>Article name</th><th>Key words</th><th>Article domain</th><th>Publish date</th></tr>
 	<%
