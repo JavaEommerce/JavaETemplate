@@ -119,7 +119,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>editor.EditorArticleDetail</servlet-name>
-    <url-pattern>/ArticleDetail</url-pattern>
+    <url-pattern>/EditorArticleDetail</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>editor.EditorGetAllJournals</servlet-name>

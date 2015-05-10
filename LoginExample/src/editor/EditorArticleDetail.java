@@ -1,6 +1,10 @@
 package editor;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import editor.EditorAllArticlesInfo;
+import dbconnectionlib.Dbconnection;
 /**
  * Servlet implementation class EditorArticleDetail
  */
@@ -42,16 +48,55 @@ public class EditorArticleDetail extends HttpServlet {
 		String gi =request.getParameter("appointname");
 		System.out.print("article name" +gi);
 		String articleName = removeLastChar(gi);
-		//appointUserAsEditor(usernameN);
-		String articleInfo = articleDetail(articleName);
-		HttpSession ses = request.getSession();
-		ses.setAttribute("articleDetail", articleInfo);
+		EditorAllArticlesInfo al = getArticleDetail(articleName);
+		HttpSession session = request.getSession();
+		session.setAttribute("allArticles", al);
 		response.sendRedirect("ArticleDetail.jsp");
 	}
 	
-	private String articleDetail(String articlename){
-		String artiN = articlename;
-		return artiN;
+	private EditorAllArticlesInfo getArticleDetail(String articlename){
+		EditorAllArticlesInfo art = null;
+		Dbconnection db=null;
+		try {
+			db = new Dbconnection();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		Connection con = db.getConnection();
+		
+		if (con==null) {
+			System.out.println("it's closed!");
+		}
+		else{
+			System.out.println("successful");
+		}
+		PreparedStatement ps = null;
+		ResultSet rs =null;
+		try{
+			ps=con.prepareStatement("select * from Article where articlename = ?");
+			ps.setString(1, articlename);
+			rs = ps.executeQuery();
+	        art= new EditorAllArticlesInfo(rs.getString("articleName"), rs.getString("abstract"), rs.getString("currentreviewnum"), null, rs.getString("ispublish"));
+	        System.out.println(rs.getString("articleName") + " + "+rs.getString("abstract")+" + "+rs.getString("currentreviewnum")+" + "+rs.getString("ispublish"));
+	        
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}finally{
+            try {
+                
+            	if (ps!=null) {
+					ps.close();
+				}	
+               
+            } catch (SQLException e) {
+            	System.out.println("sql exception");
+            }
+	     }
+		return art;
 	}
 
 }
