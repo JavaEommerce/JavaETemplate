@@ -133,7 +133,7 @@ public class SubmitReview extends HttpServlet {
 						// update reviewer's review status
 						updateReviewStatus(articleName, reviewer, con);
 						// change Author.submitstate = 3
-						updateAuthorSubmitstate(articleName, reviewer, con);
+						//updateAuthorSubmitstate(articleName, reviewer, con);
 					} 	
 					
 				}
