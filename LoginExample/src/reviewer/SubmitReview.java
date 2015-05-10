@@ -223,10 +223,9 @@ public class SubmitReview extends HttpServlet {
 		PreparedStatement ps = null;
         try {
         	
-        	ps = con.prepareStatement("update Author set submitstate=? where authorname=? and reviewername=? ");
+        	ps = con.prepareStatement("update Author set submitstate=? where authorname=? ");
         	ps.setInt(1, submitstate+1);
         	ps.setString(2, authorName);
-        	ps.setString(3, reviewer.getReviewerName());
         	ps.execute();
 		
         } catch (SQLException e) {
