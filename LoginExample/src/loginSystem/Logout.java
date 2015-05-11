@@ -44,7 +44,7 @@ public class Logout extends HttpServlet {
 		
 		//ses.removeAttribute("");
 	    ses.invalidate();
-	    response.sendRedirect("http://localhost:8080/JavaEE/index.jsp");
+	    response.sendRedirect("index.jsp");
 	}
 
 	/**

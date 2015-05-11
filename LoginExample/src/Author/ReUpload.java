@@ -160,9 +160,10 @@ public class ReUpload extends HttpServlet {
                   		pi.executeUpdate();
                   		
                   		for(int now=0;now<reviewerNum;now++){
-                  		par = con.prepareStatement("update AuthorReviewer set reviseinfo=? where reviewername=?");
+                  		par = con.prepareStatement("update AuthorReviewer set reviseinfo=? where reviewername=? and authorname=?");
                   		par.setString(1, reviseInfos[now]);
                   		par.setString(2, reviewerNames[now]);
+                  		par.setString(3, aname);
                   		par.executeUpdate();
                   		}
                   		

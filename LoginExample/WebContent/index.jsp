@@ -101,14 +101,44 @@ function showtime(){
 							String name = "please login";
 							int role = 0;
 							int state = 0;
+							int reviewerNum = 0;
 							String showName = " ";
 							String welcomeInfo = "";
 							if(currentAuthor!=null){
 								
 								state = currentAuthor.getSubmitState();
-								System.out.println(state+"现在是AUTHOR*********");
 								System.out.println(currentAuthor);
-								System.out.println(currentUser);
+
+							if(state==2){
+								String url="jdbc:mysql://stusql.dcs.shef.ac.uk/team153?user=team153&password=80473623";
+								String sqlStr = "select reviewername from AuthorReviewer where authorname=";
+								sqlStr = sqlStr+ "\""+currentAuthor.getAuthorName()+"\"";
+								Class.forName("com.mysql.jdbc.Driver");
+								Connection con = DriverManager.getConnection( url );
+								Statement st = con.createStatement();
+								ResultSet rs = st.executeQuery( sqlStr );
+								while(rs.next()){
+									reviewerNum+=1;
+								}
+								rs.close();
+								st.close();
+								if(reviewerNum>2){
+									state = 3;
+									currentAuthor.setSubmitState(3);
+									
+									String sqlStr1 = "update Author set submitstate=3 where authorname=";
+									sqlStr1 = sqlStr1+ "\""+currentAuthor.getAuthorName()+"\"";
+									
+									Statement st1 = con.createStatement();
+									int cishu = st1.executeUpdate( sqlStr1 );
+									System.out.println(cishu);
+									st1.close();
+									con.close();
+									
+								}
+
+							}
+								
 
 							}
 							if(currentUser!=null){

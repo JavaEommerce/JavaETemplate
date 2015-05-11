@@ -422,7 +422,8 @@ public class Upload extends HttpServlet {
 		            
            	  File file = new File(filePath);  
                item.write(file);    
-	            
+               PrintWriter out= response.getWriter();
+		            out.println("<font color=green>Upload successful</font>");   		  
 		            System.out.println("作者上传成功");
 		            break;		
       		        	}
