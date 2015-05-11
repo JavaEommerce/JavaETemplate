@@ -128,7 +128,7 @@ public class LoginServlet extends HttpServlet {
 					}
 					
 					//response.sendRedirect("stucat.dcs.shef.ac.uk:8080/stucat003/index.jsp");
-					response.sendRedirect("http://localhost:8080/JavaEE/index.jsp");
+					response.sendRedirect("index.jsp");
 					
 				} else {
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
