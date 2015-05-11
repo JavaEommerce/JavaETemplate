@@ -36,6 +36,13 @@ public class Logout extends HttpServlet {
 		ses.removeAttribute("User");
 		ses.removeAttribute("Author");
 		ses.removeAttribute("Editor");
+		ses.removeAttribute("ChosenArticles");
+		ses.removeAttribute("reviewingArticles");
+		ses.removeAttribute("pendingArticles");
+		ses.removeAttribute("ForceToChoose");
+		//ses.removeAttribute("submittedReviews");
+		
+		//ses.removeAttribute("");
 	    ses.invalidate();
 	    response.sendRedirect("http://localhost:8080/JavaEE/index.jsp");
 	}
