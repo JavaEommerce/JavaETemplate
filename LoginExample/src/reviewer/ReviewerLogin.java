@@ -44,6 +44,15 @@ public class ReviewerLogin extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO identify user id and create instance of info displayed
 		HttpSession session = request.getSession();
+		if (session.getAttribute("ChosenArticles")!=null) {
+			session.removeAttribute("ChosenArticles");
+		}
+		if (session.getAttribute("reviewingArticles")!=null) {
+			session.removeAttribute("reviewingArticles");
+		}
+		if (session.getAttribute("submittedReviews")!=null) {
+			session.removeAttribute("submittedReviews");
+		}
 		Reviewer reviewer = (Reviewer)session.getAttribute("Reviewer");
 		if (reviewer==null) {
 			
@@ -78,6 +87,9 @@ public class ReviewerLogin extends HttpServlet {
 			
 			/*create article instances************************************************************/
 			try {
+				chosenArticles.clear();
+				reviewingArticles.clear();
+				submittedReviews.clear();
 				boolean c = getChosenArticles(request, response, reviewer, con);
 				boolean r = getReviewingArticles(request, response, reviewer, con);
 				boolean s = getSubmittedReview(request, response, reviewer, con);
@@ -93,28 +105,25 @@ public class ReviewerLogin extends HttpServlet {
 				if (chosenArticles!=null&&reviewingArticles!=null&&submittedReviews!=null) {
 					System.out.println("initialize successfully==========");
 					if (session.getAttribute("ChosenArticles")!=null) {
-						session.removeAttribute("ChosenArticles");
+						//session.removeAttribute("ChosenArticles");
 						session.setAttribute("ChosenArticles", chosenArticles);
 					} else {
 						session.setAttribute("ChosenArticles", chosenArticles);
 					}
 					
 					if (session.getAttribute("reviewingArticles")!=null) {
-						session.removeAttribute("reviewingArticles");
+						//session.removeAttribute("reviewingArticles");
 						session.setAttribute("reviewingArticles", reviewingArticles);
 					} else {
 						session.setAttribute("reviewingArticles", reviewingArticles);
 					}
 					
 					if (session.getAttribute("submittedReviews")!=null) {
-						session.removeAttribute("submittedReviews");
+						//session.removeAttribute("submittedReviews");
 						session.setAttribute("submittedReviews", submittedReviews);
 					} else {
 						session.setAttribute("submittedReviews", submittedReviews);
 					}
-					
-					
-					
 					
 				}
 				else {

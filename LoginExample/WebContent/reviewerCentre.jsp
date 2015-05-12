@@ -29,6 +29,9 @@
 		List<String> chosenArticles = new ArrayList<String>();
 		List<ReviewingArticle> reviewingArticles = new ArrayList<ReviewingArticle>();
 		List<SubmittedReview> submittedReviews = new ArrayList<SubmittedReview>();
+		submittedReviews.clear();
+		chosenArticles.clear();
+		reviewingArticles.clear();
 		chosenArticles = (ArrayList)session.getAttribute("ChosenArticles");
 		reviewingArticles = (ArrayList<ReviewingArticle>)session.getAttribute("reviewingArticles");
 		submittedReviews = (ArrayList<SubmittedReview>)session.getAttribute("submittedReviews");
