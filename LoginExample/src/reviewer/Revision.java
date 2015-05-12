@@ -137,6 +137,7 @@ public class Revision extends HttpServlet {
         	ps.setString(3, authorName);
         	ps.setString(4, reviewer.getReviewerName());
 	    	ps.execute();
+	    	System.out.println("8888888888888888888");
 		
         } catch (SQLException e) {
             e.printStackTrace();
@@ -181,7 +182,7 @@ public class Revision extends HttpServlet {
 		
 		int reviseTime = 0;
 		ResultSet rs = null;
-		PreparedStatement ps = con.prepareStatement("select revisetime from AuthorArticle where reviewername=? and "
+		PreparedStatement ps = con.prepareStatement("select revisetime from AuthorReviewer where reviewername=? and "
 				+ "authorname=? ");
 		ps.setString(1, reviewer.getReviewerName());
 		ps.setString(2, authorName);
