@@ -138,6 +138,12 @@ public class DownloadArticle extends HttpServlet {
 				// redirect to download
 				try {
 					download(request, response, articleName, con);
+					// redirect to reviewerIndex page
+					RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
+			        PrintWriter out= response.getWriter();
+			        out.println("<font color=red>Operation successful</font>");
+			        rd.include(request, response);
+			        
 				} catch (Exception e) {
 					// redirect to reviewerIndex page
 					RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");

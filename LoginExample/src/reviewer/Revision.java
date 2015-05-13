@@ -47,7 +47,7 @@ public class Revision extends HttpServlet {
 		HttpSession session = request.getSession();
 		Reviewer reviewer = (Reviewer)session.getAttribute("Reviewer");
 		String revision = request.getParameter("revision");
-		String articleName = request.getParameter("submittedReviews");
+		String articleName = request.getParameter("artcileNN");
 		System.out.println(revision);
 		if (reviewer!=null&&!revision.equalsIgnoreCase("")) {
 			// connect db------------------------------------------
@@ -76,6 +76,7 @@ public class Revision extends HttpServlet {
 				System.out.println(revision);
 				try {
 					accpetR(articleName, reviewer, con);
+					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

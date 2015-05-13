@@ -158,21 +158,23 @@
 			
 				<%
 				if(submittedReviews!=null){
-					String artcileName="";
-					String overallJudgement = "";
-					String level = "";
-					String summary = "";
-					String criticism = "";
-					String smallerrors = "";
-					String reviseInfo = "";
-					int reviseTime = 0;
-					boolean reviseAccepted = false;
-					String raString = "";
-					String acc = "";
-					String rej = "";
+					
 
 					
 					for (SubmittedReview sReview : submittedReviews) {
+						String artcileName="";
+						String overallJudgement = "";
+						String level = "";
+						String summary = "";
+						String criticism = "";
+						String smallerrors = "";
+						String reviseInfo = "";
+						int reviseTime = 0;
+						boolean reviseAccepted = false;
+						String raString = "";
+						String acc = "";
+						String rej = "";
+						
 						artcileName = sReview.getArticleName();
 						overallJudgement = sReview.getOverallJudgement();
 						level=sReview.getLevel();
@@ -206,19 +208,21 @@
 						
 						
 						<td>
-						<%if(!acc.equalsIgnoreCase("")){%>
+						<%if(!acc.equalsIgnoreCase("")){
+							
+						%>
 						<input type="submit" name="revision" value=<%=acc %>>
+						<input type="hidden" name="artcileNN" value="<%=artcileName%>">
 						<%} %>
 						<%if(!rej.equalsIgnoreCase("")){%>
 						<input type="submit" name="revision" value=<%=rej %>>
+						<input type="hidden" name="artcileNN" value="<%=artcileName%>">
 						<%} %>
 						<%
-						if(reviseAccepted){
-							artcileName=null;
-						}
+						
 						
 						%>
-						<input type="hidden" name="submittedReviews" value="<%=artcileName%>">
+						
 						</td>
 						
 				<% }}%>
