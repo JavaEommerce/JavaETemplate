@@ -81,8 +81,8 @@ ResultSet rs = st.executeQuery( sqlStr );
        
             con.close();
             
-            out.println("Please waiting for reviewer, there are "+num+" reviewer(s) have reviewed your article.");
-            out.println("You can get all feedback after 3 reviewer reviewing your article");
+            out.println("Please waiting for reviewer, there are "+num+" reviewer(s) have chosed your article.");
+            out.println("You can get all feedback after 3 reviewer finishing reviewing your article");
             out.println("If the article you uploaded have already reviewed by 3 reviewers, please try log out and enter your account again to see updated state.");
  %>
 </body>
