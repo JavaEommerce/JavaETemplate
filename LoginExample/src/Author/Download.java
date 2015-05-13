@@ -52,7 +52,8 @@ public class Download extends HttpServlet {
 		
 		
 		String filename = "1234.txt";
-		String filepath = "E:\\COM6514\\Data\\1234.txt";
+		//String filepath = "E:\\COM6514\\Data\\1234.txt";
+		String filepath = "/export/tomtemp/";
 		response.setContentType("APPLICATION/OCTET-STREAM");
 		response.setHeader("Content-Disposition","attachment; filename=\""+filename+"\"");
 		java.io.FileInputStream fileInputStream=new java.io.FileInputStream(filepath);

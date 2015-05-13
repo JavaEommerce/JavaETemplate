@@ -28,7 +28,7 @@ String reviewerlevel="";
 String summary="";
 String criticism="";
 String smallerrors="";
-String displayword="accepts your article";
+String displayword="";
 Boolean canRe1 = true;
 Boolean canRe2 = true;
 Boolean accepted = true;
@@ -56,6 +56,7 @@ while(rs.next()){
 	criticism=rs.getString("criticism");
 	smallerrors=rs.getString("smallerrors");
 	submitDate=rs.getDate("submitdate");
+	System.out.println(rs.getBoolean("reviseaccepted"));
 	reviewerNum += 1;
 	if(!rs.getString("reviseinfo").equals("")){
 		canRe1 = false;
@@ -66,6 +67,8 @@ while(rs.next()){
 	if(!rs.getBoolean("reviseaccepted")){
 		canpublish = false;
 		displayword="rejects your article";
+	}else{
+		displayword="accepts your article";
 	}
 	
 	long differ = currentDate.getTime()-submitDate.getTime();

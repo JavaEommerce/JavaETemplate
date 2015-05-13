@@ -122,6 +122,7 @@ function showtime(){
 								}
 								rs.close();
 								st.close();
+								System.out.println("reviewerNum: "+reviewerNum);
 								if(reviewerNum>2){
 									state = 3;
 									currentAuthor.setSubmitState(3);

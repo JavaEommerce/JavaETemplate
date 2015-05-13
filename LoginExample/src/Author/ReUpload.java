@@ -216,6 +216,13 @@ public class ReUpload extends HttpServlet {
                   
                   String name =item.getFieldName();
                   
+                  
+                  if("reviewername".equals(name))  {    
+                	  
+                	  reviewerNames[reviewerNum]=item.getString("utf-8");
+
+                  }
+                  
                   if("reviseinfo".equals(name))  {           	  
                 	  if(item.getString("utf-8").equals("")){
                 		  
@@ -226,14 +233,11 @@ public class ReUpload extends HttpServlet {
                 		  
                 	  }else{
                 		  reviseInfos[reviewerNum]=item.getString("utf-8");
-                		  reviewerNum += 1;
+                    	  reviewerNum += 1;
                 	  }
                   }
 
-                  if("reviewername".equals(name))  {    
-                	  
-                	  reviewerNames[reviewerNum]=item.getString("utf-8");
-                  }
+                 
                   
                   
               }  
