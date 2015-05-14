@@ -62,11 +62,17 @@ public class EditorSetArticlePublished extends HttpServlet {
 			}
 			
 			PreparedStatement pss = null;
+			PreparedStatement ps2 = null;
 			
 			try {
-					pss=con.prepareStatement("update Article set ispublish = '1' where articlename= ? ");
-					pss.setString(1, articlename);
-					pss.executeUpdate();
+				pss=con.prepareStatement("update Article set ispublish = '1' where articlename= ? ");
+				ps2=con.prepareStatement("insert into JournalArticle(articlename,jounalID) values(?,?)");
+				ps2.setString(1,articlename);
+				ps2.setInt(2,1);
+				pss.setString(1, articlename);
+				pss.executeUpdate();
+				ps2.executeUpdate();
+				System.out.println("updated successful*****************");
 	
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -93,58 +99,63 @@ public class EditorSetArticlePublished extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String articlename = request.getParameter("articlename");
-		String errorMessage=null;
-		
-		if(articlename.equals("")||articlename==null){
-			errorMessage="Search key words are empty";
-		}
-		else{
-			Dbconnection db=null;
-			try {
-				db = new Dbconnection();
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			Connection con = db.getConnection();
-			
-			if (con==null) {
-				System.out.println("it's closed!");
-			}
-			else{
-				System.out.println("successful");
-			}
-			
-			PreparedStatement pss = null;
-			
-			try {
-					pss=con.prepareStatement("update Article set ispublish = '1' where articlename= ? ");
-					pss.setString(1, articlename);
-					pss.executeUpdate();
-					System.out.println("updated successful*****************");
-	
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally{
-				try {
-					
-					
-					
-					pss.close();
-					con.close();
-					response.sendRedirect("EditorTest.jsp");
-					System.out.println("db closed");
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-		}
+//		String articlename = request.getParameter("articlename");
+//		String errorMessage=null;
+//		
+//		if(articlename.equals("")||articlename==null){
+//			errorMessage="Search key words are empty";
+//		}
+//		else{
+//			Dbconnection db=null;
+//			try {
+//				db = new Dbconnection();
+//			} catch (ClassNotFoundException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			} catch (SQLException e1) {
+//				// TODO Auto-generated catch block
+//				e1.printStackTrace();
+//			}
+//			Connection con = db.getConnection();
+//			
+//			if (con==null) {
+//				System.out.println("it's closed!");
+//			}
+//			else{
+//				System.out.println("successful");
+//			}
+//			
+//			PreparedStatement pss = null;
+//			PreparedStatement ps2 = null;
+//			
+//			try {
+//					pss=con.prepareStatement("update Article set ispublish = '1' where articlename= ? ");
+//					ps2=con.prepareStatement("insert into JournalArticle(articlename,jounalID) values(?,?)");
+//					ps2.setString(1,articlename);
+//					ps2.setInt(2, 1);
+//					pss.setString(1, articlename);
+//					pss.executeUpdate();
+//					ps2.executeUpdate();
+//					System.out.println("updated successful*****************");
+//	
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}finally{
+//				try {
+//					
+//					
+//					
+//					pss.close();
+//					con.close();
+//					response.sendRedirect("EditorTest.jsp");
+//					System.out.println("db closed");
+//				} catch (SQLException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//				
+//			}
+//		}
 	}
 
 }

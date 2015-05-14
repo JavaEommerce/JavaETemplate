@@ -7,6 +7,7 @@
 <%@ page import="loginSystem.User"%>
 <%@ page import="editor.userInfo" %>
 <%@ page import="editor.Journal" %>
+<%@ page import="editor.EditorArticleReviewInfo" %>
 <%@ page import="reader.Article" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -47,36 +48,34 @@
 			</aside>
 			<section id="content" class="column-right">
 			<article>
-				<h2>All Article Waiting List</h2>
+				<h2>All Reviews List</h2>
+				<h3>All reviewer info list</h3>
 				<form action = "EditorGetAllReview" method = "post" accept-charset="utf-8" class="simform">
-            	<input class="btnExample"  type="submit" value="Get all views information"/>
+            	<input class="btnExample"  type="submit" value="Get all Reviewers information"/>
+				</form>
+				<form action = "EditorGetAllReview" method = "post" accept-charset="utf-8" class="simform">
+            	<input class="btnExample"  type="submit" value="Get all Reviews information"/>
 				</form>
 				<% 
-				 ArrayList<Article> names = new ArrayList<Article>();
-					if(session.getAttribute("waitArticle") instanceof List){
-						names = (ArrayList<Article>)session.getAttribute("waitArticle");
+				 ArrayList<EditorArticleReviewInfo> names = new ArrayList<EditorArticleReviewInfo>();
+					if(session.getAttribute("EditorAuthorReviewer") instanceof List){
+						names = (ArrayList<EditorArticleReviewInfo>)session.getAttribute("EditorAuthorReviewer");
 					}
 				%>
 	<form action="">
 	<table>
-	<tr><th>Article name</th><th>Review Author</th><th>Review content</th><th> </th></tr>
+	<tr><th>Reviewer name</th><th>Review Authorname</th><th>overall judgement</th><th>summary </th></tr>
 	<%
-	for(Article ar : names){
-		 String articlename = ar.getArticlename();
-		 String keywords  = ar.getKeywords();
-		 String abstractinfo = ar.getAbstractinfo();
-		 String url = ar.getUrl();
-		 String domain = ar.getDomain();
-		 String uploadString = ar.getUploadString();
-		 String ispublish  = ar.getIspublish();
-		 String affiliations = ar.getAffiliations();
-		 String currentreviewnum = ar.getCurrentreviewnum();
+	for(EditorArticleReviewInfo ar : names){
+		 String Reviewername = ar.getreviewername();
+		 String authorname  = ar.getauthorname();
+		 String judgement = ar.getoveralljudgement();
+		 String summary = ar.getsummary();
 	
 	%>
 	
 		<tr>
-	    <td ><a href = "DealArticleInfo?articlename=<%=articlename %>"><%=articlename %></a></td> <td ></td> <td ></td>
-		<td><a href="EditorRejectReview?articlename=<%=articlename %>">reject this review</a></td>
+		<td><%=Reviewername %></td><td><%=authorname %></td><td><%=judgement %></td><td><%=summary %></td>
 		</tr>
 	
 	<%} %>

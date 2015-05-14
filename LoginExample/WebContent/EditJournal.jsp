@@ -53,7 +53,7 @@
 				</form>
 				<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
 				<table>
-				<tr><th>Journal id</th><th>Journal Aims Reviewed Goals profile  edit</th></tr>
+				<tr><th>Journal id</th><th>Title______Aims______Goal______profileurl </th></tr>
 			<%
 				List<Journal> journals=new ArrayList<Journal>();
 				if(session.getAttribute("allJournals") instanceof List){
