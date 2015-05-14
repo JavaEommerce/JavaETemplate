@@ -54,7 +54,7 @@ function home(){
 		}
 		
 		
-		int availableSelection=3-forceToChooseNum-r.getSelectedNum();
+		int availableSelection=3-r.getSelectedNum();
 		String abstra = "";
 		String title = "";
 	%>
@@ -65,9 +65,9 @@ function home(){
 	
 	
 		<form id="form5" name="selectArticle" action="ReviewerLogin" method="post">
-			<h1>Here are some unpublished articles, you may choose <%=availableSelection %> of them, <%=forceToChooseNum %> forced to choose</h1>
+			<h1>Here are some unpublished articles, you may choose <%=availableSelection %> of them</h1>
 	<div>
-	<a href="reviewerCentre.jsp">Back to reviewer centre</a>
+	<a href="reviewerIndex.jsp">Back to reviewer centre</a>
 		<p>Available Pending Articles:
 					
 				<p>Your review task:<%=taskTitle %></p>

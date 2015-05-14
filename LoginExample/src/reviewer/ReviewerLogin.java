@@ -174,7 +174,12 @@ public class ReviewerLogin extends HttpServlet {
 			// recerive posting info. from PendingArticles.jsp*************************************************/
 			String formName = request.getParameter("pendingSelection");
 			if (formName!=null&&formName.equalsIgnoreCase("valid")) {
-				handlePendingForm(request, response, session, reviewer, con, formName);
+				try {
+					handlePendingForm(request, response, session, reviewer, con, formName);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			
 			
@@ -191,7 +196,7 @@ public class ReviewerLogin extends HttpServlet {
 		
 	}
 
-	private void handlePendingForm(HttpServletRequest request, HttpServletResponse response,HttpSession session,Reviewer reviewer,Connection con,String formName) throws ServletException, IOException {
+	private void handlePendingForm(HttpServletRequest request, HttpServletResponse response,HttpSession session,Reviewer reviewer,Connection con,String formName) throws ServletException, IOException, SQLException {
 		
 		System.out.println("updating chosen articles----------------------------");
 		System.out.println("source: "+formName);
@@ -199,11 +204,12 @@ public class ReviewerLogin extends HttpServlet {
 		// update selected articles
 		String[] selectedTitles=request.getParameterValues("pendingArticles");
 		if (selectedTitles!=null) {
-			if (selectedTitles.length<=3-reviewer.getSelectedNum()) {
+			int selectedNum = getSelectedNum(reviewer, con);
+			if (selectedTitles.length<=3-selectedNum) {
 				for (String title : selectedTitles) {
 					try {
 						boolean a = updateChosenArticle(request, response, title, reviewer, con);
-						reviewer.addSelectedNum1();
+						//reviewer.addSelectedNum1();
 						boolean b = updateReviewer(request, response, reviewer, con);
 						if (a&&b) {
 							System.out.println("selected article: "+title);
@@ -211,18 +217,19 @@ public class ReviewerLogin extends HttpServlet {
 						else {
 							System.out.println("error");
 						}
-						// redirect to centre
-						RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
-				        PrintWriter out= response.getWriter();
-				        out.println("<font color=red>selection successful</font>");
-				        rd.include(request, response);
+						
 						
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.toString();
 					}
 				}
-				session.setAttribute("Reviewer", reviewer);
+				// redirect to centre
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/reviewerIndex.jsp");
+		        PrintWriter out= response.getWriter();
+		        out.println("<font color=red>selection successful</font>");
+		        rd.include(request, response);
+				//session.setAttribute("Reviewer", reviewer);
 			}
 			else {
 				System.out.println("You have chosen enough articles");
@@ -299,9 +306,9 @@ public class ReviewerLogin extends HttpServlet {
 		PreparedStatement ps = null;
 		
         try {
-        	
+        	int selectedNum = getSelectedNum(reviewer, con);
         	ps = con.prepareStatement("update Reviewer set selectednum=? where reviewername=? ");
-        	ps.setInt(1, reviewer.getSelectedNum());
+        	ps.setInt(1, selectedNum+1);
         	ps.setString(2, reviewer.getReviewerName());
         	ps.execute();
         	result=true;
@@ -414,5 +421,18 @@ public class ReviewerLogin extends HttpServlet {
 		}
 		return result;
 		
+	}
+	
+	private int getSelectedNum(Reviewer reviewer, Connection con) throws SQLException {
+		int result = 0;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ps = con.prepareStatement("select selectednum from Reviewer where reviewername=?");
+		ps.setString(1, reviewer.getReviewerName());
+		rs = ps.executeQuery();
+		if (rs!=null&&rs.next()) {
+			result = rs.getInt("selectednum");
+		}
+		return result;
 	}
 }

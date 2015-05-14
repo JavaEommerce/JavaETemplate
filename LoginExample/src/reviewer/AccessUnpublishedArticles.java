@@ -41,27 +41,35 @@ public class AccessUnpublishedArticles extends HttpServlet {
 		HttpSession session = request.getSession();
 		Reviewer reviewer = (Reviewer)session.getAttribute("Reviewer");
 		if (reviewer!=null) {
-			int selectedNum = reviewer.getSelectedNum();
+			// connect db
+			Dbconnection db=null;
+			try {
+				db = new Dbconnection();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			Connection con = db.getConnection();
+			
+			if (con==null) {
+				System.out.println("it's closed!");
+			}
+			else{
+				System.out.println("successfullllllll");
+			}
+			int selectedNum = 0;
+			try {
+				selectedNum = getSelectedNum(reviewer, con);
+				System.out.println("66666666666666666666666666666");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			if (selectedNum<=3) {
-				// connect db
-				Dbconnection db=null;
-				try {
-					db = new Dbconnection();
-				} catch (ClassNotFoundException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				Connection con = db.getConnection();
 				
-				if (con==null) {
-					System.out.println("it's closed!");
-				}
-				else{
-					System.out.println("successfullllllll");
-				}
 				PreparedStatement ps = null;
 				PreparedStatement psLookUpForOldest=null;
 				ResultSet old = null;
@@ -113,15 +121,20 @@ public class AccessUnpublishedArticles extends HttpServlet {
 //					for (PendingArticle pa : pendingArticles) {
 //						System.out.println(++count+" "+pa.getArticleName());
 //					}
-					//return a page of pending articles
-					RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingArticles.jsp");
-			        rd.include(request, response);
+					
 					
 					
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				reviewer.setSelectedNum(selectedNum);
+				session.removeAttribute("Reviewer");
+				session.setAttribute("Reviewer", reviewer);
+				
+				//return a page of pending articles
+				RequestDispatcher rd = getServletContext().getRequestDispatcher("/pendingArticles.jsp");
+		        rd.include(request, response);
 				
 			}
 			else {
@@ -149,8 +162,18 @@ public class AccessUnpublishedArticles extends HttpServlet {
 		PrintWriter out= response.getWriter();
         out.println("<font color=red>bu dui ba !!!</font>");
 	}
-	//select Article.articlename,Article.abstract,Article.uploaddate "
-	//+ "from Article left join ArticleReview on Article.articlename=ArticleReview.articlename "
-	//+ "where ArticleReview.articlename is null and Article.ispublish=0
+	
+	private int getSelectedNum(Reviewer reviewer, Connection con) throws SQLException {
+		int result = 0;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		ps = con.prepareStatement("select selectednum from Reviewer where reviewername=?");
+		ps.setString(1, reviewer.getReviewerName());
+		rs = ps.executeQuery();
+		if (rs!=null&&rs.next()) {
+			result = rs.getInt("selectednum");
+		}
+		return result;
+	}
 	
 }
