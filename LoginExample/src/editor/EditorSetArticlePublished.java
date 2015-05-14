@@ -66,7 +66,7 @@ public class EditorSetArticlePublished extends HttpServlet {
 			
 			try {
 				pss=con.prepareStatement("update Article set ispublish = '1' where articlename= ? ");
-				ps2=con.prepareStatement("insert into JournalArticle(articlename,jounalID) values(?,?)");
+				ps2=con.prepareStatement("insert into JournalArticle(articlename,journalID) values(?,?)");
 				ps2.setString(1,articlename);
 				ps2.setInt(2,1);
 				pss.setString(1, articlename);
