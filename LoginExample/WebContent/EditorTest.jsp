@@ -101,7 +101,7 @@ table.hovertable td {
 				<h2>Show all aritlces</h2>
 				<p><form name="selectArticle" action="EditorAccessToAllArticle" method="get">
 			<table >
-			<tr><th>Article name</th><th>Article Abstract</th><th>Reviewed Times</th><th>Is published</th><th>Detail link</th></tr>
+			<tr><th>Article name</th><th>Article Abstract</th><th>Reviewed Times</th><th>Is published</th><th>Detail link</th><th>Publish article</th></tr>
 			<%
 				List<EditorAllArticlesInfo> articles=new ArrayList<EditorAllArticlesInfo>();
 				if(session.getAttribute("allArticles") instanceof List){
@@ -119,10 +119,12 @@ table.hovertable td {
 				%>
 				<tr>
 					<td><%=title %></td><td><%=abstracT %></td><td><%=reviewedTime %></td><td><%=articlePublished %></td>
-					<td><form action="EditorArticleDetail" method="post">
+					<%-- <td><form action="EditorArticleDetail" method="post">
 					<input type="text" name="appointname" value = <%=title%>/> 
-					<input type="submit" value="viewDetail"/></form> </td>
-					</tr>
+					<input type="submit" value="viewDetail"/></form> </td> --%>
+					<td><a href = "DealArticleInfo?articlename=<%=title %>">Detail</a></td>
+					<td><a href = "EditorSetArticlePublished?articlename=<%=title%>">Publish</a></td>
+				</tr>
 				<%}%>
 				<p><input class="btnExample" type="submit" name="submit" value="Show articles"></p>
 				<!-- <input type="hidden" name="pendingSelection" value="valid">  -->
