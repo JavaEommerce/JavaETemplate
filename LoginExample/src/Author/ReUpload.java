@@ -43,8 +43,12 @@ public class ReUpload extends HttpServlet {
     private int sizeMax = 5;//图片最大上限 
     
     private int reviewerNum = 0;
-    private String[] reviseInfos = new String[4];
-    private String[] reviewerNames = new String[4];
+    private String reviseInfos1 = "";
+    private String reviewerNames1 = "";
+    private String reviseInfos2 = "";
+    private String reviewerNames2 = "";
+    private String reviseInfos3 = "";
+    private String reviewerNames3 = "";
 	
 	private static final long serialVersionUID = 1L;
        
@@ -161,10 +165,23 @@ public class ReUpload extends HttpServlet {
                   		
                   		for(int now=0;now<reviewerNum;now++){
                   		par = con.prepareStatement("update AuthorReviewer set reviseinfo=? where reviewername=? and authorname=?");
-                  		par.setString(1, reviseInfos[now]);
-                  		par.setString(2, reviewerNames[now]);
+                  		par.setString(1, reviseInfos1);
+                  		par.setString(2, reviewerNames1);
                   		par.setString(3, aname);
                   		par.executeUpdate();
+                  		par.setString(1, reviseInfos2);
+                  		par.setString(2, reviewerNames2);
+                  		par.setString(3, aname);
+                  		par.executeUpdate();
+                  		par.setString(1, reviseInfos3);
+                  		par.setString(2, reviewerNames3);
+                  		par.setString(3, aname);
+                  		par.executeUpdate();
+                  		
+                  		
+                  		
+                  		
+                  		
                   		}
                   		
                   		rs.close();
@@ -217,26 +234,61 @@ public class ReUpload extends HttpServlet {
                   String name =item.getFieldName();
                   
                   
-                  if("reviewername".equals(name))  {    
-                	  
-                	  reviewerNames[reviewerNum]=item.getString("utf-8");
+                  if("reviewername1".equals(name))  {    
+            		  System.out.println("name");
+                	  reviewerNames1=item.getString("utf-8");
+
+                  }
+                  if("reviewername2".equals(name))  {    
+            		  System.out.println("name");
+                	  reviewerNames2=item.getString("utf-8");
+
+                  }
+                  if("reviewername3".equals(name))  {    
+            		  System.out.println("name");
+                	  reviewerNames3=item.getString("utf-8");
 
                   }
                   
-                  if("reviseinfo".equals(name))  {           	  
+                  if("reviseinfo1".equals(name))  {           	  
                 	  if(item.getString("utf-8").equals("")){
-                		  
+                		  System.out.println("info");
                 		  PrintWriter out= response.getWriter();
     			          out.println("<font color=green>Please wirte revision information to all reviewer</font>"); 
                           break;
                 		  
                 		  
                 	  }else{
-                		  reviseInfos[reviewerNum]=item.getString("utf-8");
+                		  reviseInfos1=item.getString("utf-8");
                     	  reviewerNum += 1;
                 	  }
                   }
-
+                  if("reviseinfo2".equals(name))  {           	  
+                	  if(item.getString("utf-8").equals("")){
+                		  System.out.println("info");
+                		  PrintWriter out= response.getWriter();
+    			          out.println("<font color=green>Please wirte revision information to all reviewer</font>"); 
+                          break;
+                		  
+                		  
+                	  }else{
+                		  reviseInfos2=item.getString("utf-8");
+                    	  reviewerNum += 1;
+                	  }
+                  }
+                  if("reviseinfo3".equals(name))  {           	  
+                	  if(item.getString("utf-8").equals("")){
+                		  System.out.println("info");
+                		  PrintWriter out= response.getWriter();
+    			          out.println("<font color=green>Please wirte revision information to all reviewer</font>"); 
+                          break;
+                		  
+                		  
+                	  }else{
+                		  reviseInfos3=item.getString("utf-8");
+                    	  reviewerNum += 1;
+                	  }
+                  }
                  
                   
                   

@@ -84,7 +84,15 @@ while(rs.next()){
 %>
 <fieldset>
 reviewer name:<br />
-<input name="reviewername" type="text" id="reviewername" value=<%=reviewername %> readonly>&nbsp&nbsp<%=displayword %><br />
+<%if(reviewerNum==1){ %>
+<input name="reviewername1" type="text" id="reviewername1" value=<%=reviewername %> readonly>&nbsp&nbsp<%=displayword %><br />
+<%} %>
+<%if(reviewerNum==2){ %>
+<input name="reviewername1" type="text" id="reviewername1" value=<%=reviewername %> readonly>&nbsp&nbsp<%=displayword %><br />
+<%} %>
+<%if(reviewerNum==3){ %>
+<input name="reviewername1" type="text" id="reviewername1" value=<%=reviewername %> readonly>&nbsp&nbsp<%=displayword %><br />
+<%} %>
 overalljudgement:<br />
 <%=overalljudgement %><br /><br />   
 reviewerlevel:<br />
@@ -96,8 +104,21 @@ criticism:<br />
 smallerrors:<br />
 <%=smallerrors %><br />   
 revision information<br />
-<textarea name="reviseinfo" cols="250" rows="5" id="reviseinfo" ><%=reviseinfo %></textarea><br />
+<%if(reviewerNum==1){ %>
+<textarea name="reviseinfo1" cols="250" rows="5" id="reviseinfo1" ><%=reviseinfo %></textarea><br />
+<%} %>
+<%if(reviewerNum==2){ %>
+<textarea name="reviseinfo2" cols="250" rows="5" id="reviseinfo2" ><%=reviseinfo %></textarea><br />
+<%} %>
+<%if(reviewerNum==3){ %>
+<textarea name="reviseinfo3" cols="250" rows="5" id="reviseinfo3" ><%=reviseinfo %></textarea><br />
+<%} %>
+
 <br />   	
+
+
+
+
 </fieldset>
 
 <%
