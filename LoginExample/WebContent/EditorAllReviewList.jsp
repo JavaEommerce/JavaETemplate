@@ -64,7 +64,7 @@
 				%>
 	<form action="">
 	<table>
-	<tr><th>Reviewer name</th><th>Review Authorname</th><th>overall judgement</th><th>summary </th></tr>
+	<tr><th>Reviewer name</th><th>Review Authorname</th><th>overall judgement</th><th>summary </th><th>reject</th></tr>
 	<%
 	for(EditorArticleReviewInfo ar : names){
 		 String Reviewername = ar.getreviewername();
@@ -76,6 +76,7 @@
 	
 		<tr>
 		<td><%=Reviewername %></td><td><%=authorname %></td><td><%=judgement %></td><td><%=summary %></td>
+		<td><a href = "EditorRejectReview?reviewername=<%=Reviewername%>">reject</a></td>
 		</tr>
 	
 	<%} %>
